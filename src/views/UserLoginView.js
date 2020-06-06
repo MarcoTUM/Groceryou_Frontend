@@ -1,5 +1,7 @@
 import React from 'react';
 
+import NavBar from '../components/NavBar';
+
 class UserLoginView extends React.Component {
     constructor(props) {
         super(props);
@@ -11,7 +13,10 @@ class UserLoginView extends React.Component {
     render() {
         return (
             <main>
-                <h2>User Login</h2>
+                <NavBar />
+                <div class="content">
+                    <h2>Login</h2>
+                </div>
             </main>
         );
     }

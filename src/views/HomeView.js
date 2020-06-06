@@ -13,7 +13,9 @@ class HomeView extends React.Component {
         return (
             <main>
                 <NavBar />
-                <h2>Home</h2>
+                <div class="content">
+                    <h2>Home</h2>
+                </div>
             </main>
         );
     }
