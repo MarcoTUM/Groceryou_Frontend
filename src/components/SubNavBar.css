@@ -1,38 +1,29 @@
-nav img {
-    /* Positioning */
-    padding-right: 25px;
-
-    /* Formatting */
-    height: 1.4em;
-    width: auto;
-}
-
-nav {
+.subnav {
     /* Positioning */
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 70px;
+    height: 30px;
 
     /* Formatting */
     overflow: hidden;
-    background-color: white;
+    background-color: orange;
 }
 
-nav a {
+.subnav a {
     /* Positioning */
     float: left;
     display: block;
 
     /* Formatting */
-    color: black;
+    color: white;
     text-align: center;
-    padding: 10px 30px;
+    padding: 5px 30px;
     text-decoration: none;
-    font-size: 2em;
+    font-size: 1em;
 }
 
-nav a:hover {
+.subnav a:hover {
     /* Formatting */
-    color: orange;
+    color: black;
 }

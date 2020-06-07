@@ -7,13 +7,15 @@ import {
 } from 'react-router-dom';
 
 import StartpageView from './views/HomeView';
+import ShopView from './views/ShopView';
+import HelpView from './views/HelpView';
+import ShopperView from './views/ShopperView';
 import UserLoginView from './views/UserLoginView';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: "Groceryou",
         };
     }
 
@@ -23,6 +25,9 @@ class App extends React.Component {
                 <Router>
                     <Switch>
                         <Route exact path="/" component={StartpageView} />
+                        <Route path="/shop" component={ShopView} />
+                        <Route path="/help" component={HelpView} />
+                        <Route path="/shopper" component={ShopperView} />
                         <Route path="/login" component={UserLoginView} />
                     </Switch>
                 </Router>

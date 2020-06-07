@@ -1,13 +1,11 @@
 import React from 'react';
-
 import NavBar from '../components/NavBar';
 import SubNavBar from '../components/SubNavBar';
 
-class UserLoginView extends React.Component {
+class HelpView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: "Groceryou",
         };
     }
 
@@ -17,11 +15,11 @@ class UserLoginView extends React.Component {
                 <NavBar />
                 <SubNavBar />
                 <div class="content">
-                    <h2>Login</h2>
+                    <h2>Help</h2>
                 </div>
             </main>
         );
     }
 }
 
-export default UserLoginView;
+export default HelpView;
