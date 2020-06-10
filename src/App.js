@@ -9,7 +9,7 @@ import {
 import StartpageView from './views/HomeView';
 import ShopView from './views/ShopView';
 import HelpView from './views/HelpView';
-import ShopperView from './views/ShopperView';
+import CourierView from './views/CourierView';
 import UserLoginView from './views/UserLoginView';
 
 class App extends React.Component {
@@ -27,7 +27,7 @@ class App extends React.Component {
                         <Route exact path="/" component={StartpageView} />
                         <Route path="/shop" component={ShopView} />
                         <Route path="/help" component={HelpView} />
-                        <Route path="/shopper" component={ShopperView} />
+                        <Route path="/courier" component={CourierView} />
                         <Route path="/login" component={UserLoginView} />
                     </Switch>
                 </Router>

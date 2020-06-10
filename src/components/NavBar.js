@@ -18,7 +18,7 @@ class NavBar extends React.Component {
                 <Link to="/"><img src={Logo} alt="Groceryou Logo" /></Link>
                 <Link to="/shop">Shop</Link>
                 <Link to="/help">Help</Link>
-                <Link to="/shopper">Become a shopper</Link>
+                <Link to="/courier">Become a courier</Link>
                 <Link to="/login">Login</Link>
             </nav>
         );
