@@ -4,6 +4,7 @@ import SubNavBar from '../components/SubNavBar';
 import { Row, Col, List, Card, Button} from 'antd';
 import { Link } from 'react-router-dom';
 import { SHOPS } from '../shared/shops';
+import {gray, darkGreen, lightGreen} from '../shared/colors';
 import { FieldTimeOutlined, BoldOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
@@ -14,7 +15,7 @@ class ShopView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            location: "",
+            location: props.location,
             shops: SHOPS,
             selectedShop: null,
             estimatedTime: null
@@ -61,7 +62,7 @@ class ShopView extends React.Component {
                             </Col>
                         </Row>
                     </Card>)}/>
-                    </div>
+                </div>
             );
         }
 
@@ -84,7 +85,7 @@ class ShopView extends React.Component {
         const fakeMap = ()=> {
             return(
                 <div>
-                    a fake map
+                    <img width="100%" src="assets/images/fakemap.png"/>
                     </div>
             );
         }
@@ -98,13 +99,13 @@ class ShopView extends React.Component {
                     <Link to="/shop/traditional">Traditional UI</Link>
                 </SubNavBar>*/}
                 <Row>
-                    <Col md={5} lg={5} style={sideBarStyle}>
+                    <Col span={0} md={5} lg={5} style={sideBarStyle}>
                         {shopList()}
                     </Col>
-                    <Col md={14} lg={16}>
+                    <Col span={24} md={14} lg={16}>
                         {fakeMap()}
                     </Col>
-                    <Col md={5} lg={3} style={sideBarStyle}>
+                    <Col span={24} md={5} lg={3} style={sideBarStyle}>
                         {shopDetail()}
                     </Col>
 
@@ -117,7 +118,7 @@ class ShopView extends React.Component {
 }
 
 const sideBarStyle = {
-    backgroundColor: '#036635'
+    backgroundColor: darkGreen
 };
 
 const cardInListStyle = {
