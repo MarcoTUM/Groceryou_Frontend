@@ -8,6 +8,7 @@
     /* Formatting */
     overflow: hidden;
     background-color: orange;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .subnav a {
@@ -18,7 +19,10 @@
     /* Formatting */
     color: white;
     text-align: center;
+
+    box-sizing: border-box;
     padding: 5px 30px;
+    
     text-decoration: none;
     font-size: 1em;
 }
