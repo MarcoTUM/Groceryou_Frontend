@@ -2,7 +2,7 @@ import React from 'react';
 import NavBar from '../components/NavBar';
 import SubNavBar from '../components/SubNavBar';
 import {Row, Col, InputGroup, Button, Card} from 'antd';
-import Logo from '../img/GroceryouLogo.png';
+import logo from '../img/GroceryouLogo.png';
 import { Input } from 'antd';
 import { darkGreen, lightGreen } from '../shared/colors';
 
@@ -32,88 +32,94 @@ class HomeView extends React.Component {
 
     render() {
 
-        const enterLocationBlock = () => {
-            return (
-                <Row  >
-                    <Col span={24} >
-                    <div style={{...blockContainer, ...locationBlock}} align="middle" justify="middle">
-                        <div>
-                        <p style={whiteBold}>We deliver your groceries from strores nearby your home</p>
-                        <Input.Group compact>
-                        <Input placeholder="Please enter your address" style={{ width: '500px' }} onChange={this.updateLocation}/>
-                        <Button type="primary" style={g_button} onClick={this.enterShop}>Enter</Button>
-                        </Input.Group>
-                        </div>
-                    </div>
-                    </Col>
-                    
-                </Row>
-                
-            );
-        }
+        const enterLocationBlock = () => (
+            <div style={{...blockContainer, ...locationBlock}} align="middle">
+                <div>
+                <p style={whiteBold}>We deliver your groceries from strores nearby your home</p>
+                <Input.Group compact>
+                <Input placeholder="Please enter your address" style={{ width: '500px' }} onChange={this.updateLocation}/>
+                <Button type="primary" style={g_button} onClick={this.enterShop}>Enter</Button>
+                </Input.Group>
+                </div>
+            </div>
+        );
+        
 
         
 
-        const howToShop = () => {
-            return (
-                <Row  >
-                    <Col span={24} >
-                        <div style={blockContainer}>
-                            <Row>
-                                <Col>
-                                <p style={greenBold}>How to shop</p>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col span={8}>
-                                    <Card  style={cardStyle}>
-                                        <Row gutter={{xs: 8, sm: 16}}>
-                                            
-                                            <Col span={18}>
-                                            <Meta
-                                                title="title"
-                                                description="description"
-                                            />
-                                            </Col>
-                                        </Row>
-                                    </Card>
-                                </Col>
-                                    <Card  style={cardStyle}>
-                                        <Row gutter={{xs: 8, sm: 16}}>
-                                            
-                                            <Col span={18}>
-                                            <Meta
-                                                title="title"
-                                                description="description"
-                                            />
-                                            </Col>
-                                        </Row>
-                                    </Card>
-                                    <Card  style={cardStyle}>
-                                        <Row gutter={{xs: 8, sm: 16}}>
-                                            
-                                            <Col span={18}>
-                                            <Meta
-                                                title="title"
-                                                description="description"
-                                            />
-                                            </Col>
-                                        </Row>
-                                    </Card>
-                            </Row>
-                        </div>
-                    </Col>
-                    
+        const howToShop = () => (
+            <div style={blockContainer} align="middle" justify="middle">
+                <div>                              
+                    <p style={greenBold}>How to shop</p>                                                            
+                    <Row>
+                        <Col span={8}>
+                            <p  style={normal}>Choose store nearby your house</p>
+                        </Col>
+                        <Col span={8}>
+                            <p   style={normal}>Buy groceries in lifelike shop</p>
+                        </Col>
+                        <Col span={8}>
+                            <p style={normal}>Receive groceries in 30 minutes</p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={8}>
+                            <Card  style={cardStyle}>
+                                <Meta
+                                    title="title"
+                                    description="description"
+                                />
+                            </Card>
+                        </Col>
+                        <Col span={8}>
+                            <Card  style={cardStyle}>
+                                <Meta
+                                    title="title"
+                                    description="description"
+                                />
+                            </Card>
+                        </Col>
+                        <Col span={8}>
+                            <Card  style={cardStyle}>
+                                <Meta
+                                    title="title"
+                                    description="description"
+                                />
+                            </Card>
+                        </Col>
+                    </Row>
+                </div>
+            </div>   
+        );
+
+        const dealOfWeek = () => (
+            <div style={blockContainer} align="middle" justify="middle">
+                <div>                                
+                    <p style={greenBold}>dealOfWeek</p>                                                            
+                </div>
+            </div>                
+        );
+
+        const courierApply = () => (
+            <div>
+                <Row>
+                <div style={greenBox}>
+                <p style={whiteBold}>Do you want to be a courier?</p>
+                </div>
                 </Row>
-                
-            );
-        }
+                <Row>
+                <p style={whiteBold}>Apply for <img height="12" src={logo} alt="grocery"/>courier position</p>
+                </Row>
+            </div>
+        );
 
         return (
             <main>
                 <NavBar />
-                    {enterLocationBlock()}
-                    {howToShop()}
+                {enterLocationBlock()}
+                {howToShop()}
+                {/*dealOfWeek()*/}
+                {courierApply()}
             </main>
         );
     }
@@ -131,11 +137,7 @@ const locationBlock = {
     backgroundSize: 'cover',
 }
 
-const whiteBold = {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 24
-}
+
 
 const g_button = {
     background: darkGreen,
@@ -146,6 +148,22 @@ const greenBold = {
     color: darkGreen,
     fontWeight: 'bold',
     fontSize: 24
+}
+
+const whiteBold = {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 24
+}
+
+const greenBox = {
+    backgroundColor: lightGreen
+}
+
+const normal = {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 18
 }
 
 const cardStyle = {
