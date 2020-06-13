@@ -1,38 +1,41 @@
 nav img {
-    /* Positioning */
-    padding-right: 25px;
-
     /* Formatting */
     height: 50px;
     width: auto;
 }
 
 nav {
-    /* Positioning */
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 70px;
-
-    /* Flexbox */
+    /* Positioning: Flexbox */
     display: flex;
+    justify-content: space-between;
     align-items: center;
 
     /* Formatting */
+    width: 100%;
+    height: 70px;
     overflow: hidden;
     background-color: white;
     font-family: 'Ubuntu', sans-serif;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.LoginRegisterButtonDiv {
+    /* Positioning: Flexbox */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /* Formatting */
+    width: 420px;
+    height: 70px;
 }
 
 nav a {
-    /* Positioning */
-    float: left;
-    display: block;
-
     /* Formatting */
     color: black;
     text-align: center;
-    padding: 10px 30px;
+    /*padding: 10px 30px;*/
     text-decoration: none;
     font-size: 2em;
 }
@@ -42,20 +45,21 @@ nav a:hover {
     color: orange;
 }
 
-button.login {
+button.LoginRegisterButton {
     /* Formatting Colors & Shape*/
     color: white;
     background-color: #036635;
     border-color: darkgray;
     border-radius: 10px;
     height: 50px;
+    width: 200px;
 
     /* Formatting Text */
     font-size: 1em;
     font-weight: bold;
 }
 
-button.login:hover {
+button.LoginRegisterButton:hover {
     color: orange;
     background-color: white;
     cursor: pointer;

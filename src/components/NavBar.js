@@ -17,10 +17,10 @@ class NavBar extends React.Component {
         return (
             <nav>
                 <Link to="/"><img src={Logo} alt="Groceryou Logo" /></Link>
-                <Link to="/shop">Shop</Link>
-                <Link to="/shopper">Become a courier</Link>
-                <Link to="/help">Help</Link>
-                <Link to="/login"><button class="login">Login</button></Link>
+                <div class="LoginRegisterButtonDiv">
+                    <Link to="/login"><button class="LoginRegisterButton">Login</button></Link>
+                    <Link to="/register"><button class="LoginRegisterButton">Register</button></Link>
+                </div>
             </nav>
         );
     }

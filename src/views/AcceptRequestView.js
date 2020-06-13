@@ -1,13 +1,13 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
 import SubNavBar from '../components/SubNavBar';
-import styles from "./ShopperView.module.css"
+import styles from "./AcceptRequestView.module.css"
 
 import { IconContext } from "react-icons";
 import { BsFillPersonFill, BsClock } from "react-icons/bs";
 import { MdEuroSymbol, MdShoppingBasket } from "react-icons/md";
 
-class ShopperView extends React.Component {
+class AcceptRequestView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -80,4 +80,4 @@ class ShopperView extends React.Component {
     }
 }
 
-export default ShopperView;
+export default AcceptRequestView;
