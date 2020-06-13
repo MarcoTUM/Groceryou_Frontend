@@ -1,8 +1,9 @@
 import React from 'react';
+
 import NavBar from '../components/NavBar';
 import SubNavBar from '../components/SubNavBar';
 
-class ShopperView extends React.Component {
+class UserRegisterView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,11 +17,11 @@ class ShopperView extends React.Component {
                 <NavBar />
                 <SubNavBar />
                 <div class="content">
-                    <h2>Bacome a shopper</h2>
+                    <h2>Register</h2>
                 </div>
             </main>
         );
     }
 }
 
-export default ShopperView;
+export default UserRegisterView;

@@ -15,7 +15,7 @@ class HelpView extends React.Component {
                 <NavBar />
                 <SubNavBar />
                 <div class="content">
-                    <h2>Help</h2>
+                    Help1
                 </div>
             </main>
         );
