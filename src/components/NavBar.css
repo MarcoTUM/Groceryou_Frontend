@@ -3,7 +3,7 @@ nav img {
     padding-right: 25px;
 
     /* Formatting */
-    height: 1.4em;
+    height: 50px;
     width: auto;
 }
 
@@ -14,9 +14,14 @@ nav {
     width: 100%;
     height: 70px;
 
+    /* Flexbox */
+    display: flex;
+    align-items: center;
+
     /* Formatting */
     overflow: hidden;
     background-color: white;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 nav a {
@@ -35,4 +40,23 @@ nav a {
 nav a:hover {
     /* Formatting */
     color: orange;
+}
+
+button.login {
+    /* Formatting Colors & Shape*/
+    color: white;
+    background-color: #036635;
+    border-color: darkgray;
+    border-radius: 10px;
+    height: 50px;
+
+    /* Formatting Text */
+    font-size: 1em;
+    font-weight: bold;
+}
+
+button.login:hover {
+    color: orange;
+    background-color: white;
+    cursor: pointer;
 }

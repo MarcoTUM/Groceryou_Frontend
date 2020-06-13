@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Logo from '../img/GroceryouLogo.png';
+
 import './NavBar.css';
 
 class NavBar extends React.Component {
@@ -17,9 +18,9 @@ class NavBar extends React.Component {
             <nav>
                 <Link to="/"><img src={Logo} alt="Groceryou Logo" /></Link>
                 <Link to="/shop">Shop</Link>
+                <Link to="/shopper">Become a courier</Link>
                 <Link to="/help">Help</Link>
-                <Link to="/shopper">Become a shopper</Link>
-                <Link to="/login">Login</Link>
+                <Link to="/login"><button class="login">Login</button></Link>
             </nav>
         );
     }

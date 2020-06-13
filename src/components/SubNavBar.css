@@ -8,6 +8,7 @@
     /* Formatting */
     overflow: hidden;
     background-color: orange;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .subnav a {
