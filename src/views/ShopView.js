@@ -99,16 +99,15 @@ class ShopView extends React.Component {
                     <Link to="/shop/traditional">Traditional UI</Link>
                 </SubNavBar>*/}
                 <Row>
-                    <Col span={0} md={5} lg={5} style={sideBarStyle}>
+                    <Col span={0} md={5}  style={sideBarStyle}>
                         {shopList()}
                     </Col>
-                    <Col span={24} md={14} lg={16}>
+                    <Col span={24} md={14} >
                         {fakeMap()}
                     </Col>
-                    <Col span={24} md={5} lg={3} style={sideBarStyle}>
+                    <Col span={24} md={5}  style={sideBarStyle}>
                         {shopDetail()}
                     </Col>
-
                 </Row>
             
                 
