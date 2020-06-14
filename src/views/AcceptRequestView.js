@@ -6,6 +6,7 @@ import styles from "./AcceptRequestView.module.css"
 import { IconContext } from "react-icons";
 import { BsFillPersonFill, BsClock } from "react-icons/bs";
 import { MdEuroSymbol, MdShoppingBasket } from "react-icons/md";
+import RequestCard from '../components/RequestCard';
 
 class AcceptRequestView extends React.Component {
     constructor(props) {
@@ -55,17 +56,21 @@ class AcceptRequestView extends React.Component {
                 <NavBar />
                 <SubNavBar />
                 <div className={styles.row}>
-                    <div className={[styles.column, styles.left].join(" ")}></div>
+                    <div className={[styles.column, styles.left].join(" ")}>
+                        <RequestCard customer={this.state.customer} />
+                        <RequestCard customer={this.state.customer} />
+                        <RequestCard customer={this.state.customer} />
+                    </div>
                     <div className={[styles.column, styles.middle].join(" ")}></div>
                     <div className={[styles.column, styles.right].join(" ")}>
                         <IconContext.Provider value={{ size: "1.5em", verticalAlign: 'middle' }}>
-                            <h3><BsFillPersonFill /> {this.state.customer}</h3>
+                            <h3 className={styles.yellowText}><BsFillPersonFill /> {this.state.customer}</h3>
                             {this.state.street}
-                            <h3><MdEuroSymbol /> Commission </h3>
+                            <h3 className={styles.yellowText}><MdEuroSymbol /> Commission </h3>
                             {this.state.commission}€
-                            <h3><MdShoppingBasket /> Amount of items </h3>
+                            <h3 className={styles.yellowText}><MdShoppingBasket /> Amount of items </h3>
                             {this.state.amountOfItems} items
-                            <h3><BsClock /> Desired delivery time </h3>
+                            <h3 className={styles.yellowText}><BsClock /> Desired delivery time </h3>
                             {this.state.desiredDeliveryTimeStart.toLocaleDateString()} &nbsp;
                             {this.state.desiredDeliveryTimeStart.toLocaleTimeString()} <br />
                             &#126; <br />

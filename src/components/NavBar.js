@@ -6,6 +6,8 @@ import Logo from '../img/GroceryouLogo.png';
 
 import './NavBar.css';
 
+import { Button } from "antd";
+
 class NavBar extends React.Component {
     constructor(props) {
         super(props);
