@@ -3,7 +3,7 @@ import NavBar from '../components/NavBar';
 import SubNavBar from '../components/SubNavBar';
 import {Row, Col, InputGroup, Button, Card} from 'antd';
 import logo from '../img/GroceryouLogo.png';
-import { Input } from 'antd';
+import { Input } from 'antd'; 
 import { darkGreen, lightGreen } from '../shared/colors';
 
 const { Meta } = Card;
@@ -26,12 +26,11 @@ class HomeView extends React.Component {
       }
 
     enterShop(){
-        this.props.history.push('/shop');
+        this.props.history.push('/shopselection');
         console.log(this.state.location);
     }
 
     render() {
-
         const enterLocationBlock = () => (
             <div style={{...blockContainer, ...locationBlock}} align="middle">
                 <div>
@@ -43,9 +42,6 @@ class HomeView extends React.Component {
                 </div>
             </div>
         );
-        
-
-        
 
         const howToShop = () => (
             <div style={blockContainer} align="middle" justify="middle">
@@ -93,22 +89,36 @@ class HomeView extends React.Component {
         );
 
         const dealOfWeek = () => (
-            <div style={blockContainer} align="middle" justify="middle">
-                <div>                                
+            <div style={blockContainer} align="middle" justify="middle">                            
                     <p style={greenBold}>dealOfWeek</p>                                                            
-                </div>
             </div>                
         );
 
         const courierApply = () => (
-            <div>
+            <div>                
                 <Row>
-                <div style={greenBox}>
-                <p style={whiteBold}>Do you want to be a courier?</p>
-                </div>
+                    <Col offset={3}>
+                        <div style={greenContainer}>                                      
+                        <p style={whiteBold}>Do you want to be a courier?</p>
+                        </div>
+                    </Col>
+                    <Col>
+                    </Col>
+                </Row>                
+                <Row>
+                    <Col offset={3}>
+                    <div style={greenContainer}>
+                        <p style={whiteBold}>Apply for <img height="28" src={logo} alt="grocery"/>courier position</p>
+                    </div>
+                    </Col>
                 </Row>
                 <Row>
-                <p style={whiteBold}>Apply for <img height="12" src={logo} alt="grocery"/>courier position</p>
+                    <Col offset={18}>
+                        <Button type="primary" size="large" style={g_button}>
+                            Apply
+                            </Button>
+
+                    </Col>
                 </Row>
             </div>
         );
@@ -156,8 +166,16 @@ const whiteBold = {
     fontSize: 24
 }
 
-const greenBox = {
-    backgroundColor: lightGreen
+const greenContainer = {
+    backgroundColor: lightGreen,
+    paddingBottom: 0,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 20,
+    margin: 10,
+    display: 'flex',
+    justifyContent:'center',
+    alignItems:'center'
 }
 
 const normal = {
