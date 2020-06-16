@@ -41,12 +41,43 @@ class SubmitionForm extends React.Component{
     render() {
         return (
             <Form>
-                <Form.Item>
-                    <Input/>
+                <Form.Item
+                    label = "Username"
+                    name = 'username'
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please enter username'
+                        },
+                    ]}
+                >
+                    <Input
+                        value={this.state.username}
+                        onChange={this.handleChangeUsername}
+                        aria-errormessage={"Login is required"}
+                    />
                 </Form.Item>
-                <Form.Item>
-                    <Input.Password/>
+                <Form.Item
+                    label= "Password"
+                    name = 'password'
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please enter password'
+                        },
+                    ]}
+                >
+                    <Input.Password
+                        value={this.state.password}
+                        onChange={this.handleChangePassword}
+                        aria-errormessage={"Password is required"}
+                    />
                 </Form.Item>
+                {/*<Form.Item>*/}
+                {/*    <Button type="primary" htmlType="submit">*/}
+                {/*        Submit*/}
+                {/*    </Button>*/}
+                {/*</Form.Item>*/}
             </Form>
         )
     }

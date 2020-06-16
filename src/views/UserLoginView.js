@@ -21,9 +21,7 @@ class UserLoginView extends React.Component {
                 <NavBar />
                 <SubNavBar />
                 <div class="content">
-                    <SubmitionForm/>
                     <UserLogin/>
-                    <UserSignup/>
                 </div>
             </main>
         );

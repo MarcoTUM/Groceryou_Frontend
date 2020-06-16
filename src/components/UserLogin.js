@@ -1,6 +1,8 @@
 "use strict";
 
 import React from 'react';
+import SubmitionForm from "./SubmitionForm";
+import {Button} from "antd";
 class UserLogin extends React.Component{
 
     constructor(props){
@@ -9,7 +11,13 @@ class UserLogin extends React.Component{
 
     render(){
         return(
-            <h2>UserLoginComponent!</h2>
+            <div>
+                <SubmitionForm/>
+                <Button
+                    type = "primary">
+                    Login
+                </Button>
+            </div>
         )
     }
 }

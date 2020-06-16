@@ -2,6 +2,7 @@ import React from 'react';
 
 import NavBar from '../components/NavBar';
 import SubNavBar from '../components/SubNavBar';
+import UserSignup from "../components/UserSignup";
 
 class UserRegisterView extends React.Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class UserRegisterView extends React.Component {
                 <NavBar />
                 <SubNavBar />
                 <div class="content">
-                    <h2>Register</h2>
+                    <UserSignup/>
                 </div>
             </main>
         );
