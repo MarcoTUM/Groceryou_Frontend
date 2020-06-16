@@ -2,6 +2,10 @@ import React from 'react';
 
 import NavBar from '../components/NavBar';
 import SubNavBar from '../components/SubNavBar';
+import UserLogin from "../components/UserLogin";
+import UserSignup from "../components/UserSignup";
+import SubmitionForm from "../components/SubmitionForm";
+
 
 class UserLoginView extends React.Component {
     constructor(props) {
@@ -17,7 +21,9 @@ class UserLoginView extends React.Component {
                 <NavBar />
                 <SubNavBar />
                 <div class="content">
-                    <h2>Login</h2>
+                    <SubmitionForm/>
+                    <UserLogin/>
+                    <UserSignup/>
                 </div>
             </main>
         );
