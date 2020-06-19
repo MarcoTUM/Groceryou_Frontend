@@ -91,11 +91,6 @@ class ShopSelectionView extends React.Component {
         return (
             <main>
                 <NavBar />
-                {/*
-                <SubNavBar>
-                    <Link to="/shop/virtual">Virtual Shop UI</Link>
-                    <Link to="/shop/traditional">Traditional UI</Link>
-                </SubNavBar>*/}
                 <Row>
                     <Col span={0} md={5}  style={sideBarStyle}>
                         {shopList()}
