@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import NavBar from '../components/NavBar';
 import SubNavBar from '../components/SubNavBar';
 import styles from "./AcceptRequestView.module.css"
@@ -19,35 +20,30 @@ class AcceptRequestView extends React.Component {
             city: "",
             commission: 0,
             amountOfItems: 0,
-            desiredDeliveryTimeStart: null,
-            desiredDeliveryTimeEnd: null,
+            desiredDeliveryTimeStart: new Date(),
+            desiredDeliveryTimeEnd: new Date(),
         };
     }
 
-    static getDerivedStateFromProps(props, state) {
-        // TODO: Get data from database
-        let customerGender = "male";
-        let customerName = "Hofstadter";
-
-        // Set the correct title depending on the customer gender
-        if (customerGender === "male") {
-            customerName = "Mr. " + customerName;
-        } else if (customerGender === "female") {
-            customerName = "Ms. " + customerName;
-        }
-
-        // TODO: Get data from database
-        return {
-            customer: customerName,
-            gender: customerGender,
-            street: "Lindenschmitstraße 8",
-            PLZ: 80302,
-            city: "Munich",
-            commission: 5,
-            amountOfItems: 15,
-            desiredDeliveryTimeStart: new Date(2020, 6, 24, 10, 15),
-            desiredDeliveryTimeEnd: new Date(2020, 6, 24, 10, 45),
-        };
+    componentDidMount() {
+        axios.get('http://localhost:8080/customerRequest')
+            .then(res => {
+                if (res.data) {
+                    // Index is the entryID in the database
+                    let requestData = res.data[0];
+                    console.log(requestData);
+                    this.setState({
+                        customer: requestData["name"],
+                        gender: requestData["gender"],
+                        street: requestData["street"],
+                        PLZ: requestData["PLZ"],
+                        city: requestData.city,
+                        commission: requestData["commission"],
+                        amountOfItems: requestData["amountOfItems"]
+                    })
+                }
+            })
+            .catch(error => console.log(error))
     }
 
     render() {
