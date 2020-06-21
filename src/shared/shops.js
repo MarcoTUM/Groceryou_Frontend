@@ -4,7 +4,6 @@ export const SHOPS =
             id: 0,
             name:'REWE',
             image: 'assets/images/REWE.svg',
-            //image: '../img/GroceryouLogo.png',
             location: 'Hansastraße 134',
             category: 'groceries',
             minimumPrice: 20,
@@ -23,7 +22,6 @@ export const SHOPS =
             id: 2,
             name:'Edeka',
             image: 'assets/images/Edeka.svg',
-            //image: 'assets/images/REWE.svg',
             category: 'groceries',
             location: 'Lieberweg 42',
             minimumPrice: 25,
@@ -32,7 +30,6 @@ export const SHOPS =
         {
             id: 3,
             name:'REWE',
-            //image: 'assets/images/REWE.svg',
             image: 'assets/images/buyer_welcome_image.svg',
             category: 'groceries',
             location: 'Farstraße 10',
