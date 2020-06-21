@@ -7,10 +7,6 @@ class UserLogin extends React.Component{
 
     constructor(props){
         super(props);
-
-        console.log("props of user login");
-        console.log(this.props)
-
         this.submitRequest = this.submitRequest.bind(this);
     }
 

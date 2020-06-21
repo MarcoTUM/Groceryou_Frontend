@@ -17,9 +17,6 @@ class UserLoginView extends React.Component {
     }
 
     login(user){
-        console.log('firing login request to userService');
-        console.log(user);
-        return;
         UserService.login(user.username, user.password).then((data) => {
             this.props.history.push('/');
         }).catch((e) => {
@@ -36,7 +33,10 @@ class UserLoginView extends React.Component {
                 <NavBar />
                 <SubNavBar />
                 <div class="content">
-                    <UserLogin onSubmit={(user) => this.login(user)} error={this.state.error}/>
+                    <UserLogin
+                        onSubmit={(user) => this.login(user)}
+                        error={this.state.error}
+                    />
                 </div>
             </main>
         );

@@ -7,16 +7,23 @@ class UserSignup extends React.Component{
 
     constructor(props) {
         super(props);
+        this.submitRequest = this.submitRequest.bind(this);
     }
 
-    render() {
+    submitRequest(user){
+        this.props.onSubmit(user);
+    }
+
+    render(){
         return(
             <div>
-                <CredentialsForm buttonName={"Register"}/>
+                <CredentialsForm
+                    buttonName={"Register"}
+                    submitRequest={this.submitRequest}
+                />
             </div>
         )
     }
-
 }
 
 export default UserSignup;
