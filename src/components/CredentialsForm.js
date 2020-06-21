@@ -3,6 +3,22 @@
 import React from 'react';
 import {Form, Input, Button, Checkbox} from 'antd';
 
+const layout = {
+    labelCol: {
+        span: 8,
+    },
+    wrapperCol: {
+        span: 6
+    }
+};
+
+const tailLayout = {
+    wrapperCol: {
+        offset: 8,
+        span: 6,
+    },
+};
+
 class CredentialsForm extends React.Component{
 
     constructor(props) {
@@ -33,6 +49,7 @@ class CredentialsForm extends React.Component{
     render() {
         return (
             <Form
+                {...layout}
                 onFinish={this.handleSubmit}
                 onFinishFailed={this.failSubmit}
             >
@@ -72,7 +89,7 @@ class CredentialsForm extends React.Component{
                         aria-errormessage={"Password is required"}
                     />
                 </Form.Item>
-                <Form.Item>
+                <Form.Item {...tailLayout}>
                     <Button
                         type="primary"
                         htmlType="submit"
