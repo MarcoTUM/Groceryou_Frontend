@@ -1,22 +1,30 @@
 "use strict";
 
 import React from 'react';
-import SubmitionForm from "./SubmitionForm";
+import CredentialsForm from "./CredentialsForm";
 import {Button} from "antd";
 class UserLogin extends React.Component{
 
     constructor(props){
-        super(props)
+        super(props);
+
+        console.log("props of user login");
+        console.log(this.props)
+
+        this.submitRequest = this.submitRequest.bind(this);
+    }
+
+    submitRequest(user){
+        this.props.onSubmit(user);
     }
 
     render(){
         return(
             <div>
-                <SubmitionForm/>
-                <Button
-                    type = "primary">
-                    Login
-                </Button>
+                <CredentialsForm
+                    buttonName={"Login"}
+                    submitRequest={this.submitRequest}
+                />
             </div>
         )
     }

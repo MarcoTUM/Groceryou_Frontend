@@ -64,9 +64,9 @@ export default class HttpService{
             }
             else{
                 if(resp.hasOwnProperty('token')) {
-                    window.localStorage['jwtToken'] = resp.tokenl
+                    window.localStorage['jwtToken'] = resp.token;
                 }
-                onSuccess(reso);
+                onSuccess(resp);
             }
         }).catch((e) => {
             onError(e.message);

@@ -4,7 +4,8 @@ import NavBar from '../components/NavBar';
 import SubNavBar from '../components/SubNavBar';
 import UserLogin from "../components/UserLogin";
 import UserSignup from "../components/UserSignup";
-import SubmitionForm from "../components/SubmitionForm";
+import CredentialsForm from "../components/CredentialsForm";
+import UserService from "../services/UserService";
 
 
 class UserLoginView extends React.Component {
@@ -15,13 +16,27 @@ class UserLoginView extends React.Component {
         };
     }
 
+    login(user){
+        console.log('firing login request to userService');
+        console.log(user);
+        return;
+        UserService.login(user.username, user.password).then((data) => {
+            this.props.history.push('/');
+        }).catch((e) => {
+            console.error(e);
+            this.setState({
+                error: e
+            });
+        });
+    }
+
     render() {
         return (
             <main>
                 <NavBar />
                 <SubNavBar />
                 <div class="content">
-                    <UserLogin/>
+                    <UserLogin onSubmit={(user) => this.login(user)} error={this.state.error}/>
                 </div>
             </main>
         );

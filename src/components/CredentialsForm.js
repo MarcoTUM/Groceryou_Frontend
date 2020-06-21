@@ -3,7 +3,7 @@
 import React from 'react';
 import {Form, Input, Button, Checkbox} from 'antd';
 
-class SubmitionForm extends React.Component{
+class CredentialsForm extends React.Component{
 
     constructor(props) {
         super(props);
@@ -13,34 +13,29 @@ class SubmitionForm extends React.Component{
             password: '',
         };
 
-        this.handleChangeUsername = this.handleChangeUsername.bind(this);
-        this.handleChangePassword = this.handleChangePassword.bind(this);
-
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChangeUsername(value){
-        this.setState(Object.assign({}, this.state, {username: value}));
-    }
-
-    handleChangePassword(value){
-        this.setState(Object.assign({}, this.state, {password: value}));
-    }
-
-    handleSubmit(event){
-        event.preventDefault();
+    handleSubmit(){
 
         let user = {
             username: this.state.username,
             password: this.state.password
         };
 
-        this.props.onSubmit(user);
+        this.props.submitRequest(user);
     }
+
+    failSubmit (errorInfo){
+        console.log('Failed:', errorInfo)
+    };
 
     render() {
         return (
-            <Form>
+            <Form
+                onFinish={this.handleSubmit}
+                onFinishFailed={this.failSubmit}
+            >
                 <Form.Item
                     label = "Username"
                     name = 'username'
@@ -53,8 +48,10 @@ class SubmitionForm extends React.Component{
                 >
                     <Input
                         value={this.state.username}
-                        onChange={this.handleChangeUsername}
-                        aria-errormessage={"Login is required"}
+                        onChange={e => this.setState({
+                            username: e.target.value
+                        })}
+                        aria-errormessage={"Username is required"}
                     />
                 </Form.Item>
                 <Form.Item
@@ -69,18 +66,23 @@ class SubmitionForm extends React.Component{
                 >
                     <Input.Password
                         value={this.state.password}
-                        onChange={this.handleChangePassword}
+                        onChange={e => this.setState({
+                            password: e.target.value
+                        })}
                         aria-errormessage={"Password is required"}
                     />
                 </Form.Item>
-                {/*<Form.Item>*/}
-                {/*    <Button type="primary" htmlType="submit">*/}
-                {/*        Submit*/}
-                {/*    </Button>*/}
-                {/*</Form.Item>*/}
+                <Form.Item>
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                    >
+                        {this.props.buttonName}
+                    </Button>
+                </Form.Item>
             </Form>
         )
     }
 }
 
-export default SubmitionForm;
+export default CredentialsForm;
