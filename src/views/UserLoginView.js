@@ -3,8 +3,6 @@ import React from 'react';
 import NavBar from '../components/NavBar';
 import SubNavBar from '../components/SubNavBar';
 import UserLogin from "../components/UserLogin";
-import UserSignup from "../components/UserSignup";
-import CredentialsForm from "../components/CredentialsForm";
 import UserService from "../services/UserService";
 
 
