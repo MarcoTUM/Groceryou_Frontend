@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import StartpageView from './views/HomeView';
+import ShopSelectionView from './views/ShopSelectionView';
 import ShopView from './views/ShopView';
 import HelpView from './views/HelpView';
 import AcceptRequestView from './views/AcceptRequestView';
@@ -26,8 +27,9 @@ class App extends React.Component {
             <div>
                 <Router>
                     <Switch>
-                        <Route exact path="/" component={StartpageView} />
-                        <Route path="/shop" component={ShopView} />
+                        <Route exact path="/" exact={true} component={StartpageView} />
+                        <Route path="/shopselection" component={ShopSelectionView} />
+                        <Route path="/shop" component={ShopView}/>
                         <Route path="/help" component={HelpView} />
                         <Route path="/acceptRequest" component={AcceptRequestView} />
                         <Route path="/courier" component={CourierView} />
