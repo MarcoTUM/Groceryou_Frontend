@@ -5,7 +5,6 @@ import SubNavBar from '../components/SubNavBar';
 import UserLogin from "../components/UserLogin";
 import UserService from "../services/UserService";
 
-
 class UserLoginView extends React.Component {
     constructor(props) {
         super(props);
@@ -18,7 +17,7 @@ class UserLoginView extends React.Component {
         UserService.login(user.username, user.password).then((data) => {
             this.props.history.push('/');
         }).catch((e) => {
-            console.error(e);
+            alert("Incorrect username or password");
             this.setState({
                 error: e
             });

@@ -52,9 +52,6 @@ export default class UserService {
     }
 
     static isAuthenticated(){
-        //this was the original statement:
-        //return !!window.localStorage['jwtToken'];
-        //so i left out the !!
         return window.localStorage['jwtToken'];
     }
 }
