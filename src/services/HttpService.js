@@ -18,7 +18,7 @@ export default class HttpService{
             headers: header
         }).then((resp) => {
             if(this.checkIfUnauthorized(resp)){
-                if(!window.location == '/login')
+                if(window.location.pathname != '/login')
                     window.location = "/login";
             }
             else{
@@ -53,7 +53,7 @@ export default class HttpService{
             body: JSON.stringify(data)
         }).then((resp) => {
             if(this.checkIfUnauthorized(resp)){
-                if(!window.location == '/login')
+                if(window.location.pathname != '/login')
                     window.location = "/login";
                 return;
             }
@@ -89,7 +89,7 @@ export default class HttpService{
             body: JSON.stringify(data)
         }).then((resp) => {
             if(this.checkIfUnauthorized(resp)) {
-                if(!window.location == '/login')
+                if(window.location.pathname != '/login')
                     window.location = "/login";
                 return;
             }
@@ -123,7 +123,7 @@ export default class HttpService{
             headers: header
         }).then((resp) => {
             if(this.checkIfUnauthorized(resp)){
-                if(!window.location == '/login')
+                if(window.location.pathname != '/login')
                     window.location = "/login";
                 return;
             }
