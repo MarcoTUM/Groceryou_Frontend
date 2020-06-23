@@ -1,5 +1,8 @@
 "use strict";
 
+import store from "../store";
+import {refresh} from "../redux/authActions";
+
 export default class HttpService{
     constructor() {
     }
@@ -30,7 +33,8 @@ export default class HttpService{
             }
             else{
                 if(resp.hasOwnProperty('token')){
-                    window.localStorage['jwtToken'] = resp.token;
+                    // window.localStorage['jwtToken'] = resp.token; //deprecated -> use the auth reducer instead
+                    store.dispatch(refresh(resp.token));
                 }
                 onSuccess(resp);
             }
@@ -66,7 +70,8 @@ export default class HttpService{
             }
             else{
                 if(resp.hasOwnProperty('token')) {
-                    window.localStorage['jwtToken'] = resp.token;
+                    // window.localStorage['jwtToken'] = resp.token; //deprecated -> use the auth reducer instead
+                    store.dispatch(refresh(resp.token));
                 }
                 onSuccess(resp);
             }
@@ -102,7 +107,8 @@ export default class HttpService{
             }
             else{
                 if(resp.hasOwnProperty('token')) {
-                    window.localStorage['jwtToken'] = resp.token;
+                    // window.localStorage['jwtToken'] = resp.token; //deprecated -> use the auth reducer instead
+                    store.dispatch(refresh(resp.token));
                 }
                 onSuccess(resp);
             }

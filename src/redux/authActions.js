@@ -1,4 +1,4 @@
-import {AUTH_LOGIN, AUTH_LOGOUT} from "./reduxConstants";
+import {AUTH_LOGIN, AUTH_LOGOUT, AUTH_REFRESH} from "./reduxConstants";
 
 const login = (username, token) => (dispatch) => {
     try{
@@ -9,16 +9,27 @@ const login = (username, token) => (dispatch) => {
                 token: token
             }
         })
-    } catch (error) {}
+    } catch(error){}
 };
 
-const logout = () => (dispatch) => {
+const logout = () => (dispatch) => { //does currently set the token to empty, does NOT remove the token from localstorage
     try{
         dispatch({
             type: AUTH_LOGOUT,
             payload: {}
         })
-    } catch {}
+    } catch(error){}
 };
 
-export {login,logout}
+const refresh = (token) => (dispatch) => {
+    try{
+        dispatch({
+            type: AUTH_REFRESH,
+            payload: {
+                token: token
+            }
+        })
+    } catch(error){}
+};
+
+export {login,logout,refresh}

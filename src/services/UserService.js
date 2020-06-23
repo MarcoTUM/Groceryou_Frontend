@@ -1,6 +1,8 @@
 "use strict";
 
 import HttpService from "./HttpService";
+import store from "../store";
+import {logout} from "../redux/authActions";
 
 export default class UserService {
 
@@ -36,7 +38,8 @@ export default class UserService {
     }
 
     static logout(){
-        window.localStorage.removeItem('jwtToken');
+        //window.localStorage.removeItem('jwtToken'); //deprecated -> use the auth reducer
+        store.dispatch(logout());
     }
 
     static getCurrentUser() {

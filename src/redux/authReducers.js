@@ -1,4 +1,4 @@
-import {AUTH_LOGIN, AUTH_LOGOUT} from "./reduxConstants";
+import {AUTH_LOGIN, AUTH_LOGOUT, AUTH_REFRESH} from "./reduxConstants";
 
 function authReducer(state={username: '', token: ''}, action){
 
@@ -14,6 +14,10 @@ function authReducer(state={username: '', token: ''}, action){
             return{
                 username: '',
                 token: ''
+            };
+        case AUTH_REFRESH:
+            return{
+                token: payload.token
             };
         default:
             return state;
