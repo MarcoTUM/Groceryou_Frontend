@@ -1,19 +1,19 @@
 import React from 'react';
 import './ShoppingPage.css';
-import {Row, Col, Button, List, Card, Modal} from 'antd';
+import {Row, Col, Button, List, Card} from 'antd';
 import { connect } from 'react-redux';
-import {listProduct} from '../redux/productActions';
+import {fetchShops} from '../redux/shopActions';
 import {addToCart, removeFromCart} from '../redux/cartActions';
 import { ShoppingCartOutlined,FieldTimeOutlined, EuroOutlined} from '@ant-design/icons';
 
 const {Meta} = Card;
 const mapStateToProps = state => ({
-    shops: state.productList,
+    shops: state.shops,
     cart: state.cart
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchShops: () => {dispatch(listProduct())},
+    fetchShops: () => {dispatch(fetchShops())},
     addToCart: (product, qty) => {dispatch(addToCart(product, qty))},
     deleteCartItem: (product) => {dispatch(removeFromCart(product))}
 });
@@ -47,7 +47,7 @@ class ShoppingPage extends React.Component {
     showItemList(category){
         console.log(category);
         this.setState({
-            selectedItems: this.props.shops.products[0].products.filter(item => item.category == category),
+            selectedItems: this.props.shops.shops[0].products.filter(item => item.category == category),
             showItems: true
         })
     }
@@ -68,7 +68,7 @@ class ShoppingPage extends React.Component {
                 {this.props.shops.loading?
                 <div>Loading</div>
                 :
-                [... new Set(this.props.shops.products[0].products.map(item => item.category))].map(category=>
+                [... new Set(this.props.shops.shops[0].products.map(item => item.category))].map(category=>
                 <Col span={8} >
                     <div className="woodenBox" onClick={()=>this.showItemList(category)}>
                         <img alt="category" src={`./images/categories/${category}.png`}/>
@@ -87,7 +87,7 @@ class ShoppingPage extends React.Component {
                     <h3><FieldTimeOutlined /> Estimated Delivery Time </h3>
                     <h4>{this.state.estimatedTime} Minutes</h4>
                     <h3><EuroOutlined /> Minimum Order Price</h3>
-                    <h4>{this.props.shops.products[0].minimumPrice} €</h4>
+                    <h4>{this.props.shops.shops[0].minimumPrice} €</h4>
                     </div>);
             }
         }
