@@ -5,7 +5,7 @@ import { Row, Col, List, Card, Button} from 'antd';
 import { Link } from 'react-router-dom';
 import { SHOPS } from '../shared/shops';
 import {gray, darkGreen, lightGreen} from '../shared/colors';
-import { FieldTimeOutlined, BoldOutlined } from '@ant-design/icons';
+import { FieldTimeOutlined, EuroOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 
@@ -69,7 +69,7 @@ class ShopSelectionView extends React.Component {
                 <div style={shopDetailContainerStyle}>
                     <p style = {yellowBold}><FieldTimeOutlined /> Estimated Delivery Time </p>
                     {this.state.selectedShop?(<p style = {yellow}> {this.state.estimatedTime} Minutes</p>):''}
-                    <p style = {yellowBold}>Minimum Order Price</p>
+                    <p style = {yellowBold}><EuroOutlined/>Minimum Order Price</p>
                     {this.state.selectedShop?(<p style = {yellow}> {this.state.selectedShop.minimumPrice} €</p>):''}
                     <p style = {{textAlign: 'right'}}>
                     <Button shape="round" style={{ background: "yellow", borderColor: 'yellow'}}>
@@ -92,13 +92,13 @@ class ShopSelectionView extends React.Component {
             <main>
                 <NavBar />
                 <Row>
-                    <Col span={0} md={5}  style={sideBarStyle}>
+                    <Col span={0} md={4}  style={sideBarStyle}>
                         {shopList()}
                     </Col>
-                    <Col span={24} md={14} >
+                    <Col span={24} md={16} >
                         {fakeMap()}
                     </Col>
-                    <Col span={24} md={5}  style={sideBarStyle}>
+                    <Col span={24} md={4}  style={sideBarStyle}>
                         {shopDetail()}
                     </Col>
                 </Row>
