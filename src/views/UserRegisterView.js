@@ -4,6 +4,8 @@ import NavBar from '../components/NavBar';
 import SubNavBar from '../components/SubNavBar';
 import UserSignup from "../components/UserSignup";
 import UserService from "../services/UserService";
+import {login} from "../redux/authActions";
+import store from "../store";
 
 class UserRegisterView extends React.Component {
     constructor(props) {
@@ -15,6 +17,7 @@ class UserRegisterView extends React.Component {
 
     register(user){
         UserService.register(user.username, user.password).then((data) => {
+            store.dispatch(login(user.username,data.token));
             this.props.history.push('/');
         }).catch((e) => {
             console.error(e);

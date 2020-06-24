@@ -2,20 +2,21 @@
 
 import React from 'react';
 import {Form, Input, Button, Checkbox} from 'antd';
+import styles from './CredentialsForm.module.css'
 
 const layout = {
     labelCol: {
-        span: 8,
+        span: 10,
     },
     wrapperCol: {
-        span: 6
+        span: 4
     }
 };
 
 const tailLayout = {
     wrapperCol: {
-        offset: 8,
-        span: 6,
+        offset: 10,
+        span: 10,
     },
 };
 
@@ -48,7 +49,7 @@ class CredentialsForm extends React.Component{
 
     render() {
         return (
-            <div className='CredentialsFormDiv'>
+            <div className={styles.CredentialsFormDiv}>
                 <Form
                     {...layout}
                     onFinish={this.handleSubmit}
@@ -94,6 +95,7 @@ class CredentialsForm extends React.Component{
                         <Button
                             type="primary"
                             htmlType="submit"
+                            className={styles.Button}
                         >
                             {this.props.buttonName}
                         </Button>
