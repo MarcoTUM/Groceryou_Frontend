@@ -6,7 +6,10 @@ import {authReducer} from "./redux/authReducers";
 
 const initialState={
     //getting token from local storage
-    token: localStorage.getItem('jwtToken')
+    auth: {
+        token: localStorage.getItem('jwtToken'),
+        username: localStorage.getItem('username')
+    }
 };
 const reducer = combineReducers({
     auth: authReducer,
@@ -20,6 +23,11 @@ const store = createStore(reducer, initialState, compose(applyMiddleware(thunk))
 //subscribe to login state
 store.subscribe(() => {
     localStorage.setItem('jwtToken', store.getState().auth.token);
+});
+
+//subscribe to login name
+store.subscribe( () => {
+    localStorage.setItem('username', store.getState().auth.username);
 });
 
 export default store;

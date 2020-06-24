@@ -10,7 +10,7 @@ const LogoutButton = () => {
 
     return(
         <div className="LoginRegisterButtonDiv">
-            <h2>Hello, {name}</h2>
+            <button className="LogoutNameButton">{name}</button>
             <Link to="/">
                 <button onClick={UserService.logout} className="LoginRegisterButton">Logout</button>
             </Link>
