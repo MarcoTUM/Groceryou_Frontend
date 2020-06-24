@@ -48,56 +48,58 @@ class CredentialsForm extends React.Component{
 
     render() {
         return (
-            <Form
-                {...layout}
-                onFinish={this.handleSubmit}
-                onFinishFailed={this.failSubmit}
-            >
-                <Form.Item
-                    label = "Username"
-                    name = 'username'
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please enter username'
-                        },
-                    ]}
+            <div className='CredentialsFormDiv'>
+                <Form
+                    {...layout}
+                    onFinish={this.handleSubmit}
+                    onFinishFailed={this.failSubmit}
                 >
-                    <Input
-                        value={this.state.username}
-                        onChange={e => this.setState({
-                            username: e.target.value
-                        })}
-                        aria-errormessage={"Username is required"}
-                    />
-                </Form.Item>
-                <Form.Item
-                    label= "Password"
-                    name = 'password'
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please enter password'
-                        },
-                    ]}
-                >
-                    <Input.Password
-                        value={this.state.password}
-                        onChange={e => this.setState({
-                            password: e.target.value
-                        })}
-                        aria-errormessage={"Password is required"}
-                    />
-                </Form.Item>
-                <Form.Item {...tailLayout}>
-                    <Button
-                        type="primary"
-                        htmlType="submit"
+                    <Form.Item
+                        label = "Username"
+                        name = 'username'
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please enter username'
+                            },
+                        ]}
                     >
-                        {this.props.buttonName}
-                    </Button>
-                </Form.Item>
-            </Form>
+                        <Input
+                            value={this.state.username}
+                            onChange={e => this.setState({
+                                username: e.target.value
+                            })}
+                            aria-errormessage={"Username is required"}
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        label= "Password"
+                        name = 'password'
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please enter password'
+                            },
+                        ]}
+                    >
+                        <Input.Password
+                            value={this.state.password}
+                            onChange={e => this.setState({
+                                password: e.target.value
+                            })}
+                            aria-errormessage={"Password is required"}
+                        />
+                    </Form.Item>
+                    <Form.Item {...tailLayout}>
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                        >
+                            {this.props.buttonName}
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </div>
         )
     }
 }

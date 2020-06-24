@@ -55,6 +55,7 @@ export default class UserService {
     }
 
     static isAuthenticated(){
-        return window.localStorage['jwtToken'];
+        // return window.localStorage['jwtToken']; //deprecated -> use the auth reducer
+        return store.getState().auth.token !== null && store.getState().auth.token !== 'null';
     }
 }

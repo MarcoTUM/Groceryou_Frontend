@@ -12,8 +12,8 @@ function authReducer(state={username: '', token: ''}, action){
             };
         case AUTH_LOGOUT:
             return{
-                username: '',
-                token: ''
+                username: null,
+                token: null
             };
         case AUTH_REFRESH:
             return{
