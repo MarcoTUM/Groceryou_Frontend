@@ -16,10 +16,10 @@ class AcceptRequestView extends React.Component {
             customer: "",
             gender: "",
             street: "",
-            PLZ: 0,
+            PLZ: -1,
             city: "",
-            commission: 0,
-            amountOfItems: 0,
+            commission: -1,
+            amountOfItems: -1,
             desiredDeliveryTimeStart: new Date(),
             desiredDeliveryTimeEnd: new Date(),
         };
