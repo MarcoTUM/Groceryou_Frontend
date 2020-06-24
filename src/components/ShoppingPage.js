@@ -1,6 +1,5 @@
 import React from 'react';
 import './ShoppingPage.css';
-import data from '../shared/data';
 import {Row, Col, Button, List, Card} from 'antd';
 import axios from 'axios';
 import { useSelector, useDispatch, connect } from 'react-redux';
