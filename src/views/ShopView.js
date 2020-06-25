@@ -18,17 +18,23 @@ class HomeView extends React.Component {
         const shop_Section = ()=>{
             return(
                 <div>
-                    <img src="assets/images/ShopVege.svg"/>
+                    <img src="assets/images/ShopVege2.svg"/>
                 </div>
             );
         }  
         return (
             <div>
-            <NavBar />
-            
-                {shop_Section()}
-            
-            
+                
+                <NavBar />
+                <Row>
+                    <Col span={4}>
+                    </Col>
+                    <Col span={16}>
+                    {shop_Section()}
+                    </Col>
+                    <Col span={4}>
+                    </Col>
+                </Row>
             </div>
         );
     }
