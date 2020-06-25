@@ -12,7 +12,7 @@ const addToCart = (product, qty) => (dispatch) => {
     } catch (error) {
 
     }
-}
+};
 
 const removeFromCart = (product) => (dispatch) => {
     try {
@@ -25,6 +25,6 @@ const removeFromCart = (product) => (dispatch) => {
     } catch {
 
     }
-}
+};
 
 export { addToCart, removeFromCart}
