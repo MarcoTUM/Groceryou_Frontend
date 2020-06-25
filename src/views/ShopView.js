@@ -14,7 +14,7 @@ class HomeView extends React.Component {
         const shop_Section = ()=> {
             return(
                 <div>
-                    <img src="assets/images/REWE.svg"/>
+                    <img src="assets/images/ShopVege.png"/>
                     </div>
             );
         }
