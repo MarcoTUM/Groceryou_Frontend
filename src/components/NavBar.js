@@ -9,6 +9,8 @@ import './NavBar.css';
 import LoginRegisterButtons from './LoginRegisterButtons'
 import LogoutButton from './LogoutButton'
 
+import { Button } from "antd";
+
 class NavBar extends React.Component {
     constructor(props) {
         super(props);
