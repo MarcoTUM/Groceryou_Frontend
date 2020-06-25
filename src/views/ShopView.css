@@ -1,0 +1,56 @@
+:root {
+    --red: #b00;
+    --blue: #00b;
+    --darkGreen: #036635;
+    --lightGreen: #01B636;
+    --grey: #E3E3E3;
+  }
+
+/* side-bar */
+.SidePanel{
+    background-color: var(--darkGreen);
+    height: 100%;
+    width: 150px;
+    position: absolute;
+    left: 0;
+    overflow: auto;
+    z-index: 100;
+}
+
+.SidePanel2{
+    background-color: var(--darkGreen);
+    height: 100%;
+    width: 150px;
+    position: absolute;
+    right: 0;
+    overflow: auto;
+    z-index: 100;
+}
+
+.Section{
+    margin-top: 5rem;
+    margin-left: 40rem;
+    width: 20%;
+}
+
+.Section2{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    margin-left: 15rem;
+    width: 20%;
+}
+
+.Section3{
+    width: 20%;
+}
+
+
+.Section:hover {
+    transform: scale(1.2);
+}
+.Section2:hover {
+    transform: scale(1.2);
+}
+.Section3:hover {
+    transform: scale(1.2);
+}
