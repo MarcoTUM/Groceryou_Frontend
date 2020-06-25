@@ -7,17 +7,21 @@ class HomeView extends React.Component {
         super(props);
         this.state = {
         };
+
+
     }
     
+      
 
     render(){
-        const shop_Section = ()=> {
+
+        const shop_Section = ()=>{
             return(
                 <div>
-                    <img src="assets/images/ShopVege.png"/>
-                    </div>
+                    <img src="assets/images/ShopVege.svg"/>
+                </div>
             );
-        }
+        }  
         return (
             <div>
             <NavBar />
