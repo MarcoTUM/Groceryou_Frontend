@@ -50,8 +50,9 @@ class ShopSelectionView extends React.Component {
                     <Card  style={cardInListStyle} onClick={() => {this.clickShop(item)}}>
                         <Row gutter={{xs: 8, sm: 16}}>
                             <Col span={6}>
-                                <img width="100%" alt="logo" src={item.image}/>
-                            </Col>
+                                {/*<!---img width="100%" alt="logo" src={item.image}/--->*/}
+                                <img width="100%" alt="logo" src='assets/images/shopCash.svg'/>
+                                                            </Col>
                             <Col span={18}>
                             <Meta
                                 title={item.location}
@@ -83,7 +84,7 @@ class ShopSelectionView extends React.Component {
         const fakeMap = ()=> {
             return(
                 <div>
-                    <img width="100%" src="assets/images/fakemap.png"/>
+                    <img width="100%" src="assets/images/Shop_Cash.svg"/>
                     </div>
             );
         }
