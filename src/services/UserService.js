@@ -11,6 +11,8 @@ export default class UserService {
 
     static baserURL() {return "http://localhost:8080/auth"; }
 
+    static frontEndURL() {return "http://localhost:3000/"}
+
     static register(user,pass) {
         return new Promise((resolve,reject) => {
             HttpService.post(UserService.baserURL() + '/register', {
@@ -18,6 +20,7 @@ export default class UserService {
                 password: pass
             }, (data) => {
                 resolve(data);
+                window.location.assign(UserService.frontEndURL());
             }, (textStatus) => {
                 reject(textStatus);
             });
@@ -31,6 +34,7 @@ export default class UserService {
                 password: pass
             }, (data) => {
                 resolve(data);
+                window.location.assign(UserService.frontEndURL());
             }, (textStatus) => {
                 reject(textStatus);
             });
@@ -40,6 +44,7 @@ export default class UserService {
     static logout(){
         //window.localStorage.removeItem('jwtToken'); //deprecated -> use the auth reducer
         store.dispatch(logout());
+        window.location.assign(UserService.frontEndURL());
     }
 
     static getCurrentUser() {

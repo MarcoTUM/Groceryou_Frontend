@@ -16,8 +16,6 @@ class UserLoginView extends React.Component {
     login(user){
         UserService.login(user.username, user.password).then((data) => {
             store.dispatch(login(user.username,data.token));
-            this.props.history.push('/');
-            window.location.reload();
         }).catch((e) => {
             alert("Incorrect username or password");
             this.setState({
