@@ -1,7 +1,5 @@
 import React from 'react';
 
-import NavBar from '../components/NavBar';
-import SubNavBar from '../components/SubNavBar';
 import UserSignup from "../components/UserSignup";
 import UserService from "../services/UserService";
 import {login} from "../redux/authActions";
@@ -19,6 +17,7 @@ class UserRegisterView extends React.Component {
         UserService.register(user.username, user.password).then((data) => {
             store.dispatch(login(user.username,data.token));
             this.props.history.push('/');
+            window.location.reload();
         }).catch((e) => {
             console.error(e);
             this.setState({
@@ -30,8 +29,6 @@ class UserRegisterView extends React.Component {
     render() {
         return (
             <main>
-                <NavBar />
-                <SubNavBar />
                 <div class="content">
                     <UserSignup
                         onSubmit={(user) => this.register(user)}

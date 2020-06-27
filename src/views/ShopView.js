@@ -1,5 +1,4 @@
 import React from 'react';
-import NavBar from '../components/NavBar';
 import ShoppingPage from '../components/ShoppingPage';
 
 class HomeView extends React.Component {
@@ -12,7 +11,6 @@ class HomeView extends React.Component {
     render(){
         return (
             <div>
-            <NavBar />
             <ShoppingPage />
             </div>
         );

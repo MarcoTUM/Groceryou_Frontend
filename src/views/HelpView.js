@@ -1,6 +1,4 @@
 import React from 'react';
-import NavBar from '../components/NavBar';
-import SubNavBar from '../components/SubNavBar';
 
 class HelpView extends React.Component {
     constructor(props) {
@@ -12,8 +10,6 @@ class HelpView extends React.Component {
     render() {
         return (
             <main>
-                <NavBar />
-                <SubNavBar />
                 <div class="content">
                     Help1
                 </div>

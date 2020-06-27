@@ -1,6 +1,4 @@
 import React from 'react';
-import NavBar from '../components/NavBar';
-import SubNavBar from '../components/SubNavBar';
 import { Row, Col, List, Card, Button} from 'antd';
 import { Link } from 'react-router-dom';
 import { SHOPS } from '../shared/shops';
@@ -90,7 +88,6 @@ class ShopSelectionView extends React.Component {
 
         return (
             <main>
-                <NavBar />
                 <Row>
                     <Col span={0} md={5}  style={sideBarStyle}>
                         {shopList()}

@@ -1,7 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import NavBar from '../components/NavBar';
-import SubNavBar from '../components/SubNavBar';
 import styles from "./AcceptRequestView.module.css"
 
 import { IconContext } from "react-icons";
@@ -49,8 +47,6 @@ class AcceptRequestView extends React.Component {
     render() {
         return (
             <main>
-                <NavBar />
-                <SubNavBar />
                 <div className={styles.row}>
                     <div className={[styles.column, styles.left].join(" ")}>
                         <RequestCard customer={this.state.customer} />

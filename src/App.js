@@ -14,6 +14,8 @@ import AcceptRequestView from './views/AcceptRequestView';
 import CourierView from './views/CourierView';
 import UserLoginView from './views/UserLoginView';
 import UserRegisterView from './views/UserRegisterView';
+import NavBar from "./components/NavBar";
+import SubNavBar from "./components/SubNavBar";
 
 class App extends React.Component {
     constructor(props) {
@@ -26,6 +28,8 @@ class App extends React.Component {
         return (
             <div>
                 <Router>
+                    <NavBar/>
+                    <SubNavBar/>
                     <Switch>
                         <Route exact path="/" exact={true} component={StartpageView} />
                         <Route path="/shopselection" component={ShopSelectionView} />
