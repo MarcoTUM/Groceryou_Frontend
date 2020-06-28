@@ -8,7 +8,7 @@ import {
 
 import StartpageView from './views/HomeView';
 import ShopSelectionView from './views/ShopSelectionView';
-import ShopView from './views/ShopView';
+import ShopSectionView from './views/ShopSectionView';
 import HelpView from './views/HelpView';
 import AcceptRequestView from './views/AcceptRequestView';
 import UserLoginView from './views/UserLoginView';
@@ -28,7 +28,7 @@ class App extends React.Component {
                     <Switch>
                         <Route exact path="/" exact={true} component={StartpageView} />
                         <Route path="/shopselection" component={ShopSelectionView} />
-                        <Route path="/shop" component={ShopView}/>
+                        <Route path="/shopsection" component={ShopSectionView}/>
                         <Route path="/help" component={HelpView} />
                         <Route path="/acceptRequest" component={AcceptRequestView} />
                         <Route path="/login" component={UserLoginView} />

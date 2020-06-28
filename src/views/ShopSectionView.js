@@ -1,14 +1,19 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
 import ShoppingPage from '../components/ShoppingPage';
-import './ShopView.css';
+import './ShopSectionView.css';
 import { Row, Col, List, Card, Button} from 'antd';
 import { Link } from 'react-router-dom';
+import { SHOPS } from '../shared/shops';
+import {gray, darkGreen, lightGreen} from '../shared/colors';
 
+const { Meta } = Card;
 class HomeView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            location: props.location,
+            shops: SHOPS,
         };
 
 
@@ -20,6 +25,30 @@ class HomeView extends React.Component {
       
 
     render(){
+
+        const shopList = ()=>{
+            return (
+                <div>
+                <List
+                bordered = {false}
+                dataSource = {this.state.shops}
+                renderItem={(item) => (
+                    <Card  style={cardInListStyle} onClick={() => {this.clickShop(item)}}>
+                        <Row gutter={{xs: 8, sm: 16}}>
+                            <Col span={6}>
+                                <img width="100%" alt="logo" src={item.image}/>
+                            </Col>
+                            <Col span={18}>
+                            <Meta
+                                title={item.location}
+                                description={item.distance}
+                            />
+                            </Col>
+                        </Row>
+                    </Card>)}/>
+                </div>
+            );
+        }
 
         const shop_Section = ()=>{
             return(
@@ -46,7 +75,7 @@ class HomeView extends React.Component {
                 
                 <NavBar />
                 <Row>
-                    <Col span={4} >
+                <Col span={4}>
                     <div className="SidePanel">
                     side panel
                     </div>
@@ -66,5 +95,10 @@ class HomeView extends React.Component {
 
 
 }
+
+const cardInListStyle = {
+    borderRadius: 16,
+    margin: 16
+};
 
 export default HomeView;

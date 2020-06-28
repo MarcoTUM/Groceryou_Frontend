@@ -1,6 +1,7 @@
 {
   "name": "groceryou_frontend",
   "version": "0.1.0",
+  "proxy": "http://localhost:8080",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
