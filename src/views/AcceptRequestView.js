@@ -12,6 +12,14 @@ import { BsFillPersonFill, BsClock } from "react-icons/bs";
 import { MdEuroSymbol, MdShoppingBasket } from "react-icons/md";
 import RequestCard from '../components/RequestCard';
 
+import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import { Icon } from 'leaflet';
+
+const redMarker = new Icon({
+    iconUrl: require('../img/redMarker.png'),
+    iconSize: [24, 41]
+});
+
 const mapStateToProps = (state) => {
     let data = state.currentRequest;
     return {
@@ -69,7 +77,17 @@ class AcceptRequestView extends React.Component {
                         <RequestCard customer={this.getMrMs() + this.props.customerSurname} />
                         <RequestCard customer={this.getMrMs() + this.props.customerSurname} />
                     </div>
-                    <div className={[styles.column, styles.middle].join(" ")}></div>
+                    <div className={[styles.column, styles.middle].join(" ")}>
+                        <Map center={[48.262473, 11.668891]} zoom={13}>
+                            <TileLayer
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+                            />
+                            <Marker position={[48.262473, 11.668891]} icon={redMarker}>
+                                <Popup>This is the TUM.<br />Best Uni ever!</Popup>
+                            </Marker>
+                        </Map>
+                    </div>
                     <div className={[styles.column, styles.right].join(" ")}>
                         <IconContext.Provider value={{ size: "1.5em", verticalAlign: 'middle' }}>
                             <h3 className={styles.yellowText}><BsFillPersonFill /> {this.getMrMs()} {this.props.customerFullName}</h3>
