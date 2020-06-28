@@ -1,12 +1,7 @@
-"use strict";
-
 import store from "../store";
 import {refresh} from "../redux/authActions";
 
 export default class HttpService{
-    constructor() {
-    }
-
     static apiURL() {return "http://localhost:8080";}
 
     static get(url, onSuccess, onError){

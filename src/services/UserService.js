@@ -1,14 +1,8 @@
-"use strict";
-
 import HttpService from "./HttpService";
 import store from "../store";
 import {logout} from "../redux/authActions";
 
 export default class UserService {
-
-    constructor() {
-    }
-
     static baserURL() {return "http://localhost:8080/auth"; }
 
     static register(user,pass) {

@@ -1,6 +1,5 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
-import SubNavBar from '../components/SubNavBar';
 import {Row, Col, InputGroup, Button, Card} from 'antd';
 import logo from '../img/GroceryouLogo.png';
 import { Input } from 'antd'; 
