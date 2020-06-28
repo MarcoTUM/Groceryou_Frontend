@@ -14,7 +14,7 @@ class HomeView extends React.Component {
 
     }
     
-    shopVegeClicked(){
+    ShopClicked(){
         console.log("shop vege clicked");
     }
       
@@ -24,15 +24,18 @@ class HomeView extends React.Component {
         const shop_Section = ()=>{
             return(
                 <div>
-                    <div className="Section2" onClick={this.shopVegeClicked}>
+                    <div className="Section4" onClick={this.ShopClicked}>
+                    <img src="assets/images/ShopDrink.svg"/>
+                    </div>
+                    <div className="Section2" onClick={this.ShopClicked}>
                     <Link to = "/">
                     <img src="assets/images/ShopFreezer.svg"/>
                     </Link>
                     </div>
-                    <div className="Section" onClick={this.shopVegeClicked}>
+                    <div className="Section" onClick={this.ShopClicked}>
                     <img src="assets/images/ShopVegetable.svg"/>
                     </div>
-                    <div className="Section3" onClick={this.shopVegeClicked}>
+                    <div className="Section3" onClick={this.ShopClicked}>
                     <img src="assets/images/ShopCash.svg"/>
                     </div>
                 </div>

@@ -28,15 +28,13 @@
 }
 
 .Section{
-    margin-top: 0rem;
-    margin-left: 35rem;
-    width: 40%;
+    margin-left: 40rem;
+    width: 30%;
 }
 
 .Section2{
-    margin-top: 5rem;
-    margin-left: 15rem;
-    width: 30%;
+    margin-left: 20rem;
+    width: 25%;
 }
 
 .Section3{
@@ -54,5 +52,8 @@
     transform: scale(1.2);
 }
 .Section3:hover {
+    transform: scale(1.2);
+}
+.Section4:hover {
     transform: scale(1.2);
 }
