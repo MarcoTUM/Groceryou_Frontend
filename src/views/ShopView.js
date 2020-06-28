@@ -30,7 +30,7 @@ class HomeView extends React.Component {
                     </Link>
                     </div>
                     <div className="Section" onClick={this.shopVegeClicked}>
-                    <img src="assets/images/ShopVege2.svg"/>
+                    <img src="assets/images/ShopVegetable.svg"/>
                     </div>
                     <div className="Section3" onClick={this.shopVegeClicked}>
                     <img src="assets/images/ShopCash.svg"/>
