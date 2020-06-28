@@ -50,8 +50,7 @@ class ShopSelectionView extends React.Component {
                     <Card  style={cardInListStyle} onClick={() => {this.clickShop(item)}}>
                         <Row gutter={{xs: 8, sm: 16}}>
                             <Col span={6}>
-                                {/*<!---img width="100%" alt="logo" src={item.image}/--->*/}
-                                <img width="100%" alt="logo" src='assets/images/shopCash.svg'/>
+                                <img width="100%" alt="logo" src={item.image}/>
                                                             </Col>
                             <Col span={18}>
                             <Meta
