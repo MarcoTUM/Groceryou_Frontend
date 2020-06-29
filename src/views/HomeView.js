@@ -1,5 +1,4 @@
 import React from 'react';
-import NavBar from '../components/NavBar';
 import {Row, Col, InputGroup, Button, Card} from 'antd';
 import logo from '../img/GroceryouLogo.png';
 import { Input } from 'antd'; 
@@ -124,7 +123,6 @@ class HomeView extends React.Component {
 
         return (
             <main>
-                <NavBar />
                 {enterLocationBlock()}
                 {howToShop()}
                 {/*dealOfWeek()*/}

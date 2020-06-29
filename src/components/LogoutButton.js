@@ -1,6 +1,5 @@
 import React from "react";
 
-import { Link } from 'react-router-dom';
 import UserService from "../services/UserService";
 import store from "../store";
 
@@ -11,9 +10,7 @@ const LogoutButton = () => {
     return(
         <div className="LoginRegisterButtonDiv">
             <button className="LogoutNameButton">{name}</button>
-            <Link to="/">
-                <button onClick={UserService.logout} className="LoginRegisterButton">Logout</button>
-            </Link>
+            <button onClick={UserService.logout} className="LoginRegisterButton">Logout</button>
         </div>
     );
 };

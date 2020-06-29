@@ -1,6 +1,5 @@
 import React from 'react';
-import NavBar from '../components/NavBar';
-import SubNavBar from '../components/SubNavBar';
+import axios from 'axios';
 import styles from "./AcceptRequestView.module.css"
 
 import { connect } from 'react-redux';
@@ -69,8 +68,6 @@ class AcceptRequestView extends React.Component {
     render() {
         return (
             <main>
-                <NavBar />
-                <SubNavBar />
                 <div className={styles.row}>
                     <div className={[styles.column, styles.left].join(" ")}>
                         <RequestCard customer={this.getMrMs() + this.props.customerSurname} />
