@@ -1,5 +1,3 @@
-"use strict";
-
 import React from 'react';
 import CredentialsForm from "./CredentialsForm";
 import {Button} from "antd";

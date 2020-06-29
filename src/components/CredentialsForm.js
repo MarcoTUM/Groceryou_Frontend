@@ -1,5 +1,3 @@
-"use strict";
-
 import React from 'react';
 import {Form, Input, Button, Checkbox} from 'antd';
 import styles from './CredentialsForm.module.css'
