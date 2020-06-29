@@ -37,13 +37,22 @@ export default class UserService {
 
     static logout(){
         //window.localStorage.removeItem('jwtToken'); //deprecated -> use the auth reducer
-        store.dispatch(logout());
-        window.location.assign(UserService.frontEndURL());
+        return new Promise((resolve, reject) => {
+            HttpService.get(UserService.baserURL() + '/logout', (data) => {
+                store.dispatch(logout());
+                window.location.assign(UserService.frontEndURL());
+                resolve(data)
+            }, (statusText) => {
+                reject(statusText)
+            });
+        });
+
     }
 
     static getCurrentUser() {
-        let token = window.localStorage['jwtToken'];
-        if(!token) return {};
+        // let token = window.localStorage['jwtToken']; //deprecated
+        let token = store.getState().auth.token;
+        if(!token || token === 'null' || token === null) return {};
 
         let base64Url = token.split('.')[1];
         let base64 = base64Url.replace('-','+').replace('_','/');
@@ -56,5 +65,15 @@ export default class UserService {
     static isAuthenticated(){
         // return window.localStorage['jwtToken']; //deprecated -> use the auth reducer
         return store.getState().auth.token !== null && store.getState().auth.token !== 'null';
+    }
+
+    static isCourier() {
+        return new Promise((resolve, reject) => {
+            HttpService.get(UserService.baserURL() + '/amICourier',(data) =>{
+                resolve(data)
+            }, (textStatus) => {
+                reject(textStatus)
+            });
+        });
     }
 }
