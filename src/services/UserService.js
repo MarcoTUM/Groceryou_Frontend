@@ -69,7 +69,9 @@ export default class UserService {
 
     static isCourier() {
         return new Promise((resolve, reject) => {
-            HttpService.get(UserService.baserURL() + '/amICourier',(data) =>{
+            HttpService.post(UserService.baserURL() + '/amICourier',{
+                id: UserService.getCurrentUser().id
+            },(data) =>{
                 resolve(data)
             }, (textStatus) => {
                 reject(textStatus)
