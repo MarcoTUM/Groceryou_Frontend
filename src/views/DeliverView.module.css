@@ -1,0 +1,36 @@
+
+.content{
+    padding: 50px;
+    background: #d9d9d9;
+    height: 720px;
+}
+
+.itemList {
+    float: left;
+    padding: 10px;
+    margin-left: 10px;
+    width: 1100px;
+    text-align: center;
+    font-weight: bold;
+    background: white;
+    color: white;
+    height: 500px;
+
+}
+
+.replacement{
+    float: right;
+    padding: 10px;
+    margin-right: 10px;
+    width: 600px;
+    text-align: center;
+    background: white;
+    color: white;
+    height: 500px;
+}
+
+.title{
+    background: #036635;
+    color: white;
+    font-weight: bold;
+}
