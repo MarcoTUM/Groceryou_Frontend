@@ -11,7 +11,7 @@ class SubNavBar extends React.Component {
 
     render() {
         return (
-            <div class="subnav">
+            <div className="subnav">
                 {this.props.children}
             </div>
         );

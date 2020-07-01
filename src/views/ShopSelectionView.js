@@ -1,13 +1,24 @@
 import React from 'react';
-import NavBar from '../components/NavBar';
-import SubNavBar from '../components/SubNavBar';
 import { Row, Col, List, Card, Button} from 'antd';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { SHOPS } from '../shared/shops';
-import {gray, darkGreen, lightGreen} from '../shared/colors';
+import {darkGreen} from '../shared/colors';
+import {fetchShops} from '../redux/shopsOnMapActions';
+import {setCurrentShop} from '../redux/currentShopActions';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { FieldTimeOutlined, EuroOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
+
+const mapStateToProps = state => ({
+    shops: state.shops,
+    currentShop: state.currentShop
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    fetchShops: () => {dispatch(fetchShops())},
+    setCurrentShop: (currentShop)=> {dispatch(setCurrentShop(currentShop))}
+});
 
 class ShopSelectionView extends React.Component {
     constructor(props) {
@@ -18,10 +29,12 @@ class ShopSelectionView extends React.Component {
             selectedShop: null,
             estimatedTime: null
         };
+
+        this.enterShop = this.enterShop.bind(this);
     }
 
-    callback(key) {
-        console.log(key);
+    componentDidMount(){
+        this.props.fetchShops();
     }
 
     getDeliveryTime(){
@@ -35,33 +48,44 @@ class ShopSelectionView extends React.Component {
             estimatedTime: this.getDeliveryTime()
             }
         )
-        console.log(item);
+    }
+
+    enterShop(){
+        if(this.state.selectedShop!=null){
+            this.props.setCurrentShop(this.state.selectedShop);
+            this.props.history.push('/shop');
+        }
     }
 
     render() {
 
         const shopList = ()=>{
-            return (
-                <div>
-                <List
-                bordered = {false}
-                dataSource = {this.state.shops}
-                renderItem={(item) => (
-                    <Card  style={cardInListStyle} onClick={() => {this.clickShop(item)}}>
-                        <Row gutter={{xs: 8, sm: 16}}>
-                            <Col span={6}>
-                                <img width="100%" alt="logo" src={item.image}/>
-                            </Col>
-                            <Col span={18}>
-                            <Meta
-                                title={item.location}
-                                description={item.distance}
-                            />
-                            </Col>
-                        </Row>
-                    </Card>)}/>
-                </div>
-            );
+            
+            if(this.props.shops.loading){
+                return(<LoadingSpinner/>);
+            } else {
+                return (
+                    <div>
+                    <List
+                    bordered = {false}
+                    dataSource = {this.props.shops.shops}
+                    renderItem={(item) => (
+                        <Card  key = {item._id} style={cardInListStyle} onClick={() => {this.clickShop(item)}}>
+                            <Row gutter={{xs: 8, sm: 16}}>
+                                <Col span={6}>
+                                    <img width="100%" alt="logo" src={item.icon}/>
+                                </Col>
+                                <Col span={18}>
+                                <Meta
+                                    title={item.address}
+                                    //description={item.distance}
+                                />
+                                </Col>
+                            </Row>
+                        </Card>)}/>
+                    </div>
+                );
+            }
         }
 
         const shopDetail = () => {
@@ -72,7 +96,7 @@ class ShopSelectionView extends React.Component {
                     <p style = {yellowBold}><EuroOutlined/>Minimum Order Price</p>
                     {this.state.selectedShop?(<p style = {yellow}> {this.state.selectedShop.minimumPrice} €</p>):''}
                     <p style = {{textAlign: 'right'}}>
-                    <Button shape="round" style={{ background: "yellow", borderColor: 'yellow'}}>
+                    <Button shape="round" style={{ background: "yellow", borderColor: 'yellow'}} onClick={this.enterShop}>
                         Enter Shop
                     </Button>
                     </p>
@@ -90,7 +114,6 @@ class ShopSelectionView extends React.Component {
 
         return (
             <main>
-                <NavBar />
                 <Row>
                     <Col span={0} md={4}  style={sideBarStyle}>
                         {shopList()}
@@ -133,4 +156,4 @@ const yellow = {
     textAlign:"right"
 }
 
-export default ShopSelectionView;
+export default connect(mapStateToProps, mapDispatchToProps)(ShopSelectionView);

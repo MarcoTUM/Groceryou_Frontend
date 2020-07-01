@@ -64,3 +64,18 @@ button.LoginRegisterButton:hover {
     background-color: white;
     cursor: pointer;
 }
+
+button.LogoutNameButton {
+    /* Formatting Colors & Shape*/
+    color: black;
+    background-color: white;
+    border-color: darkgray;
+    border-radius: 10px;
+    height: 50px;
+    width: 200px;
+
+    /* Formatting Text */
+    font-size: 1em;
+    font-weight: bold;
+}
+

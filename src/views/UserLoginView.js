@@ -1,7 +1,9 @@
 import React from 'react';
 
-import NavBar from '../components/NavBar';
-import SubNavBar from '../components/SubNavBar';
+import UserLogin from "../components/UserLogin";
+import UserService from "../services/UserService";
+import {login} from "../redux/authActions";
+import store from "../store";
 
 class UserLoginView extends React.Component {
     constructor(props) {
@@ -11,13 +13,25 @@ class UserLoginView extends React.Component {
         };
     }
 
+    login(user){
+        UserService.login(user.username, user.password).then((data) => {
+            store.dispatch(login(user.username,data.token));
+        }).catch((e) => {
+            alert("Incorrect username or password");
+            this.setState({
+                error: e
+            });
+        });
+    }
+
     render() {
         return (
             <main>
-                <NavBar />
-                <SubNavBar />
                 <div class="content">
-                    <h2>Login</h2>
+                    <UserLogin
+                        onSubmit={(user) => this.login(user)}
+                        error={this.state.error}
+                    />
                 </div>
             </main>
         );

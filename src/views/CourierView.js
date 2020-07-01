@@ -1,9 +1,12 @@
 import React from 'react';
+import CourierHome from "../components/CourierHome";
+import {Button} from "antd";
 
-class HelpView extends React.Component {
+class CourierView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            title: "Groceryou",
         };
     }
 
@@ -11,11 +14,11 @@ class HelpView extends React.Component {
         return (
             <main>
                 <div class="content">
-                    Help1
+                    <CourierHome />
                 </div>
             </main>
         );
     }
 }
 
-export default HelpView;
+export default CourierView;
