@@ -13,6 +13,8 @@ import HelpView from './views/HelpView';
 import AcceptRequestView from './views/AcceptRequestView';
 import UserLoginView from './views/UserLoginView';
 import UserRegisterView from './views/UserRegisterView';
+import CheckoutView from './views/CheckoutView';
+import Checkout from './components/CheckoutPage';
 
 class App extends React.Component {
     constructor(props) {
@@ -33,6 +35,7 @@ class App extends React.Component {
                         <Route path="/acceptRequest" component={AcceptRequestView} />
                         <Route path="/login" component={UserLoginView} />
                         <Route path="/register" component={UserRegisterView} />
+                        <Route path="/checkout" component={CheckoutView} />
                     </Switch>
                 </Router>
             </div>
