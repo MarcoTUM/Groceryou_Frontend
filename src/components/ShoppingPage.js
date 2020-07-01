@@ -2,7 +2,7 @@ import React from 'react';
 import './ShoppingPage.css';
 import {Row, Col, Button, List, Card} from 'antd';
 import { connect } from 'react-redux';
-import {fetchShops} from '../redux/shopsOnMapActions';
+import ShoppingCart from './ShoppingCart';
 import {addToCart, removeFromCart} from '../redux/cartActions';
 import { ShoppingCartOutlined,FieldTimeOutlined, EuroOutlined} from '@ant-design/icons';
 
@@ -29,10 +29,12 @@ class ShoppingPage extends React.Component {
 
         this.showItemList = this.showItemList.bind(this);
         this.hideItemList = this.hideItemList.bind(this);
+        this.checkoutHandler = this.checkoutHandler.bind(this);
     }
 
     checkoutHandler() {
-        this.props.history.push("/signin?redirect=shipping")
+        this.props.history.push('/checkout');
+        //this.props.history.push("/signin?redirect=shipping")
     }
 
     showItemList(category){
@@ -113,7 +115,7 @@ class ShoppingPage extends React.Component {
                     
                 {/*<h3>{this.props.cart.cartItems.reduce((a,c) => a+c.product.price*c.qty, 0)} €</h3>*/}
                 {<h3>{this.props.cart.price} €</h3>}
-                <Button className="button primary" disabled={this.props.cart.cartItems.length === 0} onClick={()=>this.checkoutHandler()}>
+                <Button className="button primary" disabled={this.props.cart.cartItems.length === 0} onClick={this.checkoutHandler}>
                     Proceed to Checkout
                 </Button>
             </div>
@@ -163,7 +165,10 @@ class ShoppingPage extends React.Component {
                         
                     </Col>
                     <Col span={4} className="side-bar">
-                        {shoppingCart()}
+                        <ShoppingCart/>
+                        <Button className="button primary" disabled={this.props.cart.cartItems.length === 0} onClick={this.checkoutHandler}>
+                            Proceed to Checkout
+                        </Button>
                     </Col>
                     {floatingItemList()}
                 </Row>                      

@@ -27,5 +27,4 @@ function cartReducer(state={price: 0, cartItems: []}, action){
             return state;          
     }
 }
-
 export {cartReducer}

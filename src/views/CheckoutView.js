@@ -13,8 +13,6 @@ class CheckoutView extends React.Component {
     render() {
         return (
             <main>
-                <NavBar />
-                <SubNavBar />
                 <CheckoutPage/>
             </main>
         );
