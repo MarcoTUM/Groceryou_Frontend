@@ -37,9 +37,9 @@ export default class UserService {
 
     static logout(){
         //window.localStorage.removeItem('jwtToken'); //deprecated -> use the auth reducer
+        store.dispatch(logout());
         return new Promise((resolve, reject) => {
             HttpService.get(UserService.baserURL() + '/logout', (data) => {
-                store.dispatch(logout());
                 window.location.assign(UserService.frontEndURL());
                 resolve(data)
             }, (statusText) => {

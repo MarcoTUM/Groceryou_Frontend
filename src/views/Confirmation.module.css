@@ -5,6 +5,10 @@
     height: 720px;
 }
 
+.listContainer{
+    height: 580px;
+}
+
 .itemList {
     float: left;
     padding: 10px;
@@ -33,4 +37,12 @@
     background: #036635;
     color: white;
     font-weight: bold;
+}
+
+.backButtonContainer{
+    margin-left: 10px;
+}
+
+.itemListHeader{
+    column-count: 4;
 }
