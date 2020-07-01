@@ -43,6 +43,17 @@
     margin-left: 10px;
 }
 
+.backButton{
+    background: #ffdb00;
+    border-radius: 40px;
+    font-size: 24px;
+    padding: 8px 32px;
+    color: black;
+    font-weight: bold;
+}
+
 .itemListHeader{
     column-count: 4;
+    color: black;
+    align-items: start;
 }

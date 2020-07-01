@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Confirmation.module.css';
 import { Link } from 'react-router-dom';
+import ConfirmationItemList from '../components/ConfirmationItemList';
 
 class Confirmation extends React.Component {
     constructor(props) {
@@ -37,22 +38,6 @@ class Confirmation extends React.Component {
         }
     }
 
-    componentDidMount() {
-
-
-        let itemNames = [];
-        // console.log(this.state.mock_items)
-        for(let item in this.state.mock_items)
-            itemNames.push(this.state.mock_items[item].name);
-        //     console.log(this.state.mock_items[item]);
-        const nameList = itemNames.map((itemNames) =>
-            <li>{itemNames}</li>
-        );
-        this.setState({
-            nameList: nameList
-        });
-    }
-
     render() {
         return (
             <main>
@@ -63,6 +48,8 @@ class Confirmation extends React.Component {
                             <div className={styles.itemListHeader}>
                                 <div>
                                     <h2>Product</h2>
+                                    {/*<ul>{this.state.nameList}</ul>*/}
+                                    {/*<ConfirmationItemList items={this.state.mock_items}></ConfirmationItemList>*/}
                                 </div>
                                 <div>
                                     <h2>Amount</h2>
@@ -74,16 +61,9 @@ class Confirmation extends React.Component {
                                     <h2>Purchased</h2>
                                 </div>
                             </div>
-                            <div>
-                                <ul>{this.state.nameList}</ul>
-                                {/*<ul>*/}
-                                {/*    <li>item1</li>*/}
-                                {/*    <li>item2</li>*/}
-                                {/*    <li>item3</li>*/}
-                                {/*    <li>item4</li>*/}
-                                {/*    <li>item5</li>*/}
-                                {/*</ul>*/}
-                            </div>
+                            <ConfirmationItemList
+                                items={this.state.mock_items}
+                            />
                         </div>
 
                         <div className={styles.replacement}>
@@ -92,7 +72,7 @@ class Confirmation extends React.Component {
                     </div>
                     <div className={styles.backButtonContainer}>
                         <Link to='/AcceptRequest'>
-                            <button>Back</button>
+                            <button className={styles.backButton}>Back to map</button>
                         </Link>
                     </div>
                 </div>

@@ -1,0 +1,21 @@
+.content{
+    column-count: 4;
+}
+
+.vButton{
+    background: #b9b9b9;
+    color: green;
+    border-radius: 15px;
+    font-size: 16px;
+    padding: 4px 24px;
+    margin-right: 10px;
+}
+
+.xButton{
+    background: #b9b9b9;
+    color: red;
+    border-radius: 15px;
+    font-size: 16px;
+    padding: 4px 24px;
+    margin-left: 10px;
+}
