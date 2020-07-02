@@ -5,7 +5,8 @@ export default class HttpService{
     static apiURL() {return "http://localhost:8080";}
 
     static get(url, onSuccess, onError){
-        let token = window.localStorage['jwtToken'];
+        // let token = window.localStorage['jwtToken']; // deprecated
+        let token = store.getState().auth.token;
         let header = new Headers();
         if(token){
             header.append('Authorization', 'JWT ' + token);
@@ -16,7 +17,7 @@ export default class HttpService{
             headers: header
         }).then((resp) => {
             if(this.checkIfUnauthorized(resp)){
-                if(window.location.pathname != '/login')
+                if(window.location.pathname !== '/login')
                     window.location = "/login";
             }
             else{
@@ -52,7 +53,7 @@ export default class HttpService{
             body: JSON.stringify(data)
         }).then((resp) => {
             if(this.checkIfUnauthorized(resp)){
-                if(window.location.pathname != '/login')
+                if(window.location.pathname !== '/login')
                     window.location = "/login";
                 return;
             }
@@ -89,7 +90,7 @@ export default class HttpService{
             body: JSON.stringify(data)
         }).then((resp) => {
             if(this.checkIfUnauthorized(resp)) {
-                if(window.location.pathname != '/login')
+                if(window.location.pathname !== '/login')
                     window.location = "/login";
                 return;
             }
@@ -124,7 +125,7 @@ export default class HttpService{
             headers: header
         }).then((resp) => {
             if(this.checkIfUnauthorized(resp)){
-                if(window.location.pathname != '/login')
+                if(window.location.pathname !== '/login')
                     window.location = "/login";
                 return;
             }

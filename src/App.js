@@ -16,6 +16,7 @@ import UserLoginView from './views/UserLoginView';
 import UserRegisterView from './views/UserRegisterView';
 import NavBar from "./components/NavBar";
 import SubNavBar from "./components/SubNavBar";
+import Confirmation from "./views/Confirmation";
 
 class App extends React.Component {
     constructor(props) {
@@ -39,6 +40,7 @@ class App extends React.Component {
                         <Route path="/courier" component={CourierView} />
                         <Route path="/login" component={UserLoginView} />
                         <Route path="/register" component={UserRegisterView} />
+                        <Route path="/confirmation" component={Confirmation} />
                     </Switch>
                 </Router>
             </div>
