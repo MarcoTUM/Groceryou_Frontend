@@ -10,6 +10,7 @@ class ConfirmationItemList extends React.Component{
                 <ConfirmationItem
                     name = {this.props.items[item].name}
                     amount={this.props.items[item].amount}
+                    unitType={this.props.items[item].unitType}
                     price={this.props.items[item].unitPrice * this.props.items[item].amount}
                 />
                 );

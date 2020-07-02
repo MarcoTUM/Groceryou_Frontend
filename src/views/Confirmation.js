@@ -7,117 +7,35 @@ class Confirmation extends React.Component {
     constructor(props) {
         super(props);
         this.state={
-            mock_items: {
-                apple: {
-                    name: 'Apple',
+            mock_items: [
+                {
+                    name: "Apple",
                     amount: 3,
-                    unitPrice: 0.5
+                    unitType:"",
+                    unitPrice: 0.5,
                 },
-                toast: {
-                    name: 'Toast',
+                {
+                    name: "Toast",
                     amount: 1,
-                    unitPrice: 1
+                    unitType:"",
+                    unitPrice: 1,
                 },
-                pringlesOnion: {
+                {
                     name: "Pringles Onion",
                     amount: 2,
-                    unitPrice: 2.25
+                    unitType:"",
+                    unitPrice: 4.5/2,
                 },
-                bioEggs10Pack: {
-                    name: "Bio Eggs 10 pack",
-                    amount: 2,
-                    unitPrice: 2.75
-                },
-                porkBelly: {
+                {
                     name: "Pork Belly",
                     amount: 500,
-                    amountType:"gram",
-                    unitPrice: 0.007
+                    unitType:"g",
+                    unitPrice: 3.5/500,
                 },
-                apple1: {
-                    name: 'Apple',
-                    amount: 3,
-                    unitPrice: 0.5
-                },
-                toast2: {
-                    name: 'Toast',
-                    amount: 1,
-                    unitPrice: 1
-                },
-                pringlesOnion2: {
-                    name: "Pringles Onion",
-                    amount: 2,
-                    unitPrice: 2.25
-                },
-                bioEggs10Pack2: {
-                    name: "Bio Eggs 10 pack",
-                    amount: 2,
-                    unitPrice: 2.75
-                },
-                porkBelly2: {
-                    name: "Pork Belly",
-                    amount: 500,
-                    amountType:"gram",
-                    unitPrice: 0.007
-                },
-                apple3: {
-                    name: 'Apple',
-                    amount: 3,
-                    unitPrice: 0.5
-                },
-                toast3: {
-                    name: 'Toast',
-                    amount: 1,
-                    unitPrice: 1
-                },
-                pringlesOnion3: {
-                    name: "Pringles Onion",
-                    amount: 2,
-                    unitPrice: 2.25
-                },
-                bioEggs10Pack3: {
-                    name: "Bio Eggs 10 pack",
-                    amount: 2,
-                    unitPrice: 2.75
-                },
-                porkBelly4: {
-                    name: "Pork Belly",
-                    amount: 500,
-                    amountType:"gram",
-                    unitPrice: 0.007
-                },
-                porkBelly5: {
-                    name: "Pork Belly",
-                    amount: 500,
-                    amountType:"gram",
-                    unitPrice: 0.007
-                },
-                porkBelly6: {
-                    name: "Pork Belly",
-                    amount: 500,
-                    amountType:"gram",
-                    unitPrice: 0.007
-                },
-                porkBelly7: {
-                    name: "Pork Belly",
-                    amount: 500,
-                    amountType:"gram",
-                    unitPrice: 0.007
-                },
-                porkBelly8: {
-                    name: "Pork Belly",
-                    amount: 500,
-                    amountType:"gram",
-                    unitPrice: 0.007
-                },
-                porkBelly9: {
-                    name: "Pork Belly",
-                    amount: 500,
-                    amountType:"gram",
-                    unitPrice: 0.007
-                },
-            }
+            ]
         }
+
+
     }
 
     render() {
@@ -135,7 +53,7 @@ class Confirmation extends React.Component {
                                     <h2>Amount</h2>
                                 </div>
                                 <div>
-                                    <h2>Price</h2>
+                                    <h2>Price €</h2>
                                 </div>
                                 <div>
                                     <h2>Purchased</h2>
