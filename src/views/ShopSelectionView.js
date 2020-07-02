@@ -1,9 +1,9 @@
 import React from 'react';
 import { Row, Col, List, Card, Button} from 'antd';
-import { Link } from 'react-router-dom';
+/* import { Link } from 'react-router-dom'; */
 import { SHOPS } from '../shared/shops';
-import {gray, darkGreen, lightGreen} from '../shared/colors';
-import { FieldTimeOutlined, BoldOutlined } from '@ant-design/icons';
+import {darkGreen /* , gray,  lightGreen */} from '../shared/colors';
+import { FieldTimeOutlined /* , BoldOutlined */ } from '@ant-design/icons';
 
 const { Meta } = Card;
 
@@ -81,7 +81,7 @@ class ShopSelectionView extends React.Component {
         const fakeMap = ()=> {
             return(
                 <div>
-                    <img width="100%" src="assets/images/fakemap.png"/>
+                    <img width="100%" src="assets/images/fakemap.png" alt="fakemap" />
                     </div>
             );
         }

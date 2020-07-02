@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './SubNavBar.css';
+import styles from './SubNavBar.module.css';
 
 class SubNavBar extends React.Component {
     constructor(props) {
@@ -11,7 +11,7 @@ class SubNavBar extends React.Component {
 
     render() {
         return (
-            <div class="subnav">
+            <div className={styles.subnav}>
                 {this.props.children}
             </div>
         );

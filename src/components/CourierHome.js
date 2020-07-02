@@ -28,11 +28,11 @@ class CourierHome extends React.Component{
                 <Layout>
                     <Header/>
                     <Sider>
-                        <a>Requests listed here</a>
+                        Requests listed here
                         <Button>Enter A request</Button>
                     </Sider>
                     <Content>
-                        <img id='mapMock' src={MockMap}/>
+                        <img id='mapMock' src={MockMap} alt="mapMock" />
                     </Content>
                     <Footer/>
                 </Layout>

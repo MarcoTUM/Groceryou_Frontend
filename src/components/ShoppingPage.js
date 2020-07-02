@@ -1,12 +1,12 @@
 import React from 'react';
 import './ShoppingPage.css';
-import data from '../shared/data';
+/* import data from '../shared/data'; */
 import { Row, Col, Button, List, Card } from 'antd';
-import axios from 'axios';
-import { useSelector, useDispatch, connect } from 'react-redux';
+/* import axios from 'axios'; */
+import { /* useSelector, useDispatch,  */ connect } from 'react-redux';
 import { listProduct } from '../redux/productActions';
 import { addToCart, removeFromCart } from '../redux/cartActions';
-import { withRouter } from 'react-router-dom';
+/* import { withRouter } from 'react-router-dom'; */
 import { ShoppingCartOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
