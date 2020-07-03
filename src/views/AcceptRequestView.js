@@ -4,11 +4,14 @@ import styles from "./AcceptRequestView.module.css"
 import { connect } from 'react-redux';
 import { fetchCurrentRequest } from '../redux/currentRequestActions';
 import { fetchAcceptedRequests } from '../redux/acceptedRequestActions';
+import { fetchCustomers } from '../redux/customerActions';
 
 import { IconContext } from "react-icons";
 import { BsFillPersonFill, BsClock } from "react-icons/bs";
 import { MdEuroSymbol, MdShoppingBasket } from "react-icons/md";
 import RequestCard from '../components/RequestCard';
+
+import { Spin } from "antd";
 
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 import { Icon } from 'leaflet';
@@ -19,37 +22,47 @@ const redMarker = new Icon({
 });
 
 const mapStateToProps = (state) => {
-    let data = state.currentRequest;
-    return {
-        customerFullName: [data.name, data.surname].join(" "),
-        customerSurname: data.surname,
-        gender: data.gender,
-        street: data.street,
-        PLZ: data.PLZ,
-        city: data.city,
-        commission: data.commission,
-        amountOfItems: data.amountOfItems,
-        desiredDeliveryTimeStart: data.desiredDeliveryTimeStart,
-        desiredDeliveryTimeEnd: data.desiredDeliveryTimeEnd
+    let currentRequest = state.currentRequest;
+    let customersList = state.customersList;
+    let acceptedRequests = state.acceptedRequests;
+
+    if (currentRequest.loading || acceptedRequests.loading || customersList.loading) {
+        return {
+            loading: true
+        }
+    }
+    else {
+        let currentRequestData = currentRequest.currentRequestData;
+        let acceptedRequestsData = acceptedRequests.acceptedRequestsData;
+        let customersListData = customersList.customersListData["0"];
+        
+        return {
+            customerFullName: [customersListData.name, customersListData.surname].join(" "),
+            customerSurname: customersListData.surname,
+            gender: customersListData.gender,
+            street: customersListData.street,
+            PLZ: customersListData.PLZ,
+            city: customersListData.city,
+            commission: currentRequestData.commission,
+            amountOfItems: currentRequestData.itemList.length,
+            desiredDeliveryTimeStart: currentRequestData.desiredDeliveryTimeStart,
+            desiredDeliveryTimeEnd: currentRequestData.desiredDeliveryTimeEnd,
+            acceptedRequest0: {id: acceptedRequestsData["0"]["_id"], customerID: acceptedRequestsData["0"]["customerID"]},
+            acceptedRequest1: {id: acceptedRequestsData["1"]["_id"], customerID: acceptedRequestsData["1"]["customerID"]},
+            acceptedRequest2: {id: acceptedRequestsData["2"]["_id"], customerID: acceptedRequestsData["2"]["customerID"]}
+        }
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchCurrentRequest: () => { dispatch(fetchCurrentRequest()) },
-        fetchAcceptedRequests: () => { dispatch(fetchAcceptedRequests()) }
+        fetchAcceptedRequests: () => { dispatch(fetchAcceptedRequests()) },
+        fetchCustomers: () => { dispatch(fetchCustomers()) }
     }
 }
 
 class AcceptRequestView extends React.Component {
-    /*
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    */
-
     getMrMs() {
         if (this.props.gender === "male")
             return "Mr. ";
@@ -62,16 +75,20 @@ class AcceptRequestView extends React.Component {
     componentDidMount() {
         this.props.fetchCurrentRequest();
         this.props.fetchAcceptedRequests();
+        this.props.fetchCustomers();
     }
 
     render() {
+        // If the page is still loading display a loading spinner
+        if (this.props.loading)
+            return <Spin />;
         return (
             <main>
                 <div className={styles.row}>
                     <div className={[styles.column, styles.left].join(" ")}>
-                        <RequestCard customer={this.getMrMs() + this.props.customerSurname} />
-                        <RequestCard customer={this.getMrMs() + this.props.customerSurname} />
-                        <RequestCard customer={this.getMrMs() + this.props.customerSurname} />
+                        <RequestCard customer={this.getMrMs() + this.props.acceptedRequest0.id} />
+                        <RequestCard customer={this.getMrMs() + this.props.acceptedRequest1.id} />
+                        <RequestCard customer={this.getMrMs() + this.props.acceptedRequest2.id} />
                     </div>
                     <div className={[styles.column, styles.middle].join(" ")}>
                         <Map center={[48.262473, 11.668891]} zoom={13}>
