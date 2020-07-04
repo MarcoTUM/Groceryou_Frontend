@@ -8,7 +8,8 @@ import Axios from 'axios';
 const fetchCustomers = () => async (dispatch) => {
     dispatch(fetchCustomersStarted());
     try {
-        const customerRequest = await Axios.get("/customer");
+        const customerRequest = await Axios.get("/users");
+        // TODO: Filter for customers, exclude couriers
         dispatch(fetchCustomersSuccess(customerRequest.data));
     } catch (error) {
         dispatch(fetchCustomersFailure(error.message));

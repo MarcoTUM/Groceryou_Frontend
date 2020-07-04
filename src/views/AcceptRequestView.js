@@ -34,22 +34,23 @@ const mapStateToProps = (state) => {
     else {
         let currentRequestData = currentRequest.currentRequestData;
         let acceptedRequestsData = acceptedRequests.acceptedRequestsData;
-        let customersListData = customersList.customersListData["0"];
+        let userData = customersList.customersListData["0"].userData;
         
         return {
-            customerFullName: [customersListData.name, customersListData.surname].join(" "),
-            customerSurname: customersListData.surname,
-            gender: customersListData.gender,
-            street: customersListData.street,
-            PLZ: customersListData.PLZ,
-            city: customersListData.city,
+            customerFullName: [userData.name, userData.surname].join(" "),
+            customerSurname: userData.surname,
+            phoneNumber: userData.phoneNumber,
+            street: userData.address.street,
+            PLZ: userData.address.PLZ,
+            city: userData.address.city,
+            houseNr: userData.address.houseNr,
             commission: currentRequestData.commission,
             amountOfItems: currentRequestData.itemList.length,
             desiredDeliveryTimeStart: currentRequestData.desiredDeliveryTimeStart,
             desiredDeliveryTimeEnd: currentRequestData.desiredDeliveryTimeEnd,
-            acceptedRequest0: {id: acceptedRequestsData["0"]["_id"], customerID: acceptedRequestsData["0"]["customerID"]},
-            acceptedRequest1: {id: acceptedRequestsData["1"]["_id"], customerID: acceptedRequestsData["1"]["customerID"]},
-            acceptedRequest2: {id: acceptedRequestsData["2"]["_id"], customerID: acceptedRequestsData["2"]["customerID"]}
+            acceptedRequest0: {id: acceptedRequestsData["0"]["_id"], userID: acceptedRequestsData["0"]["userID"]},
+            acceptedRequest1: {id: acceptedRequestsData["1"]["_id"], userID: acceptedRequestsData["1"]["userID"]},
+            acceptedRequest2: {id: acceptedRequestsData["2"]["_id"], userID: acceptedRequestsData["2"]["userID"]}
         }
     }
 }
@@ -63,15 +64,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class AcceptRequestView extends React.Component {
-    getMrMs() {
-        if (this.props.gender === "male")
-            return "Mr. ";
-        else if (this.props.gender === "female")
-            return "Ms. ";
-        else
-            return "";
-    }
-
     componentDidMount() {
         this.props.fetchCurrentRequest();
         this.props.fetchAcceptedRequests();
@@ -86,9 +78,9 @@ class AcceptRequestView extends React.Component {
             <main>
                 <div className={styles.row}>
                     <div className={[styles.column, styles.left].join(" ")}>
-                        <RequestCard customer={this.getMrMs() + this.props.acceptedRequest0.id} />
-                        <RequestCard customer={this.getMrMs() + this.props.acceptedRequest1.id} />
-                        <RequestCard customer={this.getMrMs() + this.props.acceptedRequest2.id} />
+                        <RequestCard customer={this.props.acceptedRequest0.userID} />
+                        <RequestCard customer={this.props.acceptedRequest1.userID} />
+                        <RequestCard customer={this.props.acceptedRequest2.userID} />
                     </div>
                     <div className={[styles.column, styles.middle].join(" ")}>
                         <Map center={[48.262473, 11.668891]} zoom={13}>
@@ -103,7 +95,7 @@ class AcceptRequestView extends React.Component {
                     </div>
                     <div className={[styles.column, styles.right].join(" ")}>
                         <IconContext.Provider value={{ size: "1.5em", verticalAlign: 'middle' }}>
-                            <h3 className={styles.yellowText}><BsFillPersonFill /> {this.getMrMs()} {this.props.customerFullName}</h3>
+                            <h3 className={styles.yellowText}><BsFillPersonFill /> {this.props.customerFullName}</h3>
                             {this.props.street}
                             <h3 className={styles.yellowText}><MdEuroSymbol /> Commission </h3>
                             {this.props.commission}€
