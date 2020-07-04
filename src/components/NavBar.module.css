@@ -45,7 +45,7 @@ nav a:hover {
     color: orange;
 }
 
-button.LoginRegisterButton {
+.LoginRegisterButton {
     /* Formatting Colors & Shape*/
     color: white;
     background-color: #036635;
@@ -59,13 +59,13 @@ button.LoginRegisterButton {
     font-weight: bold;
 }
 
-button.LoginRegisterButton:hover {
+.LoginRegisterButton:hover {
     color: orange;
     background-color: white;
     cursor: pointer;
 }
 
-button.LogoutNameButton {
+.LogoutNameButton {
     /* Formatting Colors & Shape*/
     color: black;
     background-color: white;

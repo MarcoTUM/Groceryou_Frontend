@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Col, InputGroup, Button, Card} from 'antd';
+import {Row, Col, Button, Card} from 'antd';
 import logo from '../img/GroceryouLogo.png';
 import { Input } from 'antd'; 
 import { darkGreen, lightGreen } from '../shared/colors';
@@ -86,11 +86,13 @@ class HomeView extends React.Component {
             </div>   
         );
 
+        /*
         const dealOfWeek = () => (
             <div style={blockContainer} align="middle" justify="middle">                            
                     <p style={greenBold}>dealOfWeek</p>                                                            
             </div>                
         );
+        */
 
         const courierApply = () => (
             <div>                

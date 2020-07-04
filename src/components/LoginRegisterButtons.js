@@ -1,15 +1,16 @@
 import React from "react";
 
 import { Link } from 'react-router-dom';
+import styles from './NavBar.module.css';
 
 const LoginRegisterButtons = () => {
     return(
-        <div className="LoginRegisterButtonDiv">
+        <div className={styles.LoginRegisterButtonDiv}>
             <Link to="/login">
-                <button className="LoginRegisterButton">Login</button>
+                <button className={styles.LoginRegisterButton}>Login</button>
             </Link>
             <Link to="/register">
-                <button className="LoginRegisterButton">Register</button>
+                <button className={styles.LoginRegisterButton}>Register</button>
             </Link>
         </div>
     );

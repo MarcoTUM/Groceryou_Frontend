@@ -1,16 +1,34 @@
 import {
+    ACCEPTED_REQUEST_STARTED,
     ACCEPTED_REQUEST_SUCCESS,
     ACCEPTED_REQUEST_FAIL
 } from "./reduxConstants"
 import Axios from 'axios';
 
 const fetchAcceptedRequests = () => async (dispatch) => {
+    dispatch(fetchAcceptedRequestsStarted());
     try {
         const acceptedRequest = await Axios.get("/customerRequest");
-        dispatch({ type: ACCEPTED_REQUEST_SUCCESS, payload: acceptedRequest.data });
+        dispatch(fetchAcceptedRequestsSuccess(acceptedRequest.data));
     } catch (error) {
-        dispatch({ type: ACCEPTED_REQUEST_FAIL, payload: error.message });
+        dispatch(fetchAcceptedRequestsFailure(error.message));
     }
 }
+
+const fetchAcceptedRequestsStarted = () => ({
+    type: ACCEPTED_REQUEST_STARTED,
+});
+
+const fetchAcceptedRequestsSuccess= (data) => ({
+    type: ACCEPTED_REQUEST_SUCCESS,
+    payload: {
+        ...data
+    }
+});
+
+const fetchAcceptedRequestsFailure = (errorMessage) => ({
+    type: ACCEPTED_REQUEST_FAIL,
+    payload: errorMessage
+});
 
 export { fetchAcceptedRequests }

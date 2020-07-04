@@ -145,7 +145,7 @@ export default class HttpService{
     }
     
     static checkIfUnauthorized(res){
-        if(res.status == 401){
+        if(res.status === 401){
             return true;
         }
         return false;
