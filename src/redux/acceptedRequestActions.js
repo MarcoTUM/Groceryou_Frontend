@@ -8,7 +8,7 @@ import Axios from 'axios';
 const fetchAcceptedRequests = () => async (dispatch) => {
     dispatch(fetchAcceptedRequestsStarted());
     try {
-        const acceptedRequest = await Axios.get("/customerRequest");
+        const acceptedRequest = await Axios.get("/requests");
         dispatch(fetchAcceptedRequestsSuccess(acceptedRequest.data));
     } catch (error) {
         dispatch(fetchAcceptedRequestsFailure(error.message));
