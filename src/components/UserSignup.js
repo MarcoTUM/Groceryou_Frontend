@@ -15,7 +15,7 @@ class UserSignup extends React.Component{
         return(
             <div>
                 <CredentialsForm
-                    buttonName={"Register"}
+                    type={"Register"}
                     submitRequest={this.submitRequest}
                 />
             </div>

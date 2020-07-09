@@ -14,7 +14,7 @@ class UserRegisterView extends React.Component {
     }
 
     register(user){
-        UserService.register(user.username, user.password).then((data) => {
+        UserService.register(user.username, user.password, user.userData).then((data) => {
             store.dispatch(login(user.username,data.token));
         }).catch((e) => {
             console.error(e);
