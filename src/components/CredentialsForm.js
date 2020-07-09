@@ -31,7 +31,7 @@ class CredentialsForm extends React.Component{
             lastName:'',
             phoneNumber: '',
             street: '',
-            plz: '',
+            plz: 0,
             city: '',
             houseNr: 0
         };
@@ -44,6 +44,24 @@ class CredentialsForm extends React.Component{
 
         let user;
         if(this.props.type === "Register"){
+
+            //type check
+            let errorMsg = '';
+            if(isNaN(this.state.phoneNumber))
+                errorMsg += "Phone Number, ";
+
+            if(isNaN(this.state.plz))
+                errorMsg += "PLZ, ";
+
+            if(isNaN(this.state.houseNr))
+                errorMsg += "House Number, ";
+
+            if(errorMsg !== ''){
+                errorMsg = errorMsg.slice(0, errorMsg.length - 2);
+                alert("The following fields only accept digits: " + errorMsg);
+                return;
+            }
+
             user = {
                 username: this.state.username,
                 password: this.state.password,
@@ -131,7 +149,7 @@ class CredentialsForm extends React.Component{
                         onChange={e => this.setState({
                             phoneNumber: Number(e.target.value)
                         })}
-                        aria-errormessage={"Phone number is required, enter digits only"}
+                        aria-errormessage={"Phone number is required"}
                     />
                 </Form.Item>
 
@@ -167,7 +185,7 @@ class CredentialsForm extends React.Component{
                     <Input
                         value={this.state.plz}
                         onChange={e => this.setState({
-                            plz: e.target.value
+                            plz: Number(e.target.value)
                         })}
                         aria-errormessage={"PLZ is required"}
                     />
@@ -189,6 +207,25 @@ class CredentialsForm extends React.Component{
                             city: e.target.value
                         })}
                         aria-errormessage={"City is required"}
+                    />
+                </Form.Item>
+
+                <Form.Item
+                    label = "House Number"
+                    name = 'houseNumber'
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please enter house number'
+                        },
+                    ]}
+                >
+                    <Input
+                        value={this.state.houseNr}
+                        onChange={e => this.setState({
+                            houseNr: Number(e.target.value)
+                        })}
+                        aria-errormessage={"House number is required"}
                     />
                 </Form.Item>
 
