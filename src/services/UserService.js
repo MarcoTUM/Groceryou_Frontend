@@ -7,11 +7,12 @@ export default class UserService {
 
     static frontEndURL() {return "http://localhost:3000/"}
 
-    static register(user,pass) {
+    static register(user,pass, userData) {
         return new Promise((resolve,reject) => {
             HttpService.post(UserService.baserURL() + '/register', {
                 username: user,
-                password: pass
+                password: pass,
+                userData: userData
             }, (data) => {
                 resolve(data);
                 window.location.assign(UserService.frontEndURL());
