@@ -5,7 +5,6 @@ function productListReducer(state = {loading: true, products: [], errMess: null}
         case PRODUCT_LIST_REQUEST:
             return {...state, loading: true};
         case PRODUCT_LIST_SUCCESS:
-            console.log("very hard" + {...state, loading: false, products: action.payload.shops});
             return {...state, loading: false, products: action.payload.shops}
         case PRODUCT_LIST_FAIL:
             return {loading: false, error: action.payload};
