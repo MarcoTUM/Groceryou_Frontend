@@ -73,7 +73,7 @@ export default class UserService {
             HttpService.post(UserService.baserURL() + '/amICourier',{
                 id: UserService.getCurrentUser().id
             },(data) =>{
-                resolve(data)
+                resolve(data.isCourier)
             }, (textStatus) => {
                 reject(textStatus)
             });
