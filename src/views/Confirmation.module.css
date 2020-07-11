@@ -59,3 +59,7 @@
     color: black;
     align-items: start;
 }
+
+.changeRequestButton{
+    font-size: 24px;
+}

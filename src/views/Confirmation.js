@@ -7,6 +7,7 @@ class Confirmation extends React.Component {
     constructor(props) {
         super(props);
         this.state={
+            replacement_items:[],
             mock_items: [
                 {
                     name: "Apple",
@@ -38,6 +39,8 @@ class Confirmation extends React.Component {
 
     }
 
+    //get the actual items of the request from the previous state / db
+
     render() {
         return (
             <main>
@@ -66,6 +69,10 @@ class Confirmation extends React.Component {
 
                         <div className={styles.replacement}>
                             <h2 className={styles.title}>Replacement</h2>
+                            <div>
+                                {/*have a list of items here*/}
+                                <button className={styles.changeRequestButton}>Change Request</button>
+                            </div>
                         </div>
                     </div>
                     <div className={styles.backButtonContainer}>
