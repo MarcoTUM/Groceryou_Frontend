@@ -9,26 +9,28 @@ function confirmationReducer(state ={confirmed: [], replacements: []}, action){
 
     const payload = action.payload;
 
-    switch(action.type){
+    switch(action.type) {
         case CONFIRMATION_CONFIRM:
-            return[
+            return [
                 ...state.confirmed,
                 {payload}
             ];
         case CONFIRMATION_CLEAR_CONFIRMS:
-            return{
+            return {
                 confirmed: []
             };
         case CONFIRMATION_ADD_REPLACEMENT:
-            return[
+            return [
                 ...state.replacements,
                 {payload}
             ];
         case CONFIRMATION_CLEAR_REPLACEMENTS:
-                return{
-                    replacements: []
-                }
-        }
+            return {
+                replacements: []
+            };
+        default:
+            return state;
+    }
 }
 
 export {confirmationReducer}

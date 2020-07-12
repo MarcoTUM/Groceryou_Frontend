@@ -42,4 +42,3 @@ const clear_replacement = () => (dispatch) => {
 };
 
 export {confirm,clear_confirms,add_replacement, clear_replacement}
-
