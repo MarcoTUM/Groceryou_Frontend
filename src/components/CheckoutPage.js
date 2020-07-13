@@ -2,8 +2,8 @@ import React from 'react';
 import {Row, Col, Button, List, Card} from 'antd';
 import PaypalButton from "./PaypalButton";
 import ShoppingCart from './ShoppingCart';
+import './CheckoutPage.css';
 import { connect } from 'react-redux';
-import { ShoppingCartOutlined,FieldTimeOutlined, EuroOutlined} from '@ant-design/icons';
 
 const mapStateToProps = state => ({
     cart: state.cart
@@ -25,7 +25,7 @@ class CheckoutPage extends React.Component {
     render() {
         return (
         <Row>
-            <Col span={12}>
+            <Col className='shoppingCartContainer' span={12}>
                 <ShoppingCart/>
             </Col>
             <Col span={12}>

@@ -1,6 +1,7 @@
 {
   "name": "groceryou_frontend",
   "proxy": "http://localhost:8080",
+  "secure": false,
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,7 +12,9 @@
     "ant-design": "^1.0.0",
     "antd": "^4.3.3",
     "axios": "^0.19.2",
+    "esri-leaflet-geocoder": "^2.3.3",
     "leaflet": "^1.6.0",
+    "leaflet-geosearch": "^3.0.6",
     "react": "^16.13.1",
     "react-async-script-loader": "^0.3.0",
     "react-dom": "^16.13.1",

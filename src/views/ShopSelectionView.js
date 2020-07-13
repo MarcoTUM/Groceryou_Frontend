@@ -1,12 +1,12 @@
 import React from 'react';
 import { Row, Col, List, Card, Button} from 'antd';
 import { connect } from 'react-redux';
-import { SHOPS } from '../shared/shops';
 import {darkGreen} from '../shared/colors';
 import {fetchShops} from '../redux/shopsOnMapActions';
 import {setCurrentShop} from '../redux/currentShopActions';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { FieldTimeOutlined, EuroOutlined } from '@ant-design/icons';
+import GrouceryouMap from '../components/GrouceryouMap';
 
 const { Meta } = Card;
 
@@ -25,7 +25,6 @@ class ShopSelectionView extends React.Component {
         super(props);
         this.state = {
             location: props.location,
-            shops: SHOPS,
             selectedShop: null,
             estimatedTime: null
         };
@@ -40,6 +39,10 @@ class ShopSelectionView extends React.Component {
     getDeliveryTime(){
         //return parseInt(Math.random(), 10);
         return 120;
+    }
+
+    getDistance(shopDistance){
+        return 400;
     }
 
     clickShop(item){
@@ -57,10 +60,11 @@ class ShopSelectionView extends React.Component {
         }
     }
 
+    
+
     render() {
 
         const shopList = ()=>{
-            
             if(this.props.shops.loading){
                 return(<LoadingSpinner/>);
             } else {
@@ -77,8 +81,8 @@ class ShopSelectionView extends React.Component {
                                 </Col>
                                 <Col span={18}>
                                 <Meta
-                                    title={item.address}
-                                    //description={item.distance}
+                                    title={item.address.street + " " +  item.address.houseNr}
+                                    description={this.getDistance() + 'm'}
                                 />
                                 </Col>
                             </Row>
@@ -104,22 +108,18 @@ class ShopSelectionView extends React.Component {
             );
         }
 
-        const fakeMap = ()=> {
-            return(
-                <div>
-                    <img width="100%" src="assets/images/fakemap.png"/>
-                    </div>
-            );
-        }
-
         return (
+
+            
+
             <main>
                 <Row>
                     <Col span={0} md={4}  style={sideBarStyle}>
                         {shopList()}
                     </Col>
                     <Col span={24} md={16} >
-                        {fakeMap()}
+                        {this.props.shops.loading?<LoadingSpinner/>:<GrouceryouMap shops={this.props.shops.shops}/>}
+                        
                     </Col>
                     <Col span={24} md={4}  style={sideBarStyle}>
                         {shopDetail()}

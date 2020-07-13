@@ -2,7 +2,8 @@ import React from 'react';
 import {Row, Col, Button, List} from 'antd';
 import { connect } from 'react-redux';
 import {addToCart, removeFromCart} from '../redux/cartActions';
-import { ShoppingCartOutlined,FieldTimeOutlined, EuroOutlined} from '@ant-design/icons';
+import { ShoppingCartOutlined, PlusCircleFilled, MinusCircleFilled} from '@ant-design/icons';
+import './ShoppingCart.css';
 
 const mapStateToProps = state => ({
     cart: state.cart
@@ -14,10 +15,16 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class ShoppingCart extends React.Component {
+
+    changeQuantityByNumber(item, change){
+        if(item.qty+change<1 || item.qty + change > 15)
+            return;        
+        this.props.addToCart(item.product, item.qty + change);        
+    }
     render() {
         return (
-            <div>
-            <h3><ShoppingCartOutlined/> Current Order</h3>
+            <div className='shoppingCart'>
+            <h3 className='title'><ShoppingCartOutlined/> Current Order</h3>
             <List
                 bordered={false}
                 dataSource={this.props.cart.cartItems}
@@ -28,27 +35,19 @@ class ShoppingCart extends React.Component {
                         </Col>
                         <Col span={18}>
                             <h4>{item.product.name} {item.product.price} €</h4>
-                            <div>
-                                <select value={item.qty} onChange={(e) => {
-                                    console.log(this.props.cart);
-                                    this.props.addToCart(item.product, parseInt(e.target.value, 10));
-                                }}>
-                                    <option valu="1">1</option>
-                                    <option valu="2">2</option>
-                                    <option valu="3">3</option>
-                                </select>
-                            </div>
-
+                            <Row className='qtyControl' justify="end">
+                                <Col><MinusCircleFilled className='qtyButton' onClick={()=>this.changeQuantityByNumber(item,-1)}/></Col>
+                                <Col className='qtyNumber' span={4}>{item.qty}</Col>
+                                <Col><PlusCircleFilled className='qtyButton' onClick={()=>this.changeQuantityByNumber(item,+1)}/></Col>
+                            </Row>
                             <Button type="button" className="button" onClick={() => this.props.deleteCartItem(item.product)}>
                                 Delete
-                    </Button>
+                            </Button>
                         </Col>
                     </Row>)} />
-            <h3>
-                Total ({this.props.cart.cartItems.reduce((a,c)=> a+c.qty, 0)} items)</h3>
-                
-            {/*<h3>{this.props.cart.cartItems.reduce((a,c) => a+c.product.price*c.qty, 0)} €</h3>*/}
-            {<h3>{this.props.cart.price} €</h3>}
+            <h3 className='bottomSumup'>Total ({this.props.cart.cartItems.reduce((a,c)=> a+c.qty, 0)} items)</h3>
+            
+            <h3 className='bottomSumup'>{this.props.cart.price} €</h3>
            
         </div>
         );

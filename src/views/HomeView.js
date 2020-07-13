@@ -1,7 +1,7 @@
 import React from 'react';
-import {Row, Col, InputGroup, Button, Card} from 'antd';
+import {Row, Col, Button, Card, Radio} from 'antd';
 import logo from '../img/GroceryouLogo.png';
-import { Input } from 'antd'; 
+import { Input,Carousel } from 'antd'; 
 import { darkGreen, lightGreen } from '../shared/colors';
 
 const { Meta } = Card;
@@ -25,7 +25,6 @@ class HomeView extends React.Component {
 
     enterShop(){
         this.props.history.push('/shopselection');
-        console.log(this.state.location);
     }
 
     render() {
@@ -39,6 +38,11 @@ class HomeView extends React.Component {
                 </Input.Group>
                 </div>
             </div>
+        );
+
+        const balloon = (imageUrl) => (
+            <Card style={{...cardStyle,...{backgroundImage:`url(${imageUrl})`}}}>
+            </Card>
         );
 
         const howToShop = () => (
@@ -58,28 +62,13 @@ class HomeView extends React.Component {
                     </Row>
                     <Row>
                         <Col span={8}>
-                            <Card  style={cardStyle}>
-                                <Meta
-                                    title="title"
-                                    description="description"
-                                />
-                            </Card>
+                            {balloon('assets/images/concept1.svg')}
                         </Col>
                         <Col span={8}>
-                            <Card  style={cardStyle}>
-                                <Meta
-                                    title="title"
-                                    description="description"
-                                />
-                            </Card>
+                            {balloon('assets/images/concept2.svg')}
                         </Col>
                         <Col span={8}>
-                            <Card  style={cardStyle}>
-                                <Meta
-                                    title="title"
-                                    description="description"
-                                />
-                            </Card>
+                            {balloon('assets/images/buyer_welcome_image.svg')}
                         </Col>
                     </Row>
                 </div>
@@ -87,37 +76,77 @@ class HomeView extends React.Component {
         );
 
         const dealOfWeek = () => (
-            <div style={blockContainer} align="middle" justify="middle">                            
-                    <p style={greenBold}>dealOfWeek</p>                                                            
+            <div style={{...blockContainer,...dealOfWeekBlock}} align="middle" justify="middle">
+                <div style={dealOfWeekAd}>                   
+                <Carousel autoplay>
+                    <div>
+                        <div style={carouselSlide}>
+                            <div style={carouselCard}>
+                                <h3>Grill season is back!</h3>
+                                <Button type="primary" style={g_button}>See more</Button>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style={carouselSlide}>
+                            <div style={carouselCard}>
+                                <h3>Grill season is back!</h3>
+                                <Button type="primary" style={g_button}>See more</Button>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style={carouselSlide}>
+                            <div style={carouselCard}>
+                                <h3>Grill season is back!</h3>
+                                <Button type="primary" style={g_button}>See more</Button>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style={carouselSlide}>
+                            <div style={carouselCard}>
+                                <h3>Grill season is back!</h3>
+                                <Button type="primary" style={g_button}>See more</Button>
+                            </div>
+                        </div>
+                    </div>
+                </Carousel>
+                </div>                                           
             </div>                
         );
 
         const courierApply = () => (
-            <div>                
+            <div style={blockContainer}>
+                <div style={{width:'80%'}}>
+                            
                 <Row>
-                    <Col offset={3}>
+                    <Col>
                         <div style={greenContainer}>                                      
                         <p style={whiteBold}>Do you want to be a courier?</p>
                         </div>
                     </Col>
                     <Col>
                     </Col>
-                </Row>                
+                </Row>
+                               
                 <Row>
-                    <Col offset={3}>
+                    <Col>
                     <div style={greenContainer}>
                         <p style={whiteBold}>Apply for <img height="28" src={logo} alt="grocery"/>courier position</p>
                     </div>
                     </Col>
                 </Row>
                 <Row>
-                    <Col offset={18}>
+                    <Col offset={20}>
                         <Button type="primary" size="large" style={g_button}>
                             Apply
                             </Button>
 
                     </Col>
                 </Row>
+                </div>
+                
             </div>
         );
 
@@ -125,7 +154,7 @@ class HomeView extends React.Component {
             <main>
                 {enterLocationBlock()}
                 {howToShop()}
-                {/*dealOfWeek()*/}
+                {dealOfWeek()}
                 {courierApply()}
             </main>
         );
@@ -133,7 +162,7 @@ class HomeView extends React.Component {
 }
 
 const blockContainer = {
-    height: 500,
+    height: '40rem',
     display: 'flex',
     justifyContent:'center',
     alignItems:'center',
@@ -144,7 +173,15 @@ const locationBlock = {
     backgroundSize: 'cover',
 }
 
+const dealOfWeekBlock = {
+    backgroundColor: '#E3E3E3'
+}
 
+const dealOfWeekAd = {
+    height:'25rem',
+    width:'60rem',
+    position:'relative'
+}
 
 const g_button = {
     background: darkGreen,
@@ -177,14 +214,38 @@ const greenContainer = {
 
 const normal = {
     color: 'black',
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
     fontSize: 18
 }
 
 const cardStyle = {
+    height: "8rem",
     borderRadius: 32,
     borderColor: lightGreen,
-    margin: 16
-};
+    margin: 16,
+    //backgroundImage: `url(https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png)`,
+    backgroundSize: 'cover',
+}
+
+const carouselCard = {
+    borderRadius: 32,
+    position: 'absolute',
+    paddingTop: '1rem',
+    paddingBottom: '1rem',
+    paddingLeft: '1rem',
+    paddingRight: '1rem',
+    backgroundColor: 'white',
+    right:'5%',
+    bottom:'30%'
+}
+
+const carouselSlide =  {
+    height: '20rem',
+    position: 'relative',
+    overflow: 'hidden',
+    backgroundSize: 'cover',
+    backgroundImage: "url('assets/images/dealOfWeekRewe.svg')",
+}
+
 
 export default HomeView;

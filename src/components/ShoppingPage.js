@@ -4,7 +4,7 @@ import {Row, Col, Button, List, Card} from 'antd';
 import { connect } from 'react-redux';
 import ShoppingCart from './ShoppingCart';
 import {addToCart, removeFromCart} from '../redux/cartActions';
-import { ShoppingCartOutlined,FieldTimeOutlined, EuroOutlined} from '@ant-design/icons';
+import {FieldTimeOutlined, EuroOutlined} from '@ant-design/icons';
 
 const { Meta } = Card;
 const mapStateToProps = state => ({
@@ -53,18 +53,19 @@ class ShoppingPage extends React.Component {
 
     render(){
         const categories = () => (
-            <Row>
+            <Row className="categories">
                 {this.props.shop==null?
                 <div>Loading</div>
                 :
                 [... new Set(this.props.shop.products.map(item => item.category))].map(category=>
-                <Col key={category}  span={8} >
+                <Col key={category}  span={8}>
                     <div className="woodenBox" onClick={()=>this.showItemList(category)}>
                         <img alt="category" src={`./images/categories/${category}.png`}/>
                     </div>
                 </Col>
                 )
             }
+            <div className={this.state.showItems?'blurCover':'hidden'}/>
             </Row>
         )
 
@@ -73,6 +74,8 @@ class ShoppingPage extends React.Component {
                 return(<p>Loading</p>);
             } else {
                 return(<div>
+                    <img height="50rem" alt="logo" src={this.props.shop.icon}/>
+                    <h4>{this.props.shop.address.street} {this.props.shop.houseNr}</h4>
                     <h3><FieldTimeOutlined /> Estimated Delivery Time </h3>
                     <h4>{this.state.estimatedTime} Minutes</h4>
                     <h3><EuroOutlined /> Minimum Order Price</h3>
@@ -80,46 +83,6 @@ class ShoppingPage extends React.Component {
                     </div>);
             }
         }
-
-        const shoppingCart = () => (
-            <div>
-                <h3><ShoppingCartOutlined/> Current Order</h3>
-                <List
-                    bordered={false}
-                    dataSource={this.props.cart.cartItems}
-                    renderItem={(item) => (
-                        <Row className="cart-item" gutter={{ xs: 8, sm: 16 }}>
-                            <Col span={6}>
-                                <img width="100%" alt="logo" src={item.product.image} />
-                            </Col>
-                            <Col span={18}>
-                                <h4>{item.product.name} {item.product.price} €</h4>
-                                <div>
-                                    <select value={item.qty} onChange={(e) => {
-                                        console.log(this.props.cart);
-                                        this.props.addToCart(item.product, parseInt(e.target.value, 10));
-                                    }}>
-                                        <option valu="1">1</option>
-                                        <option valu="2">2</option>
-                                        <option valu="3">3</option>
-                                    </select>
-                                </div>
-
-                                <Button type="button" className="button" onClick={() => this.props.deleteCartItem(item.product)}>
-                                    Delete
-                        </Button>
-                            </Col>
-                        </Row>)} />
-                <h3>
-                    Total ({this.props.cart.cartItems.reduce((a,c)=> a+c.qty, 0)} items)</h3>
-                    
-                {/*<h3>{this.props.cart.cartItems.reduce((a,c) => a+c.product.price*c.qty, 0)} €</h3>*/}
-                {<h3>{this.props.cart.price} €</h3>}
-                <Button className="button primary" disabled={this.props.cart.cartItems.length === 0} onClick={this.checkoutHandler}>
-                    Proceed to Checkout
-                </Button>
-            </div>
-        )
 
         const floatingItemList = () => (
             <div className={this.state.showItems?'floatingContainer':'hidden'}>
@@ -166,7 +129,7 @@ class ShoppingPage extends React.Component {
                     </Col>
                     <Col span={4} className="side-bar">
                         <ShoppingCart/>
-                        <Button className="button primary" disabled={this.props.cart.cartItems.length === 0} onClick={this.checkoutHandler}>
+                        <Button type="primary" className='checoutButton' disabled={this.props.cart.cartItems.length === 0} onClick={this.checkoutHandler}>
                             Proceed to Checkout
                         </Button>
                     </Col>
