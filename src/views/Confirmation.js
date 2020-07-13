@@ -6,37 +6,36 @@ import ConfirmationItemList from '../components/ConfirmationItemList';
 class Confirmation extends React.Component {
     constructor(props) {
         super(props);
+        let items = [
+            {
+                name: "Apple",
+                amount: 3,
+                unitType:"",
+                unitPrice: 0.5,
+            },
+            {
+                name: "Toast",
+                amount: 1,
+                unitType:"",
+                unitPrice: 1,
+            },
+            {
+                name: "Pringles Onion",
+                amount: 2,
+                unitType:"",
+                unitPrice: 4.5/2,
+            },
+            {
+                name: "Pork Belly",
+                amount: 500,
+                unitType:"g",
+                unitPrice: 3.5/500,
+            },
+        ];
+
         this.state={
-            replacement_items:[],
-            mock_items: [
-                {
-                    name: "Apple",
-                    amount: 3,
-                    unitType:"",
-                    unitPrice: 0.5,
-                },
-                {
-                    name: "Toast",
-                    amount: 1,
-                    unitType:"",
-                    unitPrice: 1,
-                },
-                {
-                    name: "Pringles Onion",
-                    amount: 2,
-                    unitType:"",
-                    unitPrice: 4.5/2,
-                },
-                {
-                    name: "Pork Belly",
-                    amount: 500,
-                    unitType:"g",
-                    unitPrice: 3.5/500,
-                },
-            ]
-        }
-
-
+            items: items
+        };
     }
 
     //get the actual items of the request from the previous state / db
@@ -63,7 +62,7 @@ class Confirmation extends React.Component {
                                 </div>
                             </div>
                             <ConfirmationItemList
-                                items={this.state.mock_items}
+                                items={this.state.items}
                             />
                         </div>
 

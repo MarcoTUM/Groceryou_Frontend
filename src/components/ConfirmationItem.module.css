@@ -2,6 +2,10 @@
     column-count: 4;
 }
 
+.strikeText{
+    text-decoration: line-through;
+}
+
 .vButton{
     background: #036635;
     color: white;
