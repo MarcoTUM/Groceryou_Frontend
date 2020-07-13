@@ -3,7 +3,6 @@ import {
     CONFIRMATION_CONFIRM, CONFIRMATION_REPLACE
 } from "./reduxConstants";
 import {confirm_state} from "../shared/confirmStates";
-import store from "../store";
 
 function confirmationReducer(state ={items: []}, action){
 
