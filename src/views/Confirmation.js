@@ -43,7 +43,7 @@ class Confirmation extends React.Component {
         let key = 0;
         let state_items = items.map((item) => {return {
             key: key++,
-            item: item,
+            content: item,
             state: confirm_state.init
         }});
 
@@ -76,7 +76,7 @@ class Confirmation extends React.Component {
                                 </div>
                             </div>
                             <ConfirmationItemList
-                                items={this.state.items}
+                                items={store.getState().confirmation.items}
                             />
                         </div>
 
