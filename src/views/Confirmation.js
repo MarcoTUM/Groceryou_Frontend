@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import ConfirmationItemList from '../components/ConfirmationItemList';
 import store from "../store";
 import {conf_init} from "../redux/confirmationActions";
+import {confirm_state} from "../shared/confirmStates";
 
 class Confirmation extends React.Component {
     constructor(props) {
@@ -38,7 +39,15 @@ class Confirmation extends React.Component {
         this.state={
             items: items
         };
-        store.dispatch(conf_init(items));
+
+        let state_items = items.map((item) => {return {
+            item: item,
+            state: confirm_state.init
+        }});
+
+        console.log(state_items);
+
+        store.dispatch(conf_init(state_items));
     }
 
     //get the actual items of the request from the previous state / db
