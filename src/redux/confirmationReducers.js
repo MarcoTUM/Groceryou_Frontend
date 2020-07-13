@@ -1,32 +1,15 @@
 import {
-    CONFIRMATION_ADD_REPLACEMENT,
-    CONFIRMATION_CONFIRM,
-    CONFIRMATION_CLEAR_CONFIRMS,
-    CONFIRMATION_CLEAR_REPLACEMENTS
+    CONFIRMATION_INIT
 } from "./reduxConstants";
 
-function confirmationReducer(state ={confirmed: [], replacements: []}, action){
+function confirmationReducer(state ={items: []}, action){
 
     const payload = action.payload;
 
     switch(action.type) {
-        case CONFIRMATION_CONFIRM:
-            return [
-                ...state.confirmed,
-                {payload}
-            ];
-        case CONFIRMATION_CLEAR_CONFIRMS:
+        case CONFIRMATION_INIT:
             return {
-                confirmed: []
-            };
-        case CONFIRMATION_ADD_REPLACEMENT:
-            return [
-                ...state.replacements,
-                {payload}
-            ];
-        case CONFIRMATION_CLEAR_REPLACEMENTS:
-            return {
-                replacements: []
+                items: payload
             };
         default:
             return state;

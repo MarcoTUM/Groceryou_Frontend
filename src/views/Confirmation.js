@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './Confirmation.module.css';
 import { Link } from 'react-router-dom';
 import ConfirmationItemList from '../components/ConfirmationItemList';
+import store from "../store";
+import {conf_init} from "../redux/confirmationActions";
 
 class Confirmation extends React.Component {
     constructor(props) {
@@ -36,6 +38,7 @@ class Confirmation extends React.Component {
         this.state={
             items: items
         };
+        store.dispatch(conf_init(items));
     }
 
     //get the actual items of the request from the previous state / db
