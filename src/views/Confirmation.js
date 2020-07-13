@@ -40,7 +40,9 @@ class Confirmation extends React.Component {
             items: items
         };
 
+        let key = 0;
         let state_items = items.map((item) => {return {
+            key: key++,
             item: item,
             state: confirm_state.init
         }});
@@ -55,7 +57,7 @@ class Confirmation extends React.Component {
     render() {
         return (
             <main>
-                <div class="content" className={styles.content}>
+                <div className={styles.content}>
                     <div className={styles.listContainer}>
                         <div className={styles.itemList}>
                             <h2 className={styles.title}>Item List</h2>

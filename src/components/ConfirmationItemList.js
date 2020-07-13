@@ -6,13 +6,14 @@ class ConfirmationItemList extends React.Component{
         super(props);
         let components = [];
         for(let item in props.items){
+            console.log("current key is: " + this.props.items[item].key);
             components.push(
                 <ConfirmationItem
-                    key = {this.props.items[item].key}
                     name = {this.props.items[item].name}
                     amount={this.props.items[item].amount}
                     unitType={this.props.items[item].unitType}
                     price={this.props.items[item].unitPrice * this.props.items[item].amount}
+                    key = {this.props.items[item].key}
                 />
                 );
         }
