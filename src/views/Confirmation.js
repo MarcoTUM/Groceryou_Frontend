@@ -36,9 +36,9 @@ class Confirmation extends React.Component {
             },
         ];
 
-        this.state={
-            items: items
-        };
+        // this.state={
+        //     items: items
+        // };
 
         let key = 0;
         let state_items = items.map((item) => {return {
@@ -48,6 +48,10 @@ class Confirmation extends React.Component {
         }});
 
         store.dispatch(conf_init(state_items));
+
+        this.state={
+            items: state_items
+        }
     }
 
     //get the actual items of the request from the previous state / db
