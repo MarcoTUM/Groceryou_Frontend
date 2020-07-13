@@ -1,6 +1,6 @@
 import {
     CONFIRMATION_INIT,
-    CONFIRMATION_CONFIRM
+    CONFIRMATION_CONFIRM, CONFIRMATION_REPLACE
 } from "./reduxConstants";
 import {confirm_state} from "../shared/confirmStates";
 import store from "../store";
@@ -8,6 +8,7 @@ import store from "../store";
 function confirmationReducer(state ={items: []}, action){
 
     const payload = action.payload;
+    let new_items;
 
     switch(action.type) {
         case CONFIRMATION_INIT:
@@ -15,10 +16,15 @@ function confirmationReducer(state ={items: []}, action){
                 items: payload
             };
         case CONFIRMATION_CONFIRM:
-            let new_items = store.getState().items;
-            new_items[payload].state = confirm_state.confirm;
-
+            new_items = payload.items;
+            new_items[payload.index].state = confirm_state.confirm;
             return {
+                items: new_items
+            };
+        case CONFIRMATION_REPLACE:
+            new_items = payload.items;
+            new_items[payload.index].state = confirm_state.replace;
+            return{
                 items: new_items
             };
         default:

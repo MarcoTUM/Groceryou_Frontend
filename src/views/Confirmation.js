@@ -47,8 +47,6 @@ class Confirmation extends React.Component {
             state: confirm_state.init
         }});
 
-        console.log(state_items);
-
         store.dispatch(conf_init(state_items));
     }
 

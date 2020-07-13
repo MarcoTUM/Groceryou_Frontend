@@ -10,6 +10,7 @@ class ConfirmationItemList extends React.Component{
                 <ConfirmationItem
                     content = {this.props.items[item].content}
                     key = {this.props.items[item].key}
+                    id = {this.props.items[item].key}
                     state = {this.props.items[item].state}
                 />
                 );
