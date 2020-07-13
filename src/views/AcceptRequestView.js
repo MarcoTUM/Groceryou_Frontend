@@ -35,16 +35,24 @@ const mapStateToProps = (state) => {
         }
     }
     else {
+        // Get current request from the redux store
         let currentRequestData = currentRequest.currentRequestData;
+
+        // Get all requests from the redux store
         let acceptedRequestsData = acceptedRequests.acceptedRequestsData;
+
+        // Get all users from the redux store
         let userData = customersList.customersListData["0"].userData;
 
+        // Get the courierID of the current request
         let currentRequestCourierId;
         if(currentRequestData.hasOwnProperty("courierID")) {
             currentRequestCourierId = currentRequestData.courierID;
         } else {
             currentRequestCourierId = undefined;
         }
+
+
         /*
         for(let request in acceptedRequestsData) {
             if(request.courierID === this.state.currentUserID) {
@@ -53,6 +61,7 @@ const mapStateToProps = (state) => {
         }
         */
 
+        // Return the information into the properties
         return {
             customerFullName: [userData.name, userData.surname].join(" "),
             customerSurname: userData.surname,
@@ -85,19 +94,28 @@ const mapDispatchToProps = (dispatch) => {
 
 class AcceptRequestView extends React.Component {
     constructor(props) {
+        // Call constructor of superclass
         super(props);
+
+        // Set initial state
         this.state = {
             isAuthenticated: false,
             currentUserID: 0,
             isCourier: false
         };
+
+        // To be on the save side bind this-Pointer to function
+        this.acceptRequestButton = this.acceptRequestButton.bind(this);
     }
 
     componentDidMount() {
+        // Get authentication data
         this.setState({
             isAuthenticated: UserService.isAuthenticated(),
             currentUserID: UserService.getCurrentUser().id
         });
+
+        // Check if logged in user is a courier
         UserService.isCourier()
         .then((response) => {
             this.setState({
@@ -108,6 +126,7 @@ class AcceptRequestView extends React.Component {
             console.log(error);
         });
 
+        // Fetch data from redux store
         this.props.fetchCurrentRequest();
         this.props.fetchAcceptedRequests();
         this.props.fetchCustomers();
@@ -124,32 +143,43 @@ class AcceptRequestView extends React.Component {
     }
 
     acceptCurrentRequest = () => {
+        // Accept the current request by adding courierID to the request in the database
         this.props.acceptCurrentRequest(this.props.currentRequestId, this.state.currentUserID);
     }
 
+    acceptRequestButton() {
+        // Check whether or not the current selected request was already accepted
+        if(this.props.currentRequestCourierId === undefined) {
+            return (
+                <button 
+                    className={styles.acceptButton} 
+                    onClick={this.acceptCurrentRequest}>
+                    Accept request
+                </button>
+            );
+        } else {
+            return (
+                <div>
+                    <br/>
+                    <br/>
+                    <p className={styles.alreadyAcceptedRequest}>Already accepted!</p>
+                </div>
+            );
+        }
+    }
+
     render() {
+        // Check if the user is logged in and if the user is a courier
         if (this.state.isAuthenticated && this.state.isCourier) {
             // If the page is still loading display a loading spinner
             if (this.props.loading)
                 return <Spin />;
+            // Else display the courier accept request view
             else {
-                let acceptRequestButton;
-                console.log(this.props.currentRequestCourierId);
-                if(this.props.currentRequestCourierId === undefined) {
-                    acceptRequestButton =
-                    <button 
-                        className={styles.acceptButton} 
-                        onClick={this.acceptCurrentRequest}>
-                        Accept request
-                    </button>;
-                } else {
-                    acceptRequestButton =
-                    <div>
-                        <br/>
-                        <br/>
-                        <p className={styles.alreadyAcceptedRequest}>Already accepted!</p>
-                    </div>;
-                }
+                // Get the current state of the accept request button
+                let acceptRequestButton = this.acceptRequestButton();
+
+                // Return the JSX code
                 return (
                     <main>
                         <div className={styles.row}>
