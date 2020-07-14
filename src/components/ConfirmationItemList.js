@@ -3,6 +3,16 @@ import ConfirmationItem from "./ConfirmationItem";
 
 class ConfirmationItemList extends React.Component{
 
+    constructor(props) {
+        super(props);
+        this.showModal = this.showModal.bind(this);
+
+    }
+
+    showModal = () => {
+        this.props.showModal()
+    };
+
     render(){
 
         let components = [];
@@ -14,6 +24,7 @@ class ConfirmationItemList extends React.Component{
                     state = {this.props.items[item].state}
                     key = {key}
                     id = {key++}
+                    showModal = {this.showModal}
                 />
             );
         }

@@ -1,16 +1,30 @@
 import {
     CONFIRMATION_INIT,
-    CONFIRMATION_CONFIRM, CONFIRMATION_REPLACE, ITEMS_REQUEST_STARTED, ITEMS_REQUEST_SUCCESS, ITEMS_REQUEST_FAIL
+    CONFIRMATION_CONFIRM,
+    CONFIRMATION_REPLACE,
+    ITEMS_REQUEST_STARTED,
+    ITEMS_REQUEST_SUCCESS,
+    ITEMS_REQUEST_FAIL,
+    CONFIRMATION_MISSING
 } from "./reduxConstants";
 import {confirm_state} from "../shared/confirmStates";
+
+//helper function spares boilerplate
+const setArrayItemState = (state, index, value) => {
+
+    let new_items = state.items.slice();
+    const new_item = Object.assign({}, state.items[index], {state: value});
+    new_items[index] = new_item;
+
+    const source = {items: new_items};
+
+    return Object.assign({}, state, source);
+};
 
 function confirmationReducer(state ={items: []}, action){
 
     const payload = action.payload;
     let state_items;
-    let new_items;
-    let new_item;
-    let source;
 
     switch(action.type) {
 
@@ -52,23 +66,15 @@ function confirmationReducer(state ={items: []}, action){
             };
         case CONFIRMATION_CONFIRM:
 
-            new_items = state.items.slice();
-            new_item = Object.assign({}, state.items[payload], {state: confirm_state.confirm});
-            new_items[payload] = new_item;
-
-            source = {items: new_items};
-
-            return Object.assign({}, state, source);
+            return setArrayItemState(state, payload, confirm_state.confirm);
 
         case CONFIRMATION_REPLACE:
 
-            new_items = state.items.slice();
-            new_item = Object.assign({}, state.items[payload], {state: confirm_state.replace});
-            new_items[payload] = new_item;
+            return setArrayItemState(state, payload, confirm_state.replace);
 
-            source = {items: new_items};
+        case CONFIRMATION_MISSING:
 
-            return Object.assign({}, state, source);
+            return setArrayItemState(state, payload, confirm_state.missing);
 
         default:
             return state;

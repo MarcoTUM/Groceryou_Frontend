@@ -45,3 +45,13 @@
     margin-left: 10px;
     transition-duration: 0.2s;
 }
+
+.xButtonMissing{
+    background: #f1f615;
+    color: #000000;
+    border-radius: 15px;
+    font-size: 16px;
+    padding: 4px 24px;
+    margin-left: 10px;
+    transition-duration: 0.2s;
+}

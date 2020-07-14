@@ -4,7 +4,7 @@ import {
     CONFIRMATION_REPLACE,
     ITEMS_REQUEST_STARTED,
     ITEMS_REQUEST_SUCCESS,
-    ITEMS_REQUEST_FAIL
+    ITEMS_REQUEST_FAIL, CONFIRMATION_MISSING
 } from "./reduxConstants";
 import Axios from 'axios';
 
@@ -62,4 +62,13 @@ const conf_replace = (index) => (dispatch) => {
     } catch(e) {}
 };
 
-export {fetchItems ,conf_init, conf_confirm, conf_replace}
+const conf_missing = (index) => (dispatch) => {
+    try{
+        dispatch({
+            type: CONFIRMATION_MISSING,
+            payload: index
+        })
+    } catch(e) {}
+};
+
+export {fetchItems ,conf_init, conf_confirm, conf_replace, conf_missing}
