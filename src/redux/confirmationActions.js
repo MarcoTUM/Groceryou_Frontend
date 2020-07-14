@@ -53,11 +53,14 @@ const conf_confirm = (index) => (dispatch) => {
     } catch(e) {console.log("FAILS: " + e)}
 };
 
-const conf_replace = (index) => (dispatch) => {
+const conf_replace = (index, replace) => (dispatch) => {
     try{
         dispatch({
             type: CONFIRMATION_REPLACE,
-            payload: index
+            payload: {
+                index: index,
+                replace: replace
+            }
         })
     } catch(e) {}
 };

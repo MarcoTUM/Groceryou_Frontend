@@ -39,7 +39,14 @@ class Confirmation extends React.Component {
         this.props.fetchItems();
     }
 
-    state = { visible: false };
+    state = {
+        visible: false,
+        replace:{
+            name:'',
+            qty:0,
+            price:0,
+        }
+    };
 
     showModal = (id) => {
         this.setState({
@@ -50,7 +57,10 @@ class Confirmation extends React.Component {
 
     handleOk = e => {
         preventDefault(e);
-        store.dispatch(conf_replace(this.state.currentId));
+        store.dispatch(conf_replace(
+            this.state.currentId,
+            this.state.replace
+        ));
         this.setState({
             visible: false,
         });
@@ -88,7 +98,17 @@ class Confirmation extends React.Component {
                                 }
                             ]}
                         >
-                            <Input/>
+                            <Input
+                                value={this.state.replace.name}
+                                onChange={e => {
+                                    let replace = {...this.state.replace};
+                                    replace.name=e.target.value;
+                                    this.setState({
+                                        replace: replace
+                                    })
+                                }}
+                                aria-errormessage={"Name is required"}
+                            />
                         </Form.Item>
                         <Form.Item
                             label="Quantity"
@@ -100,7 +120,17 @@ class Confirmation extends React.Component {
                                 }
                             ]}
                         >
-                            <InputNumber min={0}/>
+                            <InputNumber
+                                min={0}
+                                value={this.state.replace.qty}
+                                onChange={ e => {
+                                    let replace ={...this.state.replace};
+                                    replace.qty = e;
+                                    this.setState({
+                                        replace: replace
+                                    })
+                                }}
+                            />
                         </Form.Item>
                         <Form.Item
                             label="Price"
@@ -114,9 +144,16 @@ class Confirmation extends React.Component {
                         >
                             <InputNumber
                                 defaultValue={0}
+                                value={this.state.replace.price}
                                 formatter={value => `€ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                                // parser={value => value.replace(/\$\s?|(,*)/g, '')}
                                 min={0}
+                                onChange={e => {
+                                    let replace ={...this.state.replace};
+                                    replace.price = e
+                                    this.setState({
+                                        replace: replace
+                                    })
+                                }}
                             />
                         </Form.Item>
                     </Form>
@@ -141,7 +178,6 @@ class Confirmation extends React.Component {
                                 </div>
                             </div>
                             <ConfirmationItemList
-                                // items={store.getState().confirmation.items}
                                 items={this.props.items}
                                 showModal={this.showModal}
                             />
@@ -150,7 +186,6 @@ class Confirmation extends React.Component {
                         <div className={styles.replacement}>
                             <h2 className={styles.title}>Replacement</h2>
                             <div>
-                                <button className={styles.changeRequestButton}>Change Request</button>
                             </div>
                         </div>
                     </div>

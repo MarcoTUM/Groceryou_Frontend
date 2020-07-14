@@ -77,10 +77,12 @@ function confirmationReducer(state ={items: []}, action){
 
         case CONFIRMATION_REPLACE:
 
-            new_items = setArrayItemState(state,payload,confirm_state.replace);
+            console.log("payload is: "+payload);
+
+            new_items = setArrayItemState(state,payload.index,confirm_state.replace);
 
             new_replacements = state.replacements;
-            new_replacements[payload] = {name: "dummy"};
+            new_replacements[payload.index] = payload.replace;
 
             return Object.assign({}, new_items, new_replacements);
 
