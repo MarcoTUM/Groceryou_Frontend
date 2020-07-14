@@ -42,7 +42,7 @@ const mapStateToProps = (state) => {
         let acceptedRequestsData = acceptedRequests.acceptedRequestsData;
 
         // Get all users from the redux store
-        let userData = customersList.customersListData["0"].userData;
+        let userData = customersList.customersListData;
 
         // Get the courierID of the current request
         let currentRequestCourierId;
@@ -52,14 +52,34 @@ const mapStateToProps = (state) => {
             currentRequestCourierId = undefined;
         }
 
+        // Get the 3 accepted requests
+        let accepted3Requests = [];
 
-        /*
-        for(let request in acceptedRequestsData) {
-            if(request.courierID === this.state.currentUserID) {
-
+        // For every request
+        for(let request of Object.values(acceptedRequestsData)) {
+            // Check if courierID is set
+            if(request.hasOwnProperty("courierID")) {
+                // Check if courierID is equal to the current user id
+                if(request.courierID === UserService.getCurrentUser().id) {
+                    // Fo each user
+                    for(let user of Object.values(userData)) {
+                        // Check if userID is equal to the request's userID
+                        if(user._id === request.userID) {
+                            // Save the important information in an array
+                            let req = {
+                                requestID: request._id,
+                                userName: user.userData.name,
+                                userSurname: user.userData.surname
+                            };
+                            accepted3Requests.push(req);
+                        }
+                    }  
+                }
             }
         }
-        */
+
+        // TODO: Replace with map clicks
+        userData = customersList.customersListData["0"].userData;
 
         // Return the information into the properties
         return {
@@ -76,9 +96,7 @@ const mapStateToProps = (state) => {
             currentRequestCourierId: currentRequestCourierId,
             desiredDeliveryTimeStart: currentRequestData.desiredDeliveryTimeStart,
             desiredDeliveryTimeEnd: currentRequestData.desiredDeliveryTimeEnd,
-            acceptedRequest0: { id: acceptedRequestsData["0"]["_id"], userID: acceptedRequestsData["0"]["userID"] },
-            acceptedRequest1: { id: acceptedRequestsData["1"]["_id"], userID: acceptedRequestsData["1"]["userID"] },
-            acceptedRequest2: { id: acceptedRequestsData["2"]["_id"], userID: acceptedRequestsData["2"]["userID"] }
+            accepted3Requests: accepted3Requests
         }
     }
 }
@@ -179,14 +197,18 @@ class AcceptRequestView extends React.Component {
                 // Get the current state of the accept request button
                 let acceptRequestButton = this.acceptRequestButton();
 
+                // Generate the request cards of the already accepted requests
+                let requestCards = [];
+                for(let request of this.props.accepted3Requests) {
+                    requestCards.push(<RequestCard key={request.requestID} customer={[request.userName, request.userSurname].join(" ")} />);
+                }
+
                 // Return the JSX code
                 return (
                     <main>
                         <div className={styles.row}>
                             <div className={[styles.column, styles.left].join(" ")}>
-                                <RequestCard customer={this.props.acceptedRequest0.userID} />
-                                <RequestCard customer={this.props.acceptedRequest1.userID} />
-                                <RequestCard customer={this.props.acceptedRequest2.userID} />
+                                {requestCards}
                             </div>
                             <div className={[styles.column, styles.middle].join(" ")}>
                                 <Map center={[48.262473, 11.668891]} zoom={13}>

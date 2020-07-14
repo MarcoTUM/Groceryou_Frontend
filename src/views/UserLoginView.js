@@ -6,13 +6,6 @@ import {login} from "../redux/authActions";
 import store from "../store";
 
 class UserLoginView extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            title: "Groceryou",
-        };
-    }
-
     login(user){
         UserService.login(user.username, user.password).then((data) => {
             store.dispatch(login(user.username,data.token));
