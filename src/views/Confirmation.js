@@ -5,7 +5,7 @@ import ConfirmationItemList from '../components/ConfirmationItemList';
 import store from "../store";
 import {conf_replace, fetchItems} from "../redux/confirmationActions";
 import {connect} from "react-redux";
-import {Spin, Modal} from "antd";
+import {Spin, Modal, Form, Input, InputNumber} from "antd";
 import {preventDefault} from "leaflet/src/dom/DomEvent";
 
 const mapStateToProps = (state) => {
@@ -72,11 +72,54 @@ class Confirmation extends React.Component {
             <main>
 
                 <Modal
-                    title="Basic Modal"
+                    title="Replacement offer"
                     visible={this.state.visible}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}>
-                    <h2>Press ok to make a change request for: {}</h2>
+                    <h2>Enter Replacement name, quantity, price</h2>
+                    <Form>
+                        <Form.Item
+                            label="Name"
+                            name="name"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please enter the name"
+                                }
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
+                        <Form.Item
+                            label="Quantity"
+                            name="quantity"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please enter the quantity"
+                                }
+                            ]}
+                        >
+                            <InputNumber min={0}/>
+                        </Form.Item>
+                        <Form.Item
+                            label="Price"
+                            name="price"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please enter the price"
+                                }
+                            ]}
+                        >
+                            <InputNumber
+                                defaultValue={0}
+                                formatter={value => `€ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                // parser={value => value.replace(/\$\s?|(,*)/g, '')}
+                                min={0}
+                            />
+                        </Form.Item>
+                    </Form>
                 </Modal>
 
                 <div className={styles.content}>
