@@ -15,7 +15,8 @@ function ConfirmationItem(props){
 
     const missing = () => {
         store.dispatch(conf_missing(props.id));
-        props.showModal();
+        if(props.state !== confirm_state.replace)
+            props.showModal(props.id);
     };
 
     let vButtonStyle = styles.vButton;
@@ -32,6 +33,8 @@ function ConfirmationItem(props){
 
     if(props.state === confirm_state.missing)
         xButtonStyle = styles.xButtonMissing;
+    else if(props.state === confirm_state.replace)
+        xButtonStyle = styles.xButtonReplace;
 
     const xButton = <button
         className={xButtonStyle}

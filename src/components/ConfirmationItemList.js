@@ -9,8 +9,8 @@ class ConfirmationItemList extends React.Component{
 
     }
 
-    showModal = () => {
-        this.props.showModal()
+    showModal = (id) => {
+        this.props.showModal(id)
     };
 
     render(){

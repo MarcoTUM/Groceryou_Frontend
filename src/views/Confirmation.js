@@ -3,9 +3,10 @@ import styles from './Confirmation.module.css';
 import { Link } from 'react-router-dom';
 import ConfirmationItemList from '../components/ConfirmationItemList';
 import store from "../store";
-import {fetchItems} from "../redux/confirmationActions";
+import {conf_replace, fetchItems} from "../redux/confirmationActions";
 import {connect} from "react-redux";
 import {Spin, Modal} from "antd";
+import {preventDefault} from "leaflet/src/dom/DomEvent";
 
 const mapStateToProps = (state) => {
     let items = state.confirmation.items;
@@ -40,14 +41,16 @@ class Confirmation extends React.Component {
 
     state = { visible: false };
 
-    showModal = () => {
+    showModal = (id) => {
         this.setState({
             visible: true,
+            currentId: id
         });
     };
 
     handleOk = e => {
-        console.log(e);
+        preventDefault(e);
+        store.dispatch(conf_replace(this.state.currentId));
         this.setState({
             visible: false,
         });
@@ -73,7 +76,7 @@ class Confirmation extends React.Component {
                     visible={this.state.visible}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}>
-                    <h2>STUFF</h2>
+                    <h2>Press ok to make a change request for: {}</h2>
                 </Modal>
 
                 <div className={styles.content}>
