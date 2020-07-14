@@ -8,6 +8,9 @@ function confirmationReducer(state ={items: []}, action){
 
     const payload = action.payload;
     let state_items;
+    let new_items;
+    let new_item;
+    let source;
 
     switch(action.type) {
 
@@ -49,21 +52,24 @@ function confirmationReducer(state ={items: []}, action){
             };
         case CONFIRMATION_CONFIRM:
 
-            let new_items = state.items.slice();
-            const new_item = Object.assign({}, state.items[payload], {state: confirm_state.confirm});
+            new_items = state.items.slice();
+            new_item = Object.assign({}, state.items[payload], {state: confirm_state.confirm});
             new_items[payload] = new_item;
 
-            const source = {items: new_items};
+            source = {items: new_items};
 
             return Object.assign({}, state, source);
 
         case CONFIRMATION_REPLACE:
-            // new_items = payload.items;
-            // new_items[payload.index].state = confirm_state.replace;
-            return{
-                // items: new_items
-                state
-            };
+
+            new_items = state.items.slice();
+            new_item = Object.assign({}, state.items[payload], {state: confirm_state.replace});
+            new_items[payload] = new_item;
+
+            source = {items: new_items};
+
+            return Object.assign({}, state, source);
+
         default:
             return state;
     }
