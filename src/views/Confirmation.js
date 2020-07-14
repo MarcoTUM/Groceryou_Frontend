@@ -7,9 +7,11 @@ import {conf_replace, fetchItems} from "../redux/confirmationActions";
 import {connect} from "react-redux";
 import {Spin, Modal, Form, Input, InputNumber} from "antd";
 import {preventDefault} from "leaflet/src/dom/DomEvent";
+import ReplacementList from '../components/ReplacementList'
 
 const mapStateToProps = (state) => {
     let items = state.confirmation.items;
+    let replacements = state.confirmation.replacements;
 
     if(items.loading){
         return{
@@ -19,10 +21,11 @@ const mapStateToProps = (state) => {
 
     else {
         let itemsData = items;
+        let replacementsData = replacements;
 
         return{
             items: itemsData,
-            replacement: {},
+            replacement: replacementsData,
         }
     }
 };
@@ -186,6 +189,9 @@ class Confirmation extends React.Component {
                         <div className={styles.replacement}>
                             <h2 className={styles.title}>Replacement</h2>
                             <div>
+                                <ReplacementList
+                                    replacements={this.props.replacement}
+                                />
                             </div>
                         </div>
                     </div>

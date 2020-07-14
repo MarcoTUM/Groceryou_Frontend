@@ -50,7 +50,7 @@ const conf_confirm = (index) => (dispatch) => {
             type: CONFIRMATION_CONFIRM,
             payload: index
         })
-    } catch(e) {console.log("FAILS: " + e)}
+    } catch(e) {}
 };
 
 const conf_replace = (index, replace) => (dispatch) => {
