@@ -2,28 +2,25 @@ import React from "react";
 import ConfirmationItem from "./ConfirmationItem";
 
 class ConfirmationItemList extends React.Component{
-    constructor(props) {
-        super(props);
+
+    render(){
+
         let components = [];
-        for(let item in props.items){
+        let key = 0;
+        for(let item in this.props.items){
             components.push(
                 <ConfirmationItem
                     content = {this.props.items[item].content}
-                    key = {this.props.items[item].key}
-                    id = {this.props.items[item].key}
                     state = {this.props.items[item].state}
+                    key = {key}
+                    id = {key++}
                 />
-                );
+            );
         }
-        this.state={
-            components: components
-        }
-    }
 
-    render(){
         return(
             <div>
-                {this.state.components}
+                {components}
             </div>
         );
     }

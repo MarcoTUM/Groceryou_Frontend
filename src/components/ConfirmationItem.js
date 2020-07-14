@@ -10,7 +10,7 @@ function ConfirmationItem(props){
 
     const confirm = () => {
         const items = store.getState().confirmation.items;
-        store.dispatch(conf_confirm(props.id,items));
+        store.dispatch(conf_confirm(props.id));
     };
 
     const replace = () => {

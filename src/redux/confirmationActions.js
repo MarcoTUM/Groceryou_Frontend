@@ -1,7 +1,39 @@
 import {
     CONFIRMATION_CONFIRM,
-    CONFIRMATION_INIT, CONFIRMATION_REPLACE,
+    CONFIRMATION_INIT,
+    CONFIRMATION_REPLACE,
+    ITEMS_REQUEST_STARTED,
+    ITEMS_REQUEST_SUCCESS,
+    ITEMS_REQUEST_FAIL
 } from "./reduxConstants";
+import Axios from 'axios';
+
+const fetchItems = () => async (dispatch) => {
+    dispatch(fetchItemsStarted());
+    try {
+        const itemRequest = await Axios.get("/requests");
+        dispatch(fetchItemsSuccess(itemRequest.data["0"]));
+    } catch (error){
+        dispatch(fetchItemsFailure(error.message));
+    }
+};
+
+
+const fetchItemsStarted = () => ({
+    type: ITEMS_REQUEST_STARTED,
+});
+
+const fetchItemsSuccess = (data) => ({
+    type: ITEMS_REQUEST_SUCCESS,
+    payload:{
+        ...data
+    }
+});
+
+const fetchItemsFailure = (errorMessage) => ({
+    type: ITEMS_REQUEST_FAIL,
+    payload: errorMessage
+});
 
 const conf_init = (items) => (dispatch) => {
     try{
@@ -12,16 +44,13 @@ const conf_init = (items) => (dispatch) => {
     } catch(e) {}
 };
 
-const conf_confirm = (index, items) => (dispatch) => {
+const conf_confirm = (index) => (dispatch) => {
     try{
         dispatch({
             type: CONFIRMATION_CONFIRM,
-            payload: {
-                index: index,
-                items: items
-            }
+            payload: index
         })
-    } catch(e) {}
+    } catch(e) {console.log("FAILS: " + e)}
 };
 
 const conf_replace = (index, items) => (dispatch) => {
@@ -36,4 +65,4 @@ const conf_replace = (index, items) => (dispatch) => {
     } catch(e) {}
 };
 
-export {conf_init, conf_confirm, conf_replace}
+export {fetchItems ,conf_init, conf_confirm, conf_replace}

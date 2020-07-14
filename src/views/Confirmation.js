@@ -3,60 +3,45 @@ import styles from './Confirmation.module.css';
 import { Link } from 'react-router-dom';
 import ConfirmationItemList from '../components/ConfirmationItemList';
 import store from "../store";
-import {conf_init} from "../redux/confirmationActions";
-import {confirm_state} from "../shared/confirmStates";
+import {fetchItems} from "../redux/confirmationActions";
+import {connect} from "react-redux";
+import {Spin} from "antd";
 
-class Confirmation extends React.Component {
-    constructor(props) {
-        super(props);
-        let items = [
-            {
-                name: "Apple",
-                amount: 3,
-                unitType:"",
-                unitPrice: 0.5,
-            },
-            {
-                name: "Toast",
-                amount: 1,
-                unitType:"",
-                unitPrice: 1,
-            },
-            {
-                name: "Pringles Onion",
-                amount: 2,
-                unitType:"",
-                unitPrice: 4.5/2,
-            },
-            {
-                name: "Pork Belly",
-                amount: 500,
-                unitType:"g",
-                unitPrice: 3.5/500,
-            },
-        ];
+const mapStateToProps = (state) => {
+    let items = state.confirmation.items;
 
-        // this.state={
-        //     items: items
-        // };
-
-        let key = 0;
-        let state_items = items.map((item) => {return {
-            key: key++,
-            content: item,
-            state: confirm_state.init
-        }});
-
-        store.dispatch(conf_init(state_items));
-
-        this.state={
-            items: state_items
+    if(items.loading){
+        return{
+            loading: true
         }
     }
 
-    //get the actual items of the request from the previous state / db
+    else {
+        let itemsData = items;
+
+        return{
+            items: itemsData,
+            replacement: {},
+        }
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        fetchItems: () => {dispatch(fetchItems())},
+    }
+};
+
+class Confirmation extends React.Component {
+
+    componentDidMount() {
+        this.props.fetchItems();
+    }
 
     render() {
+
+        if(this.props.loading)
+            return <Spin />;
         return (
             <main>
                 <div className={styles.content}>
@@ -78,14 +63,14 @@ class Confirmation extends React.Component {
                                 </div>
                             </div>
                             <ConfirmationItemList
-                                items={store.getState().confirmation.items}
+                                // items={store.getState().confirmation.items}
+                                items={this.props.items}
                             />
                         </div>
 
                         <div className={styles.replacement}>
                             <h2 className={styles.title}>Replacement</h2>
                             <div>
-                                {/*have a list of items here*/}
                                 <button className={styles.changeRequestButton}>Change Request</button>
                             </div>
                         </div>
@@ -101,4 +86,5 @@ class Confirmation extends React.Component {
     }
 }
 
-export default Confirmation;
+// export default Confirmation;
+export default connect(mapStateToProps, mapDispatchToProps)(Confirmation);

@@ -16,6 +16,16 @@
     transition-duration: 0.2s;
 }
 
+.vButtonPressed{
+    background: white;
+    color: white;
+    border-radius: 15px;
+    font-size: 16px;
+    padding: 4px 24px;
+    margin-right: 10px;
+    transition-duration: 0.2s;
+}
+
 .vButton:hover{
     background: white;
     color: black;
