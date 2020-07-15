@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Col, Button, List, Card} from 'antd';
+import {Row, Col} from 'antd';
 import PaypalButton from "./PaypalButton";
 import ShoppingCart from './ShoppingCart';
 import './CheckoutPage.css';

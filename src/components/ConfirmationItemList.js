@@ -26,14 +26,7 @@ class ConfirmationItemList extends React.Component{
                     id = {key++}
                     showModal = {this.showModal}
                 />
-<<<<<<< HEAD
-                );
-        }
-        this.state={
-            components: components
-=======
             );
->>>>>>> b0645e5ef56699ee911f20703615c21dc318176e
         }
 
         return(

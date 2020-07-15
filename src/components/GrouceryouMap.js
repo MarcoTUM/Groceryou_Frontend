@@ -1,8 +1,6 @@
 import React from 'react';
-import { Map, Marker, Popup, TileLayer, withLeaflet} from 'react-leaflet';
-import L from "leaflet";
-//import { SearchControl, OpenStreetMapProvider } from 'react-leaflet-geosearch';
-import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
+import { Map, Marker, Popup, TileLayer} from 'react-leaflet';
+import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import Search from './GrouceryouMapSearch';
 import { Icon } from 'leaflet';
 
@@ -15,9 +13,6 @@ const redMarker = new Icon({
 
 const provider = new OpenStreetMapProvider();
 
-const searchControl = new GeoSearchControl({
-    provider: provider,
-});
 
 class GrouceryouMap extends React.Component {
 
@@ -68,12 +63,8 @@ class GrouceryouMap extends React.Component {
 
     activateShopMarker(shop){
         const marker = this.state.shopWithCoordinates.filter(marker => {
-            console.log(shop.id);
-            console.log(marker.shop.id);
-            console.log(shop.id==marker.shop.id);
             return marker.shop.id==shop.id
         });
-        console.log("what am I passing:" + marker[0]);
         this.setState({center: marker[0].coordinate});
     }
 
@@ -102,7 +93,6 @@ class GrouceryouMap extends React.Component {
             this.state.shops.map(shop => this.queryCoorByShop(shop))
         )
         .then(data=>{
-            //console.log(data);
             this.setState({shopWithCoordinates: data});
         })
     }

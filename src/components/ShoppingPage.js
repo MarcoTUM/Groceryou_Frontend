@@ -44,7 +44,6 @@ class ShoppingPage extends React.Component {
     }
 
     showItemList(category){
-        console.log(category);
         this.setState({
             selectedItems: this.props.shop.products.filter(item => item.category == category),
             showItems: true
