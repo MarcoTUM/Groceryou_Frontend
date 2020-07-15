@@ -1,0 +1,33 @@
+.content{
+    column-count: 4;
+}
+
+.vButton{
+    background: #036635;
+    color: white;
+    border-radius: 15px;
+    font-size: 16px;
+    padding: 4px 24px;
+    margin-right: 10px;
+    transition-duration: 0.2s;
+}
+
+.vButton:hover{
+    background: white;
+    color: black;
+}
+
+.xButton:hover{
+    background: white;
+    color: black;
+}
+
+.xButton{
+    background: #d30000;
+    color: white;
+    border-radius: 15px;
+    font-size: 16px;
+    padding: 4px 24px;
+    margin-left: 10px;
+    transition-duration: 0.2s;
+}

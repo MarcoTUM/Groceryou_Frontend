@@ -1,6 +1,5 @@
 import React from 'react';
 import CredentialsForm from "./CredentialsForm";
-import {Button} from "antd";
 class UserSignup extends React.Component{
 
     constructor(props) {
@@ -16,7 +15,7 @@ class UserSignup extends React.Component{
         return(
             <div>
                 <CredentialsForm
-                    buttonName={"Register"}
+                    type={"Register"}
                     submitRequest={this.submitRequest}
                 />
             </div>

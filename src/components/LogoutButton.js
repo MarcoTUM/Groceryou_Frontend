@@ -2,15 +2,24 @@ import React from "react";
 
 import UserService from "../services/UserService";
 import store from "../store";
+import {logout} from "../redux/authActions";
+import styles from './NavBar.module.css';
 
 const LogoutButton = () => {
 
     let name = store.getState().auth.username;
 
+    const initLogout = () => {
+        UserService.logout().then(() =>{
+            store.dispatch(logout());
+        });
+    };
+
     return(
-        <div className="LoginRegisterButtonDiv">
-            <button className="LogoutNameButton">{name}</button>
-            <button onClick={UserService.logout} className="LoginRegisterButton">Logout</button>
+        <div className={styles.LoginRegisterButtonDiv}>
+            <button className={styles.LogoutNameButton}>{name}</button>
+            {/*<button onClick={UserService.logout.then(() => {store.dispatch(logout())})} className="LoginRegisterButton">Logout</button>*/}
+            <button onClick={initLogout} className={styles.LoginRegisterButton}>Logout</button>
         </div>
     );
 };

@@ -3,8 +3,10 @@ import './ShoppingPage.css';
 import {Row, Col, Button, List, Card} from 'antd';
 import { connect } from 'react-redux';
 import ShoppingCart from './ShoppingCart';
+import UserService from '../services/UserService';
 import {addToCart, removeFromCart} from '../redux/cartActions';
 import {FieldTimeOutlined, EuroOutlined} from '@ant-design/icons';
+
 
 const { Meta } = Card;
 const mapStateToProps = state => ({
@@ -33,8 +35,12 @@ class ShoppingPage extends React.Component {
     }
 
     checkoutHandler() {
-        this.props.history.push('/checkout');
-        //this.props.history.push("/signin?redirect=shipping")
+        let isLoggedIn = UserService.isAuthenticated();
+        if(!isLoggedIn){
+            this.props.history.push('/login');
+        }else{
+            this.props.history.push('/checkout');
+        }
     }
 
     showItemList(category){
@@ -60,7 +66,7 @@ class ShoppingPage extends React.Component {
                 [... new Set(this.props.shop.products.map(item => item.category))].map(category=>
                 <Col key={category}  span={8}>
                     <div className="woodenBox" onClick={()=>this.showItemList(category)}>
-                        <img alt="category" src={`./images/categories/${category}.png`}/>
+                        <img alt={category} src={`./images/categories/${category}.svg`}/>
                     </div>
                 </Col>
                 )
@@ -101,7 +107,7 @@ class ShoppingPage extends React.Component {
                     <Card className="cart-card">
                         <Row gutter={{xs: 8, sm: 16}}>
                             <Col span={6}>
-                                <img width="100%" alt="logo" src={item.image}/>
+                                <img width="100%" alt={item.image} src={item.image}/>
                             </Col>
                             <Col span={18}>
                             <Meta
@@ -129,7 +135,7 @@ class ShoppingPage extends React.Component {
                     </Col>
                     <Col span={4} className="side-bar">
                         <ShoppingCart/>
-                        <Button type="primary" className='checoutButton' disabled={this.props.cart.cartItems.length === 0} onClick={this.checkoutHandler}>
+                        <Button type="primary" shape='rounded' className='checoutButton' disabled={this.props.cart.cartItems.length === 0} onClick={this.checkoutHandler}>
                             Proceed to Checkout
                         </Button>
                     </Col>

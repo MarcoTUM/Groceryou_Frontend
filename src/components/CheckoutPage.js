@@ -4,6 +4,7 @@ import PaypalButton from "./PaypalButton";
 import ShoppingCart from './ShoppingCart';
 import './CheckoutPage.css';
 import { connect } from 'react-redux';
+import UserService from "../services/UserService";
 
 const mapStateToProps = state => ({
     cart: state.cart
@@ -11,8 +12,20 @@ const mapStateToProps = state => ({
 
 class CheckoutPage extends React.Component {
 
-    state = {
-    };
+    constructor(props) {
+        super(props);
+        this.state={
+        }
+
+        this.checkAuthentication();
+    }
+    
+    checkAuthentication(){
+        let isLoggedIn = UserService.isAuthenticated();
+        if(!isLoggedIn){
+            this.props.history.push('/login');
+        }
+    }
 
     showPaypalButtons = () => {
         this.setState({ showPaypal: true});

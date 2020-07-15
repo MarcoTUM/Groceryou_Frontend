@@ -11,7 +11,7 @@ class GrouceryouMapSearch extends Component {
     const results = new L.LayerGroup().addTo(map);
 
     searchControl.on("results", function(data) {
-      //results.clearLayers();
+      results.clearLayers();
       for (let i = data.results.length - 1; i >= 0; i--) {
         results.addLayer(L.marker(data.results[i].latlng));
       }

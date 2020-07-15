@@ -3,6 +3,7 @@
 .side-bar{
     background-color: var(--darkGreen);
     padding: 0.5rem;
+    text-align: center;
     align-items: center;
     justify-content: center;
     
@@ -19,10 +20,7 @@
     text-align: right;
 }
 
-.checoutButton{
-    color: var(--darkGreen);
-    background-color:var(--darkYellow);
-}
+
 
 /* item categories */
 
@@ -71,4 +69,11 @@
 
 .cart-item h4 {
     color: white;
+}
+
+.checoutButton{
+    border-radius: 0.5rem;
+    font-weight: bold;
+    color: black;
+    background-color:var(--darkYellow);
 }

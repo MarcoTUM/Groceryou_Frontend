@@ -1,10 +1,12 @@
-import React from 'react';
-import {Row, Col, Button, Card, Radio} from 'antd';
-import logo from '../img/GroceryouLogo.png';
-import { Input,Carousel } from 'antd'; 
-import { darkGreen, lightGreen } from '../shared/colors';
+// An example of react component using no css
 
-const { Meta } = Card;
+import React from 'react';
+import LocationSearchInput from '../components/LocationSearchInput';
+import GeoSearchBar from '../components/GeoSearchBar';
+import {Row, Col, Button, Card} from 'antd';
+import logo from '../img/GroceryouLogo.png';
+import { Carousel } from 'antd'; 
+import { darkGreen, lightGreen } from '../shared/colors';
 
 class HomeView extends React.Component {
     constructor(props) {
@@ -17,25 +19,31 @@ class HomeView extends React.Component {
         this.updateLocation = this.updateLocation.bind(this)
     }
 
-    updateLocation(e) {
+    updateLocation(_location) {
         this.setState({
-          location: e.target.value
+          location: _location
         });
       }
 
     enterShop(){
-        this.props.history.push('/shopselection');
+        this.props.history.push({
+            pathname: '/shopSelection',
+            //search: '?query=abc',
+            state: { detail: this.state.location}
+          });
     }
 
     render() {
-        const enterLocationBlock = () => (
+        const enterLocation = () => (
             <div style={{...blockContainer, ...locationBlock}} align="middle">
                 <div>
                 <p style={whiteBold}>We deliver your groceries from strores nearby your home</p>
-                <Input.Group compact>
-                <Input placeholder="Please enter your address" style={{ width: '500px' }} onChange={this.updateLocation}/>
-                <Button type="primary" style={g_button} onClick={this.enterShop}>Enter</Button>
-                </Input.Group>
+                <Row style={{width: '100%'}}>
+                <Col span={24} md={20}><LocationSearchInput onChange={this.updateLocation}/></Col>
+                <Col span={24} md={4}><Button type="primary" style={{...g_button,...{width:"100%"}}} onClick={this.enterShop}>Enter</Button></Col>
+                </Row>
+                <GeoSearchBar/>
+                
                 </div>
             </div>
         );
@@ -75,6 +83,7 @@ class HomeView extends React.Component {
             </div>   
         );
 
+        
         const dealOfWeek = () => (
             <div style={{...blockContainer,...dealOfWeekBlock}} align="middle" justify="middle">
                 <div style={dealOfWeekAd}>                   
@@ -115,6 +124,7 @@ class HomeView extends React.Component {
                 </div>                                           
             </div>                
         );
+        
 
         const courierApply = () => (
             <div style={blockContainer}>
@@ -152,7 +162,7 @@ class HomeView extends React.Component {
 
         return (
             <main>
-                {enterLocationBlock()}
+                {enterLocation()}
                 {howToShop()}
                 {dealOfWeek()}
                 {courierApply()}

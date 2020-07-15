@@ -4,16 +4,12 @@ import { Link } from 'react-router-dom';
 
 import Logo from '../img/GroceryouLogo.png';
 import UserService from "../services/UserService";
-
-import './NavBar.css';
+import LocationSearchInput from '../components/LocationSearchInput';
+import styles from './NavBar.module.css';
 import LoginRegisterButtons from './LoginRegisterButtons'
 import LogoutButton from './LogoutButton'
 
 class NavBar extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         let isLoggedIn = UserService.isAuthenticated();
         let content;
@@ -23,7 +19,7 @@ class NavBar extends React.Component {
             content = <LoginRegisterButtons/>;
 
         return (
-            <nav>
+            <nav className={styles.nav}>
                 <Link to="/"><img src={Logo} alt="Groceryou Logo" /></Link>
                 {content}
             </nav>

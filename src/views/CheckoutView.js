@@ -13,7 +13,7 @@ class CheckoutView extends React.Component {
     render() {
         return (
             <main>
-                <CheckoutPage/>
+                <CheckoutPage history= {this.props.history}/>
             </main>
         );
     }

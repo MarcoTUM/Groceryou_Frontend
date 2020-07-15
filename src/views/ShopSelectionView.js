@@ -8,6 +8,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import { FieldTimeOutlined, EuroOutlined } from '@ant-design/icons';
 import GrouceryouMap from '../components/GrouceryouMap';
 
+
 const { Meta } = Card;
 
 const mapStateToProps = state => ({
@@ -24,11 +25,10 @@ class ShopSelectionView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            location: props.location,
+            location: props.location.state? props.location.state.detail:null,
             selectedShop: null,
             estimatedTime: null
         };
-
         this.enterShop = this.enterShop.bind(this);
     }
 
@@ -45,12 +45,13 @@ class ShopSelectionView extends React.Component {
         return 400;
     }
 
-    clickShop(item){
+    clickShop(shop){
         this.setState({
-            selectedShop: item,
+            selectedShop: shop,
             estimatedTime: this.getDeliveryTime()
             }
         )
+        this.refs.map.activateShopMarker(shop);
     }
 
     enterShop(){
@@ -58,6 +59,10 @@ class ShopSelectionView extends React.Component {
             this.props.setCurrentShop(this.state.selectedShop);
             this.props.history.push('/shop');
         }
+    }
+
+    handleClickShopMarker(shop){
+        this.clickShop(shop);
     }
 
     
@@ -110,24 +115,23 @@ class ShopSelectionView extends React.Component {
 
         return (
 
-            
-
-            <main>
-                <Row>
+                <Row style={{ height: '85vh', overflow: "auto" }}>
                     <Col span={0} md={4}  style={sideBarStyle}>
                         {shopList()}
                     </Col>
                     <Col span={24} md={16} >
-                        {this.props.shops.loading?<LoadingSpinner/>:<GrouceryouMap shops={this.props.shops.shops}/>}
+                        {this.props.shops.loading?<LoadingSpinner/>:
+                        <GrouceryouMap
+                            ref='map'
+                            onClickShopMarker={(shop)=>this.handleClickShopMarker(shop)}
+                            centerAddress={this.state.location} shops={this.props.shops.shops}/>}
                         
                     </Col>
                     <Col span={24} md={4}  style={sideBarStyle}>
                         {shopDetail()}
                     </Col>
                 </Row>
-            
-                
-          </main>
+
         );
     }
 }
