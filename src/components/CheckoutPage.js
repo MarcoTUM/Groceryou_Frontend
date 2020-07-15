@@ -17,6 +17,9 @@ class CheckoutPage extends React.Component {
         this.state={
         }
 
+        this.checkAuthentication = this.checkAuthentication.bind(this);
+        this.showPaypalButtons = this.showPaypalButtons.bind(this);
+
         this.checkAuthentication();
     }
     
@@ -27,11 +30,11 @@ class CheckoutPage extends React.Component {
         }
     }
 
-    showPaypalButtons = () => {
+    showPaypalButtons(){
         this.setState({ showPaypal: true});
     }
 
-    paymentSucceeded = () => {
+    paymentSucceeded(){
 
     }
 
