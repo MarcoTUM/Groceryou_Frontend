@@ -15,7 +15,7 @@ class UserLogin extends React.Component{
         return(
             <div>
                 <CredentialsForm
-                    buttonName={"Login"}
+                    type={"Login"}
                     submitRequest={this.submitRequest}
                 />
             </div>

@@ -1,34 +1,30 @@
 import HttpService from "./HttpService";
 import store from "../store";
-import { logout } from "../redux/authActions";
+import {logout} from "../redux/authActions";
+import {serverUrl} from "../shared/serverUrl";
 
 export default class UserService {
-  static baserURL() {
-    return "http://localhost:8080/auth";
-  }
+    // static baserURL() {return "http://localhost:8080/auth"; }
+    static baserURL() {return serverUrl + "auth"; }
 
   static frontEndURL() {
     return "http://localhost:3000/";
   }
 
-  static register(user, pass) {
-    return new Promise((resolve, reject) => {
-      HttpService.post(
-        UserService.baserURL() + "/register",
-        {
-          username: user,
-          password: pass,
-        },
-        (data) => {
-          resolve(data);
-          window.location.assign(UserService.frontEndURL());
-        },
-        (textStatus) => {
-          reject(textStatus);
-        }
-      );
-    });
-  }
+    static register(user,pass, userData) {
+        return new Promise((resolve,reject) => {
+            HttpService.post(UserService.baserURL() + '/register', {
+                username: user,
+                password: pass,
+                userData: userData
+            }, (data) => {
+                resolve(data);
+                window.location.assign(UserService.frontEndURL());
+            }, (textStatus) => {
+                reject(textStatus);
+            });
+        });
+    }
 
   static login(user, pass) {
     return new Promise((resolve, reject) => {
@@ -87,20 +83,20 @@ export default class UserService {
     );
   }
 
-  static isCourier() {
-    return new Promise((resolve, reject) => {
-      HttpService.post(
-        UserService.baserURL() + "/amICourier",
-        {
-          id: UserService.getCurrentUser().id,
-        },
-        (data) => {
-          resolve(data.isCourier);
-        },
-        (textStatus) => {
-          reject(textStatus);
-        }
-      );
-    });
-  }
+    static isAuthenticated(){
+        // return window.localStorage['jwtToken']; //deprecated -> use the auth reducer
+        return store.getState().auth.token !== null && store.getState().auth.token !== 'null';
+    }
+
+    static isCourier() {
+        return new Promise((resolve, reject) => {
+            HttpService.post(UserService.baserURL() + '/amICourier',{
+                id: UserService.getCurrentUser().id
+            },(data) =>{
+                resolve(data.isCourier)
+            }, (textStatus) => {
+                reject(textStatus)
+            });
+        });
+    }
 }
