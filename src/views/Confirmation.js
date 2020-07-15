@@ -8,6 +8,8 @@ import {connect} from "react-redux";
 import {Spin, Modal, Form, Input, InputNumber} from "antd";
 import {preventDefault} from "leaflet/src/dom/DomEvent";
 import ReplacementList from '../components/ReplacementList'
+import SmsService from "../services/SmsService";
+import UserService from "../services/UserService";
 
 const mapStateToProps = (state) => {
     let items = state.confirmation.items;
@@ -74,6 +76,12 @@ class Confirmation extends React.Component {
         this.setState({
             visible: false,
         });
+    };
+
+    sendConfirmationSms(content) {
+        SmsService.sendConfirmation(content)
+            .then(() => {alert("Sms sent");})
+            .catch((e) => {alert("Sms issue: " + e)});
     };
 
 
@@ -204,7 +212,9 @@ class Confirmation extends React.Component {
                             Abort
                         </button>
                         <button
-                            className={styles.deliverButton}>
+                            className={styles.deliverButton}
+                            onClick={() => {this.sendConfirmationSms({number: 'dummyPhoneNumberValue'})}}
+                        >
                             Deliver
                         </button>
                     </div>
