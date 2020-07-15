@@ -12,7 +12,7 @@ const login = (username, token) => (dispatch) => {
     } catch(error){}
 };
 
-const logout = () => (dispatch) => { //does currently set the token to empty, does NOT remove the token from localstorage
+const logout = () => (dispatch) => { //does currently set the token to empty, does NOT remove the token from local storage
     try{
         dispatch({
             type: AUTH_LOGOUT,
