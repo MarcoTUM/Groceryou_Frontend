@@ -1,0 +1,35 @@
+.shoppingCart {
+    align-items: center;
+    justify-content: center;
+}
+
+.shoppingCart .title{
+    text-align: center;
+    color: var(--lightYellow);
+}
+
+.shoppingCart .bottomSumup {
+    color:var(--lightYellow);
+    font-weight: 'bold';
+    text-align:right;
+}
+
+/* quantity control */
+
+.shoppingCart .qtyControl {
+    font-size: large;
+    color: yellow;
+
+}
+
+.shoppingCart .qtyButton{
+    color:var(--darkYellow);
+}
+
+.shoppingCart .qtyControl .qtyNumber{
+    display: block;
+    color: white;
+    font-size: medium;
+    
+    text-align: center;
+}

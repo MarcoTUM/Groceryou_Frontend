@@ -1,25 +1,39 @@
 import React from 'react';
 import { Row, Col, List, Card, Button} from 'antd';
-/* import { Link } from 'react-router-dom'; */
-import { SHOPS } from '../shared/shops';
-import {darkGreen /* , gray,  lightGreen */} from '../shared/colors';
-import { FieldTimeOutlined /* , BoldOutlined */ } from '@ant-design/icons';
+import { connect } from 'react-redux';
+import {darkGreen} from '../shared/colors';
+import {fetchShops} from '../redux/shopsOnMapActions';
+import {setCurrentShop} from '../redux/currentShopActions';
+import LoadingSpinner from '../components/LoadingSpinner';
+import { FieldTimeOutlined, EuroOutlined } from '@ant-design/icons';
+import GrouceryouMap from '../components/GrouceryouMap';
+
 
 const { Meta } = Card;
+
+const mapStateToProps = state => ({
+    shops: state.shops,
+    currentShop: state.currentShop
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    fetchShops: () => {dispatch(fetchShops())},
+    setCurrentShop: (currentShop)=> {dispatch(setCurrentShop(currentShop))}
+});
 
 class ShopSelectionView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            location: props.location,
-            shops: SHOPS,
+            location: props.location.state? props.location.state.detail:null,
             selectedShop: null,
             estimatedTime: null
         };
+        this.enterShop = this.enterShop.bind(this);
     }
 
-    callback(key) {
-        console.log(key);
+    componentDidMount(){
+        this.props.fetchShops();
     }
 
     getDeliveryTime(){
@@ -27,39 +41,60 @@ class ShopSelectionView extends React.Component {
         return 120;
     }
 
-    clickShop(item){
+    getDistance(shopDistance){
+        return 400;
+    }
+
+    clickShop(shop){
         this.setState({
-            selectedShop: item,
+            selectedShop: shop,
             estimatedTime: this.getDeliveryTime()
             }
         )
-        console.log(item);
+        this.refs.map.activateShopMarker(shop);
     }
+
+    enterShop(){
+        if(this.state.selectedShop!=null){
+            this.props.setCurrentShop(this.state.selectedShop);
+            this.props.history.push('/shop');
+        }
+    }
+
+    handleClickShopMarker(shop){
+        this.clickShop(shop);
+    }
+
+    
 
     render() {
 
         const shopList = ()=>{
-            return (
-                <div>
-                <List
-                bordered = {false}
-                dataSource = {this.state.shops}
-                renderItem={(item) => (
-                    <Card  style={cardInListStyle} onClick={() => {this.clickShop(item)}}>
-                        <Row gutter={{xs: 8, sm: 16}}>
-                            <Col span={6}>
-                                <img width="100%" alt="logo" src={item.image}/>
-                            </Col>
-                            <Col span={18}>
-                            <Meta
-                                title={item.location}
-                                description={item.distance}
-                            />
-                            </Col>
-                        </Row>
-                    </Card>)}/>
-                </div>
-            );
+            if(this.props.shops.loading){
+                return(<LoadingSpinner/>);
+            } else {
+                return (
+                    <div>
+                    <List
+                    bordered = {false}
+                    dataSource = {this.props.shops.shops}
+                    renderItem={(item) => (
+                        <Card  key = {item._id} style={cardInListStyle} onClick={() => {this.clickShop(item)}}>
+                            <Row gutter={{xs: 8, sm: 16}}>
+                                <Col span={6}>
+                                    <img width="100%" alt="logo" src={item.icon}/>
+                                </Col>
+                                <Col span={18}>
+                                <Meta
+                                    title={item.address.street + " " +  item.address.houseNr}
+                                    description={this.getDistance() + 'm'}
+                                />
+                                </Col>
+                            </Row>
+                        </Card>)}/>
+                    </div>
+                );
+            }
         }
 
         const shopDetail = () => {
@@ -67,10 +102,10 @@ class ShopSelectionView extends React.Component {
                 <div style={shopDetailContainerStyle}>
                     <p style = {yellowBold}><FieldTimeOutlined /> Estimated Delivery Time </p>
                     {this.state.selectedShop?(<p style = {yellow}> {this.state.estimatedTime} Minutes</p>):''}
-                    <p style = {yellowBold}>Minimum Order Price</p>
+                    <p style = {yellowBold}><EuroOutlined/>Minimum Order Price</p>
                     {this.state.selectedShop?(<p style = {yellow}> {this.state.selectedShop.minimumPrice} €</p>):''}
                     <p style = {{textAlign: 'right'}}>
-                    <Button shape="round" style={{ background: "yellow", borderColor: 'yellow'}}>
+                    <Button shape="round" style={{ background: "yellow", borderColor: 'yellow'}} onClick={this.enterShop}>
                         Enter Shop
                     </Button>
                     </p>
@@ -78,30 +113,25 @@ class ShopSelectionView extends React.Component {
             );
         }
 
-        const fakeMap = ()=> {
-            return(
-                <div>
-                    <img width="100%" src="assets/images/fakemap.png" alt="fakemap" />
-                    </div>
-            );
-        }
-
         return (
-            <main>
-                <Row>
-                    <Col span={0} md={5}  style={sideBarStyle}>
+
+                <Row style={{ height: '85vh', overflow: "auto" }}>
+                    <Col span={0} md={4}  style={sideBarStyle}>
                         {shopList()}
                     </Col>
-                    <Col span={24} md={14} >
-                        {fakeMap()}
+                    <Col span={24} md={16} >
+                        {this.props.shops.loading?<LoadingSpinner/>:
+                        <GrouceryouMap
+                            ref='map'
+                            onClickShopMarker={(shop)=>this.handleClickShopMarker(shop)}
+                            centerAddress={this.state.location} shops={this.props.shops.shops}/>}
+                        
                     </Col>
-                    <Col span={24} md={5}  style={sideBarStyle}>
+                    <Col span={24} md={4}  style={sideBarStyle}>
                         {shopDetail()}
                     </Col>
                 </Row>
-            
-                
-          </main>
+
         );
     }
 }
@@ -130,4 +160,4 @@ const yellow = {
     textAlign:"right"
 }
 
-export default ShopSelectionView;
+export default connect(mapStateToProps, mapDispatchToProps)(ShopSelectionView);

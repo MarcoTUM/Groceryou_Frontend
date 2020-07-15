@@ -1,10 +1,11 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import { productListReducer } from './redux/productReducers';
+import { shopsOnMapReducer } from './redux/shopsOnMapReducers';
 import { cartReducer } from './redux/cartReducers';
 import { authReducer } from "./redux/authReducers";
 import { currentRequestReducer } from "./redux/currentRequestReducers";
 import { acceptedRequestReducer } from "./redux/acceptedRequestReducers";
+import { currentShopReducer } from './redux/currentShopReducers';
 import { customerReducer } from "./redux/customerReducers";
 import {confirmationReducer} from "./redux/confirmationReducers";
 
@@ -17,7 +18,8 @@ const initialState = {
 };
 const reducer = combineReducers({
     auth: authReducer,
-    productList: productListReducer,
+    shops: shopsOnMapReducer,
+    currentShop: currentShopReducer,
     cart: cartReducer,
     currentRequest: currentRequestReducer,
     acceptedRequests: acceptedRequestReducer,
