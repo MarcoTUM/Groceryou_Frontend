@@ -21,12 +21,16 @@
     color: black;
 }
 
+.requestCardButtonContainer {
+    width: 80%;
+}
+
 .requestCardButton {
     color: white;
     background-color: #036635;
     border-color: #e3e3e3;
     border-radius: 50px;
-    width: 80%;
+    width: 100%;
 }
 
 .requestCardButton:hover {

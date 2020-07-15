@@ -84,3 +84,9 @@
     background-color: #036635;
     cursor: pointer;
 }
+
+.alreadyAcceptedRequest {
+    font-weight: bold;
+    color: orange;
+    text-align: center;
+}

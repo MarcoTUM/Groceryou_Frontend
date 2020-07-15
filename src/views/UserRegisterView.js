@@ -12,7 +12,7 @@ class UserRegisterView extends React.Component {
             title: "Groceryou",
         };
     }
-
+    
     register(user){
         UserService.register(user.username, user.password, user.userData).then((data) => {
             store.dispatch(login(user.username,data.token));

@@ -2,28 +2,43 @@ import React from "react";
 import ConfirmationItem from "./ConfirmationItem";
 
 class ConfirmationItemList extends React.Component{
+
     constructor(props) {
         super(props);
+        this.showModal = this.showModal.bind(this);
+
+    }
+
+    showModal = (id) => {
+        this.props.showModal(id)
+    };
+
+    render(){
+
         let components = [];
-        for(let item in props.items){
+        let key = 0;
+        for(let item in this.props.items){
             components.push(
                 <ConfirmationItem
-                    name = {this.props.items[item].name}
-                    amount={this.props.items[item].amount}
-                    unitType={this.props.items[item].unitType}
-                    price={this.props.items[item].unitPrice * this.props.items[item].amount}
+                    content = {this.props.items[item].content}
+                    state = {this.props.items[item].state}
+                    key = {key}
+                    id = {key++}
+                    showModal = {this.showModal}
                 />
+<<<<<<< HEAD
                 );
         }
         this.state={
             components: components
+=======
+            );
+>>>>>>> b0645e5ef56699ee911f20703615c21dc318176e
         }
-    }
 
-    render(){
         return(
             <div>
-                {this.state.components}
+                {components}
             </div>
         );
     }

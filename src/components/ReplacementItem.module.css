@@ -1,0 +1,4 @@
+.content {
+    overflow: auto;
+    column-count: 3;
+}

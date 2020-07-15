@@ -1,39 +1,57 @@
 import {
-    CURRENT_REQUEST_STARTED,
-    CURRENT_REQUEST_SUCCESS,
-    CURRENT_REQUEST_FAIL
-} from "./reduxConstants"
+  CURRENT_REQUEST_STARTED,
+  CURRENT_REQUEST_SUCCESS,
+  CURRENT_REQUEST_FAIL,
+  ACCEPT_CURRENT_REQUEST_STARTED,
+  ACCEPT_CURRENT_REQUEST_SUCCESS,
+  ACCEPT_CURRENT_REQUEST_FAIL,
+} from "./reduxConstants";
 
 const initialState = {
-    loading: true,
-    currentRequestData: {},
-    error: null
-}
+  loading: true,
+  currentRequestData: {},
+  error: null,
+};
 
 function currentRequestReducer(state = initialState, action) {
+  const payload = action.payload;
 
-    const payload = action.payload;
-
-    switch (action.type) {
-        case CURRENT_REQUEST_STARTED:
-            return {
-                ...state
-            };
-        case CURRENT_REQUEST_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                currentRequestData: {...payload}
-            };
-        case CURRENT_REQUEST_FAIL:
-            return { 
-                ...state,
-                loading: false,
-                error: action.payload.errorMessage 
-            };
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case CURRENT_REQUEST_STARTED:
+      return {
+        ...state,
+      };
+    case CURRENT_REQUEST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        currentRequestData: { ...payload },
+      };
+    case CURRENT_REQUEST_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.errorMessage,
+      };
+    case ACCEPT_CURRENT_REQUEST_STARTED:
+      return {
+        ...state,
+      };
+    case ACCEPT_CURRENT_REQUEST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        currentRequestData: { ...payload },
+      };
+    case ACCEPT_CURRENT_REQUEST_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.errorMessage,
+      };
+    default:
+      return state;
+  }
 }
 
-export { currentRequestReducer }
+export { currentRequestReducer };
