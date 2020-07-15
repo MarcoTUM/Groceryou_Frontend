@@ -17,6 +17,7 @@ function authReducer(state={username: '', token: ''}, action){
             };
         case AUTH_REFRESH:
             return{
+                username: payload.username,
                 token: payload.token
             };
         default:

@@ -21,11 +21,13 @@ const logout = () => (dispatch) => { //does currently set the token to empty, do
     } catch(error){}
 };
 
-const refresh = (token) => (dispatch) => {
+const refresh = (token, username) => (dispatch) => {
+    console.log("REFRESHING: " + username)
     try{
         dispatch({
             type: AUTH_REFRESH,
             payload: {
+                username: username,
                 token: token
             }
         })

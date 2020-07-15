@@ -2,46 +2,175 @@ import React from 'react';
 import styles from './Confirmation.module.css';
 import { Link } from 'react-router-dom';
 import ConfirmationItemList from '../components/ConfirmationItemList';
+import store from "../store";
+import {conf_replace, fetchItems} from "../redux/confirmationActions";
+import {connect} from "react-redux";
+import {Spin, Modal, Form, Input, InputNumber} from "antd";
+import {preventDefault} from "leaflet/src/dom/DomEvent";
+import ReplacementList from '../components/ReplacementList'
+import SmsService from "../services/SmsService";
+import UserService from "../services/UserService";
 
-class Confirmation extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state={
-            mock_items: [
-                {
-                    name: "Apple",
-                    amount: 3,
-                    unitType:"",
-                    unitPrice: 0.5,
-                },
-                {
-                    name: "Toast",
-                    amount: 1,
-                    unitType:"",
-                    unitPrice: 1,
-                },
-                {
-                    name: "Pringles Onion",
-                    amount: 2,
-                    unitType:"",
-                    unitPrice: 4.5/2,
-                },
-                {
-                    name: "Pork Belly",
-                    amount: 500,
-                    unitType:"g",
-                    unitPrice: 3.5/500,
-                },
-            ]
+const mapStateToProps = (state) => {
+    let items = state.confirmation.items;
+    let replacements = state.confirmation.replacements;
+
+    if(items.loading){
+        return{
+            loading: true
         }
-
-
     }
 
+    else {
+        let itemsData = items;
+        let replacementsData = replacements;
+
+        return{
+            items: itemsData,
+            replacement: replacementsData,
+        }
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        fetchItems: () => {dispatch(fetchItems())},
+    }
+};
+
+class Confirmation extends React.Component {
+
+    componentDidMount() {
+        this.props.fetchItems();
+    }
+
+    state = {
+        visible: false,
+        replace:{
+            name:'',
+            qty:0,
+            price:0,
+        }
+    };
+
+    showModal = (id) => {
+        this.setState({
+            visible: true,
+            currentId: id
+        });
+    };
+
+    handleOk = e => {
+        preventDefault(e);
+        store.dispatch(conf_replace(
+            this.state.currentId,
+            this.state.replace
+        ));
+        this.setState({
+            visible: false,
+        });
+    };
+
+    handleCancel = e => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    };
+
+    sendConfirmationSms(content) {
+        SmsService.sendConfirmation(content)
+            .then(() => {alert("Sms sent");})
+            .catch((e) => {alert("Sms issue: " + e)});
+    };
+
+
     render() {
+
+        if(this.props.loading)
+            return <Spin />;
         return (
             <main>
-                <div class="content" className={styles.content}>
+
+                <Modal
+                    title="Replacement offer"
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}>
+                    <h2>Enter Replacement name, quantity, price</h2>
+                    <Form>
+                        <Form.Item
+                            label="Name"
+                            name="name"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please enter the name"
+                                }
+                            ]}
+                        >
+                            <Input
+                                value={this.state.replace.name}
+                                onChange={e => {
+                                    let replace = {...this.state.replace};
+                                    replace.name=e.target.value;
+                                    this.setState({
+                                        replace: replace
+                                    })
+                                }}
+                                aria-errormessage={"Name is required"}
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            label="Quantity"
+                            name="quantity"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please enter the quantity"
+                                }
+                            ]}
+                        >
+                            <InputNumber
+                                min={0}
+                                value={this.state.replace.qty}
+                                onChange={ e => {
+                                    let replace ={...this.state.replace};
+                                    replace.qty = e;
+                                    this.setState({
+                                        replace: replace
+                                    })
+                                }}
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            label="Price"
+                            name="price"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please enter the price"
+                                }
+                            ]}
+                        >
+                            <InputNumber
+                                defaultValue={0}
+                                value={this.state.replace.price}
+                                formatter={value => `€ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                min={0}
+                                onChange={e => {
+                                    let replace ={...this.state.replace};
+                                    replace.price = e
+                                    this.setState({
+                                        replace: replace
+                                    })
+                                }}
+                            />
+                        </Form.Item>
+                    </Form>
+                </Modal>
+
+                <div className={styles.content}>
                     <div className={styles.listContainer}>
                         <div className={styles.itemList}>
                             <h2 className={styles.title}>Item List</h2>
@@ -60,18 +189,34 @@ class Confirmation extends React.Component {
                                 </div>
                             </div>
                             <ConfirmationItemList
-                                items={this.state.mock_items}
+                                items={this.props.items}
+                                showModal={this.showModal}
                             />
                         </div>
 
                         <div className={styles.replacement}>
                             <h2 className={styles.title}>Replacement</h2>
+                            <div>
+                                <ReplacementList
+                                    replacements={this.props.replacement}
+                                />
+                            </div>
                         </div>
                     </div>
                     <div className={styles.backButtonContainer}>
                         <Link to='/AcceptRequest'>
                             <button className={styles.backButton}>Back to map</button>
                         </Link>
+                        <button
+                            className={styles.abortButton}>
+                            Abort
+                        </button>
+                        <button
+                            className={styles.deliverButton}
+                            onClick={() => {this.sendConfirmationSms({number: 'dummyPhoneNumberValue'})}}
+                        >
+                            Deliver
+                        </button>
                     </div>
                 </div>
             </main>
@@ -79,4 +224,5 @@ class Confirmation extends React.Component {
     }
 }
 
-export default Confirmation;
+// export default Confirmation;
+export default connect(mapStateToProps, mapDispatchToProps)(Confirmation);

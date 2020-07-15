@@ -1,9 +1,11 @@
 import HttpService from "./HttpService";
 import store from "../store";
 import {logout} from "../redux/authActions";
+import {serverUrl} from "../shared/serverUrl";
 
 export default class UserService {
-    static baserURL() {return "http://localhost:8080/auth"; }
+    // static baserURL() {return "http://localhost:8080/auth"; }
+    static baserURL() {return serverUrl + "auth"; }
 
     static frontEndURL() {return "http://localhost:3000/"}
 
@@ -73,7 +75,7 @@ export default class UserService {
             HttpService.post(UserService.baserURL() + '/amICourier',{
                 id: UserService.getCurrentUser().id
             },(data) =>{
-                resolve(data)
+                resolve(data.isCourier)
             }, (textStatus) => {
                 reject(textStatus)
             });

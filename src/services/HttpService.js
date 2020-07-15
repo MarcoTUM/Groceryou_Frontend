@@ -28,9 +28,10 @@ export default class HttpService{
                 onError(resp.error);
             }
             else{
-                if(resp.hasOwnProperty('token')){
+                const username = store.getState().auth.username;
+                if(resp.hasOwnProperty('token') && username !== null && username !== 'null') {
                     // window.localStorage['jwtToken'] = resp.token; //deprecated -> use the auth reducer instead
-                    store.dispatch(refresh(resp.token));
+                    store.dispatch(refresh(resp.token, username));
                 }
                 onSuccess(resp);
             }
@@ -65,9 +66,10 @@ export default class HttpService{
                 onError(resp.error);
             }
             else{
-                if(resp.hasOwnProperty('token')) {
+                const username = store.getState().auth.username;
+                if(resp.hasOwnProperty('token') && username !== null && username !== 'null') {
                     // window.localStorage['jwtToken'] = resp.token; //deprecated -> use the auth reducer instead
-                    store.dispatch(refresh(resp.token));
+                    store.dispatch(refresh(resp.token, username));
                 }
                 onSuccess(resp);
             }
@@ -102,9 +104,10 @@ export default class HttpService{
                 onError(resp.error);
             }
             else{
-                if(resp.hasOwnProperty('token')) {
+                const username = store.getState().auth.username;
+                if(resp.hasOwnProperty('token') && username !== null && username !== 'null'){
                     // window.localStorage['jwtToken'] = resp.token; //deprecated -> use the auth reducer instead
-                    store.dispatch(refresh(resp.token));
+                    store.dispatch(refresh(resp.token, username));
                 }
                 onSuccess(resp);
             }

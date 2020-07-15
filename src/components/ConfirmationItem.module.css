@@ -2,9 +2,23 @@
     column-count: 4;
 }
 
+.strikeText{
+    text-decoration: line-through;
+}
+
 .vButton{
     background: #036635;
     color: white;
+    border-radius: 15px;
+    font-size: 16px;
+    padding: 4px 24px;
+    margin-right: 10px;
+    transition-duration: 0.2s;
+}
+
+.vButtonPressed{
+    background: white;
+    color: #036635;
     border-radius: 15px;
     font-size: 16px;
     padding: 4px 24px;
@@ -25,6 +39,26 @@
 .xButton{
     background: #d30000;
     color: white;
+    border-radius: 15px;
+    font-size: 16px;
+    padding: 4px 24px;
+    margin-left: 10px;
+    transition-duration: 0.2s;
+}
+
+.xButtonMissing{
+    background: white;
+    color: #000000;
+    border-radius: 15px;
+    font-size: 16px;
+    padding: 4px 24px;
+    margin-left: 10px;
+    transition-duration: 0.2s;
+}
+
+.xButtonReplace{
+    background: #9ca4ff;
+    color: #000000;
     border-radius: 15px;
     font-size: 16px;
     padding: 4px 24px;
