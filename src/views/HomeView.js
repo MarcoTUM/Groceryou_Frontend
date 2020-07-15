@@ -2,7 +2,6 @@
 
 import React from 'react';
 import LocationSearchInput from '../components/LocationSearchInput';
-import GeoSearchBar from '../components/GeoSearchBar';
 import {Row, Col, Button, Card} from 'antd';
 import logo from '../img/GroceryouLogo.png';
 import { Carousel } from 'antd'; 
@@ -42,7 +41,6 @@ class HomeView extends React.Component {
                 <Col span={24} md={20}><LocationSearchInput onChange={this.updateLocation}/></Col>
                 <Col span={24} md={4}><Button type="primary" style={{...g_button,...{width:"100%"}}} onClick={this.enterShop}>Enter</Button></Col>
                 </Row>
-                <GeoSearchBar/>
                 
                 </div>
             </div>
