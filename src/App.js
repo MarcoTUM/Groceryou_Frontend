@@ -14,6 +14,7 @@ import AcceptRequestView from './views/AcceptRequestView';
 import CourierView from './views/CourierView';
 import UserLoginView from './views/UserLoginView';
 import UserRegisterView from './views/UserRegisterView';
+import CheckoutView from './views/CheckoutView';
 import NavBar from "./components/NavBar";
 import SubNavBar from "./components/SubNavBar";
 import Confirmation from "./views/Confirmation";
@@ -40,6 +41,7 @@ class App extends React.Component {
                         <Route path="/courier" component={CourierView} />
                         <Route path="/login" component={UserLoginView} />
                         <Route path="/register" component={UserRegisterView} />
+                        <Route path="/checkout" component={CheckoutView} />
                         <Route path="/confirmation" component={Confirmation} />
                     </Switch>
                 </Router>

@@ -1,8 +1,12 @@
 import {
     CURRENT_REQUEST_STARTED,
     CURRENT_REQUEST_SUCCESS,
-    CURRENT_REQUEST_FAIL
+    CURRENT_REQUEST_FAIL,
+    ACCEPT_CURRENT_REQUEST_STARTED,
+    ACCEPT_CURRENT_REQUEST_SUCCESS,
+    ACCEPT_CURRENT_REQUEST_FAIL
 } from "./reduxConstants"
+
 import Axios from 'axios';
 
 const fetchCurrentRequest = () => async (dispatch) => {
@@ -31,4 +35,32 @@ const fetchCurrentRequestFailure = (errorMessage) => ({
     payload: errorMessage
 });
 
-export { fetchCurrentRequest }
+const acceptCurrentRequest = (RequestID, courierID) => async (dispatch) => {
+    dispatch(acceptCurrentRequestStarted());
+    try {
+        const currentRequest = await Axios.put("/requests/" + RequestID.toString(), {
+            courierID: courierID
+        });
+        dispatch(acceptCurrentRequestSuccess(currentRequest.data));
+    } catch (error) {
+        dispatch(acceptCurrentRequestFailure(error.message));
+    }
+}
+
+const acceptCurrentRequestStarted = () => ({
+    type: ACCEPT_CURRENT_REQUEST_STARTED,
+});
+
+const acceptCurrentRequestSuccess = (data) => ({
+    type: ACCEPT_CURRENT_REQUEST_SUCCESS,
+    payload: {
+        ...data
+    }
+});
+
+const acceptCurrentRequestFailure = (errorMessage) => ({
+    type: ACCEPT_CURRENT_REQUEST_FAIL,
+    payload: errorMessage
+});
+
+export { fetchCurrentRequest, acceptCurrentRequest }

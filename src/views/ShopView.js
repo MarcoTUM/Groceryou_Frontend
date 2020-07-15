@@ -10,9 +10,7 @@ class HomeView extends React.Component {
 
     render(){
         return (
-            <div>
-            <ShoppingPage />
-            </div>
+            <ShoppingPage history= {this.props.history}/>
         );
     }
 
