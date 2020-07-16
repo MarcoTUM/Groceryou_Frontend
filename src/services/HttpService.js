@@ -21,7 +21,7 @@ export default class HttpService{
                     window.location = "/login";
             }
             else{
-                return resp.json
+                return resp.json()
             }
         }).then((resp)=>{
             if(resp.error){

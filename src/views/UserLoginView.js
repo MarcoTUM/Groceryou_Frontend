@@ -14,9 +14,11 @@ class UserLoginView extends React.Component {
     }
 
     login(user){
-        UserService.login(user.username, user.password).then((data) => {
+        UserService.login(user.username, user.password)
+        .then((data) => {
             store.dispatch(login(user.username,data.token));
-        }).catch((e) => {
+        })
+        .catch((e) => {
             alert("Incorrect username or password");
             this.setState({
                 error: e
@@ -27,7 +29,7 @@ class UserLoginView extends React.Component {
     render() {
         return (
             <main>
-                <div class="content">
+                <div className="content">
                     <UserLogin
                         onSubmit={(user) => this.login(user)}
                         error={this.state.error}

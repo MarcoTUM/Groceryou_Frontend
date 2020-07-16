@@ -7,9 +7,9 @@ export default class UserService {
     // static baserURL() {return "http://localhost:8080/auth"; }
     static baserURL() {return serverUrl + "auth"; }
 
-  static frontEndURL() {
-    return "http://localhost:3000/";
-  }
+    static frontEndURL() {
+      return "http://localhost:3000/";
+    }
 
     static register(user,pass, userData) {
         return new Promise((resolve,reject) => {

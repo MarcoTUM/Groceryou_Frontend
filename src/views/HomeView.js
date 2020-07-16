@@ -6,6 +6,7 @@ import {Row, Col, Button, Card} from 'antd';
 import logo from '../img/GroceryouLogo.png';
 import { Carousel } from 'antd'; 
 import { darkGreen, lightGreen } from '../shared/colors';
+import RequestService from '../services/RequestService';
 
 class HomeView extends React.Component {
     constructor(props) {
@@ -14,9 +15,17 @@ class HomeView extends React.Component {
             location:''
         };
 
+        this.testGetRequests();
+
         this.enterShop = this.enterShop.bind(this);
         this.updateLocation = this.updateLocation.bind(this)
     }
+
+    testGetRequests(){
+        RequestService.getRequests();
+        RequestService.createRequest();
+    }
+
 
     updateLocation(_location) {
         this.setState({
@@ -222,7 +231,6 @@ const greenContainer = {
 
 const normal = {
     color: 'black',
-    //fontWeight: 'bold',
     fontSize: 18
 }
 
@@ -231,7 +239,6 @@ const cardStyle = {
     borderRadius: 32,
     borderColor: lightGreen,
     margin: 16,
-    //backgroundImage: `url(https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png)`,
     backgroundSize: 'cover',
 }
 
