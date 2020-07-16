@@ -12,17 +12,10 @@ import { MdEuroSymbol, MdShoppingBasket } from "react-icons/md";
 
 import RequestCard from '../components/RequestCard';
 import UserService from "../services/UserService";
-import Geocoder from "../services/GeocoderService";
 
 import { Spin } from "antd";
 
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
-import { Icon } from 'leaflet';
-
-const redMarker = new Icon({
-    iconUrl: require('../img/redMarker.png'),
-    iconSize: [24, 41]
-});
+import RequestMap from '../components/RequestMap';
 
 const mapStateToProps = (state) => {
     let currentRequest = state.currentRequest;
@@ -39,10 +32,10 @@ const mapStateToProps = (state) => {
         let currentRequestData = currentRequest.currentRequestData;
 
         // Get all requests from the redux store
-        let acceptedRequestsData = acceptedRequests.acceptedRequestsData;
+        let allRequestsData = acceptedRequests.acceptedRequestsData;
 
         // Get all users from the redux store
-        let userData = customersList.customersListData;
+        let allUsers = customersList.customersListData;
 
         // Get the courierID of the current request
         let currentRequestCourierId;
@@ -56,13 +49,13 @@ const mapStateToProps = (state) => {
         let accepted3Requests = [];
 
         // For every request
-        for(let request of Object.values(acceptedRequestsData)) {
+        for(let request of Object.values(allRequestsData)) {
             // Check if courierID is set
             if(request.hasOwnProperty("courierID")) {
                 // Check if courierID is equal to the current user id
                 if(request.courierID === UserService.getCurrentUser().id) {
                     // Fo each user
-                    for(let user of Object.values(userData)) {
+                    for(let user of Object.values(allUsers)) {
                         // Check if userID is equal to the request's userID
                         if(user._id === request.userID) {
                             // Save the important information in an array
@@ -78,25 +71,41 @@ const mapStateToProps = (state) => {
             }
         }
 
+        // Get the addresses of all requests
+        let requestAddresses = [];
+
+        // For every request
+        for(let request of Object.values(allRequestsData)) {
+            // Fo each user
+            for(let user of Object.values(allUsers)) {
+                // Check if userID is equal to the request's userID
+                if(user._id === request.userID) {
+                    // Save the user address
+                    requestAddresses.push(user.userData.address);
+                }
+            } 
+        }
+
         // TODO: Replace with map clicks
-        userData = customersList.customersListData["0"].userData;
+        allUsers = customersList.customersListData["0"].userData;
 
         // Return the information into the properties
         return {
-            customerFullName: [userData.name, userData.surname].join(" "),
-            customerSurname: userData.surname,
-            phoneNumber: userData.phoneNumber,
-            street: userData.address.street,
-            PLZ: userData.address.PLZ,
-            city: userData.address.city,
-            houseNr: userData.address.houseNr,
+            customerFullName: [allUsers.name, allUsers.surname].join(" "),
+            customerSurname: allUsers.surname,
+            phoneNumber: allUsers.phoneNumber,
+            street: allUsers.address.street,
+            PLZ: allUsers.address.PLZ,
+            city: allUsers.address.city,
+            houseNr: allUsers.address.houseNr,
             currentRequestId: currentRequestData._id,
             commission: currentRequestData.commission,
             amountOfItems: currentRequestData.itemList.length,
             currentRequestCourierId: currentRequestCourierId,
             desiredDeliveryTimeStart: currentRequestData.desiredDeliveryTimeStart,
             desiredDeliveryTimeEnd: currentRequestData.desiredDeliveryTimeEnd,
-            accepted3Requests: accepted3Requests
+            accepted3Requests: accepted3Requests,
+            requestAddresses: requestAddresses
         }
     }
 }
@@ -148,16 +157,6 @@ class AcceptRequestView extends React.Component {
         this.props.fetchCurrentRequest();
         this.props.fetchAcceptedRequests();
         this.props.fetchCustomers();
-        
-        let latLong = {};
-        Geocoder(3, "Boltzmannstraße", "Garching", 85748, "Deutschland")
-        .then((response) => {
-            latLong = response;
-            console.log(latLong);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
     }
 
     acceptCurrentRequest = () => {
@@ -211,15 +210,7 @@ class AcceptRequestView extends React.Component {
                                 {requestCards}
                             </div>
                             <div className={[styles.column, styles.middle].join(" ")}>
-                                <Map center={[48.262473, 11.668891]} zoom={13}>
-                                    <TileLayer
-                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                        attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-                                    />
-                                    <Marker position={[48.262473, 11.668891]} icon={redMarker}>
-                                        <Popup>This is the TUM.<br />Best Uni ever!</Popup>
-                                    </Marker>
-                                </Map>
+                                <RequestMap addresses={this.props.requestAddresses} />
                             </div>
                             <div className={[styles.column, styles.right].join(" ")}>
                                 <IconContext.Provider value={{ size: "1.5em", verticalAlign: 'middle' }}>
