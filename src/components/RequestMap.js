@@ -36,7 +36,7 @@ class RequestMap extends React.Component {
     };
 
     // Method binding
-    this.markers = this.geoCodeMarkers.bind(this);
+    this.geoCodeMarkers = this.geoCodeMarkers.bind(this);
     this.markerOnClick = this.markerOnClick.bind(this);
   }
 

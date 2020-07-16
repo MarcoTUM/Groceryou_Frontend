@@ -203,6 +203,9 @@ class AcceptRequestView extends React.Component {
     acceptCurrentRequest = () => {
         // Accept the current request by adding courierID to the request in the database
         this.props.acceptCurrentRequest(this.props.currentRequestId, this.state.currentUserID);
+
+        // Make sure the map markers and acceptedRequest (requestCards) also get the courierID update
+        this.props.fetchAcceptedRequests();
     }
 
     acceptRequestButton() {
