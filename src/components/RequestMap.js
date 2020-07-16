@@ -3,17 +3,18 @@ import React from "react";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
 
+import { connect } from 'react-redux';
+import { fetchCurrentRequest } from '../redux/currentRequestActions';
+
 /* import { OpenStreetMapProvider } from "leaflet-geosearch"; */
 import Geocoder from "../services/GeocoderService";
 
 /* const provider = new OpenStreetMapProvider(); */
 
-/*
 const redMarker = new Icon({
   iconUrl: require("../img/redMarker.png"),
   iconSize: [24, 41],
 });
-*/
 
 const blueMarker = new Icon({
   iconUrl: require("../img/blueMarker.png"),
@@ -33,8 +34,15 @@ class RequestMap extends React.Component {
       center: [48.262473, 11.668891],
       markers: [],
     };
+
+    // Method binding
     this.markers = this.geoCodeMarkers.bind(this);
+    this.markerOnClick = this.markerOnClick.bind(this);
   }
+
+  markerOnClick(requestID) {
+    this.props.fetchCurrentRequest(requestID);
+  };
 
   async geoCodeMarkers() {
     let positions = [];
@@ -63,24 +71,28 @@ class RequestMap extends React.Component {
     // For each position
     for (let position of positions) {
       // Push a new marker to the JSX array
-      markerJSX.push(
-        <Marker
-          position={[position.latitude, position.longitude]}
-          icon={greenMarker}
-          key={(markerJSX.length + 1)}
-        >
-          <Popup>
-            {position.address.street} {position.address.houseNr}
-            <br />
-            {position.address.city} {position.address.PLZ}
-          </Popup>
-        </Marker>
-      );
+      if (position.address.alreadyAcceptedRequest) {
+        markerJSX.push(
+          <Marker
+            position={[position.latitude, position.longitude]}
+            icon={redMarker}
+            key={markerJSX.length + 1}
+            onClick={() => this.markerOnClick(position.address.requestID)}
+          >
+          </Marker>
+        );
+      } else {
+        markerJSX.push(
+          <Marker
+            position={[position.latitude, position.longitude]}
+            icon={greenMarker}
+            key={markerJSX.length + 1}
+            onClick={() => this.markerOnClick(position.address.requestID)}
+          >
+          </Marker>
+        );
+      }
     }
-
-    // Add a blue marker to the courier address
-    console.log("this.props.courierAddress");
-    console.log(this.props.courierAddress);
 
     let courierPos = await Geocoder(
       this.props.courierAddress.houseNr,
@@ -89,9 +101,6 @@ class RequestMap extends React.Component {
       this.props.courierAddress.PLZ,
       "Deutschland"
     );
-
-    console.log("courierPos");
-    console.log(courierPos);
 
     markerJSX.push(
       <Marker
@@ -106,7 +115,6 @@ class RequestMap extends React.Component {
         </Popup>
       </Marker>
     );
-
 
     return markerJSX;
   }
@@ -132,4 +140,10 @@ class RequestMap extends React.Component {
   }
 }
 
-export default RequestMap;
+const mapDispatchToProps = (dispatch) => {
+  return {
+      fetchCurrentRequest: (requestID) => { dispatch(fetchCurrentRequest(requestID)) }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(RequestMap);

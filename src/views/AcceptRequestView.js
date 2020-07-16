@@ -2,7 +2,7 @@ import React from 'react';
 import styles from "./AcceptRequestView.module.css"
 
 import { connect } from 'react-redux';
-import { fetchCurrentRequest, acceptCurrentRequest } from '../redux/currentRequestActions';
+import { acceptCurrentRequest } from '../redux/currentRequestActions';
 import { fetchAcceptedRequests } from '../redux/acceptedRequestActions';
 import { fetchCustomers } from '../redux/customerActions';
 
@@ -76,12 +76,29 @@ const mapStateToProps = (state) => {
 
         // For every request
         for(let request of Object.values(allRequestsData)) {
-            // Fo each user
+            // For each user
             for(let user of Object.values(allUsers)) {
                 // Check if userID is equal to the request's userID
                 if(user._id === request.userID) {
-                    // Save the user address
-                    requestAddresses.push(user.userData.address);
+                    // Check if the courier (or another courier) has already accepted this request
+                    if(request.hasOwnProperty("courierID") && request.courierID === UserService.getCurrentUser().id) {
+                        // Add the request as already accepted request to the map array
+                        requestAddresses.push({
+                            ...user.userData.address,
+                            requestID: request._id,
+                            alreadyAcceptedRequest: true
+                        });
+                    } else if(request.hasOwnProperty("courierID") && request.courierID !== UserService.getCurrentUser().id) {
+                        // Another courier has accepted the request, no need to add it to the map array
+                        continue;
+                    } else {
+                        // Add the request to the map array
+                        requestAddresses.push({
+                            ...user.userData.address,
+                            requestID: request._id,
+                            alreadyAcceptedRequest: false
+                        });
+                    } 
                 }
             } 
         }
@@ -94,18 +111,35 @@ const mapStateToProps = (state) => {
             }
         }
 
-        // TODO: Replace with map clicks
-        allUsers = customersList.customersListData["0"].userData;
+        // Get the user data of the current request
+        let currentRequestUserData = {
+            "name": "",
+            "surname": "",
+            "phoneNumber": 0,
+            "address": {
+                "street": "",
+                "PLZ": 0,
+                "city": "",
+                "houseNr": 0
+            }
+        };
+        // For each user
+        for(let user of Object.values(allUsers)) {
+            // Check if this is the user of the current request
+            if(user._id === currentRequestData.userID) {
+                currentRequestUserData = user.userData;
+            }
+        }
 
         // Return the information into the properties
         return {
-            customerFullName: [allUsers.name, allUsers.surname].join(" "),
-            customerSurname: allUsers.surname,
-            phoneNumber: allUsers.phoneNumber,
-            street: allUsers.address.street,
-            PLZ: allUsers.address.PLZ,
-            city: allUsers.address.city,
-            houseNr: allUsers.address.houseNr,
+            customerFullName: [currentRequestUserData.name, currentRequestUserData.surname].join(" "),
+            customerSurname: currentRequestUserData.surname,
+            phoneNumber: currentRequestUserData.phoneNumber,
+            street: currentRequestUserData.address.street,
+            PLZ: currentRequestUserData.address.PLZ,
+            city: currentRequestUserData.address.city,
+            houseNr: currentRequestUserData.address.houseNr,
             currentRequestId: currentRequestData._id,
             commission: currentRequestData.commission,
             amountOfItems: currentRequestData.itemList.length,
@@ -121,7 +155,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchCurrentRequest: () => { dispatch(fetchCurrentRequest()) },
         fetchAcceptedRequests: () => { dispatch(fetchAcceptedRequests()) },
         fetchCustomers: () => { dispatch(fetchCustomers()) },
         acceptCurrentRequest: (RequestID, courierID) => {dispatch(acceptCurrentRequest(RequestID, courierID))}
@@ -163,7 +196,6 @@ class AcceptRequestView extends React.Component {
         });
 
         // Fetch data from redux store
-        this.props.fetchCurrentRequest();
         this.props.fetchAcceptedRequests();
         this.props.fetchCustomers();
     }
@@ -175,7 +207,7 @@ class AcceptRequestView extends React.Component {
 
     acceptRequestButton() {
         // Check whether or not the current selected request was already accepted
-        if(this.props.currentRequestCourierId === undefined) {
+        if(this.props.currentRequestCourierId === undefined && this.props.currentRequestId !== "") {
             return (
                 <button 
                     className={styles.acceptButton} 
@@ -183,6 +215,8 @@ class AcceptRequestView extends React.Component {
                     Accept request
                 </button>
             );
+        } else if(this.props.currentRequestCourierId === undefined && this.props.currentRequestId === "") {
+            return null;
         } else {
             return (
                 <div>
