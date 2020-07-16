@@ -35,7 +35,7 @@
 }
 
 .title{
-    background: #036635;
+    background: var(--darkGreen);
     color: white;
     font-weight: bold;
 }
@@ -45,7 +45,7 @@
 }
 
 .backButton{
-    background: #ffdb00;
+    background: var(--lightYellow);
     border-radius: 40px;
     font-size: 24px;
     padding: 8px 32px;
@@ -55,7 +55,7 @@
 }
 
 .abortButton{
-    background: #bf4636;
+    background: var(--red);
     border-radius: 40px;
     font-size: 24px;
     padding: 8px 32px;
@@ -65,7 +65,7 @@
 }
 
 .deliverButton{
-    background: #0f7200;
+    background: var(--darkGreen);
     border-radius: 40px;
     font-size: 24px;
     padding: 8px 32px;
