@@ -3,15 +3,17 @@ import React from "react";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
 
-import { OpenStreetMapProvider } from "leaflet-geosearch";
+/* import { OpenStreetMapProvider } from "leaflet-geosearch"; */
 import Geocoder from "../services/GeocoderService";
 
-const provider = new OpenStreetMapProvider();
+/* const provider = new OpenStreetMapProvider(); */
 
+/*
 const redMarker = new Icon({
   iconUrl: require("../img/redMarker.png"),
   iconSize: [24, 41],
 });
+*/
 
 const blueMarker = new Icon({
   iconUrl: require("../img/blueMarker.png"),
@@ -50,8 +52,8 @@ class RequestMap extends React.Component {
       // Push address, lat and long to positions array
       positions.push({
         address: address,
-        lat: pos.latitude,
-        long: pos.longitude,
+        latitude: pos.latitude,
+        longitude: pos.longitude,
       });
     }
 
@@ -63,9 +65,9 @@ class RequestMap extends React.Component {
       // Push a new marker to the JSX array
       markerJSX.push(
         <Marker
-          position={[position.lat, position.long]}
+          position={[position.latitude, position.longitude]}
           icon={greenMarker}
-          key={markerJSX.length}
+          key={(markerJSX.length + 1)}
         >
           <Popup>
             {position.address.street} {position.address.houseNr}
@@ -75,6 +77,36 @@ class RequestMap extends React.Component {
         </Marker>
       );
     }
+
+    // Add a blue marker to the courier address
+    console.log("this.props.courierAddress");
+    console.log(this.props.courierAddress);
+
+    let courierPos = await Geocoder(
+      this.props.courierAddress.houseNr,
+      this.props.courierAddress.street,
+      this.props.courierAddress.city,
+      this.props.courierAddress.PLZ,
+      "Deutschland"
+    );
+
+    console.log("courierPos");
+    console.log(courierPos);
+
+    markerJSX.push(
+      <Marker
+        position={[courierPos.latitude, courierPos.longitude]}
+        icon={blueMarker}
+        key={0}
+      >
+        <Popup>
+          {this.props.courierAddress.street} {this.props.courierAddress.houseNr}
+          <br />
+          {this.props.courierAddress.city} {this.props.courierAddress.PLZ}
+        </Popup>
+      </Marker>
+    );
+
 
     return markerJSX;
   }

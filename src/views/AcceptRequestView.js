@@ -86,6 +86,14 @@ const mapStateToProps = (state) => {
             } 
         }
 
+        // Get courier address
+        let courierAddress = {};
+        for(let user of Object.values(allUsers)) {
+            if(user._id === UserService.getCurrentUser().id) {
+                courierAddress = user.userData.address;
+            }
+        }
+
         // TODO: Replace with map clicks
         allUsers = customersList.customersListData["0"].userData;
 
@@ -102,6 +110,7 @@ const mapStateToProps = (state) => {
             commission: currentRequestData.commission,
             amountOfItems: currentRequestData.itemList.length,
             currentRequestCourierId: currentRequestCourierId,
+            courierAddress: courierAddress,
             desiredDeliveryTimeStart: currentRequestData.desiredDeliveryTimeStart,
             desiredDeliveryTimeEnd: currentRequestData.desiredDeliveryTimeEnd,
             accepted3Requests: accepted3Requests,
@@ -210,7 +219,10 @@ class AcceptRequestView extends React.Component {
                                 {requestCards}
                             </div>
                             <div className={[styles.column, styles.middle].join(" ")}>
-                                <RequestMap addresses={this.props.requestAddresses} />
+                                <RequestMap 
+                                    addresses={this.props.requestAddresses}
+                                    courierAddress={this.props.courierAddress}
+                                />
                             </div>
                             <div className={[styles.column, styles.right].join(" ")}>
                                 <IconContext.Provider value={{ size: "1.5em", verticalAlign: 'middle' }}>

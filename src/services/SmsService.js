@@ -1,6 +1,6 @@
 import HttpService from "./HttpService";
 import {serverUrl} from "../shared/serverUrl"
-import store from "../store";
+/* import store from "../store"; */
 
 export default class SmsService {
     static baseURL() {return serverUrl + "/sms";}
