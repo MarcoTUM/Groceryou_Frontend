@@ -63,7 +63,7 @@ class GrouceryouMap extends React.Component {
 
     activateShopMarker(shop){
         const marker = this.state.shopWithCoordinates.filter(marker => {
-            return marker.shop.id==shop.id
+            return marker.shop.id===shop.id
         });
         this.setState({center: marker[0].coordinate});
     }

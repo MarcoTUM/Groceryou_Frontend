@@ -4,9 +4,11 @@ import styles from "./ReplacementList.module.css"
 
 class ReplacementList extends React.Component{
 
+    /*
     constructor(props) {
         super(props);
     }
+    */
 
     render(){
 

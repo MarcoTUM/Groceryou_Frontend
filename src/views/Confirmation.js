@@ -9,7 +9,7 @@ import {Spin, Modal, Form, Input, InputNumber} from "antd";
 import {preventDefault} from "leaflet/src/dom/DomEvent";
 import ReplacementList from '../components/ReplacementList'
 import SmsService from "../services/SmsService";
-import UserService from "../services/UserService";
+/* import UserService from "../services/UserService"; */
 
 const mapStateToProps = (state) => {
     let items = state.confirmation.items;
