@@ -4,7 +4,7 @@ import UserService from "../services/UserService";
 import store from "../store";
 import {logout} from "../redux/authActions";
 import styles from './NavBar.module.css';
-import { Menu, Dropdown } from 'antd';
+import { Menu, Dropdown, Avatar } from 'antd';
 
 const LogoutButton = () => {
 
@@ -23,6 +23,7 @@ const LogoutButton = () => {
 
     const menu = (
         <Menu>
+            <p>{name}</p>
             
           <Menu.Item>
             <Link to="/placedRequests">
@@ -39,10 +40,8 @@ const LogoutButton = () => {
 
         <div className={styles.LoginRegisterButtonDiv}>
             <Dropdown overlay={menu}>
-            <button className={styles.LogoutNameButton} onClick={e => e.preventDefault()}>{name}</button>
+            <Avatar size={60} onClick={e => e.preventDefault()}>{name[0]}</Avatar>
             </Dropdown>
-            {/*<button onClick={UserService.logout.then(() => {store.dispatch(logout())})} className="LoginRegisterButton">Logout</button>*/}
-            {/*<button onClick={initLogout} className={styles.LoginRegisterButton}>Logout</button>*/}
         </div>
     );
 };

@@ -9,6 +9,7 @@ import RequestService from '../services/RequestService';
 import moment from 'moment';
 
 const mapStateToProps = state => ({
+    shop: state.currentShop.data,
     cart: state.cart
 })
 
@@ -66,7 +67,6 @@ class CheckoutPage extends React.Component {
     }
 
     paymentSuccessCallback(){
-        console.log("paid!");
         const newRequest = this.createRequest();
         RequestService.createRequest(newRequest);
     }
@@ -109,7 +109,7 @@ class CheckoutPage extends React.Component {
                 <h3 className='paymentText'>Choose your desired delivery time</h3>
                 <DatePicker onChange={this.handleDateChange}  defaultValue={this.state.desiredDeliveryTimeStart} />
                 <TimePicker onChange={this.handleTimeChange}defaultValue={this.state.desiredDeliveryTimeStart} />
-                {this.props.cart.cartItems.length==0?<div className='emptyCartMessage' >Your shopping cart is empty, fill it with some groceries before purchasing</div>
+                {this.props.cart.cartItems.length==0|| this.props.cart.price<this.props.shop.minimumPrice?<div className='emptyCartMessage' >Your shopping cart does not have enough items, fill it with more groceries before purchasing</div>
                 :
                 <PaypalButton price={{value: this.props.cart.price+commission, currency: 'EUR'}} onSuccess={this.paymentSuccessCallback}/>}
             </Col>

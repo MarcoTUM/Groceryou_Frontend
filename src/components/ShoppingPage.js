@@ -6,6 +6,7 @@ import ShoppingCart from './ShoppingCart';
 import UserService from '../services/UserService';
 import {addToCart, removeFromCart} from '../redux/cartActions';
 import {FieldTimeOutlined, EuroOutlined} from '@ant-design/icons';
+import LoadingSpinner from './LoadingSpinner';
 
 
 const { Meta } = Card;
@@ -60,7 +61,7 @@ class ShoppingPage extends React.Component {
         const categories = () => (
             <Row className="categories">
                 {this.props.shop==null?
-                <div>Loading</div>
+                <LoadingSpinner/>
                 :
                 [... new Set(this.props.shop.products.map(item => item.category))].map(category=>
                 <Col key={category}  span={8}>
@@ -123,6 +124,8 @@ class ShoppingPage extends React.Component {
             </div>
         )
 
+        const canProceed = this.props.shop != null && this.props.cart.price>=this.props.shop.minimumPrice;
+
         return (
             <div>     
                 
@@ -138,7 +141,8 @@ class ShoppingPage extends React.Component {
                     </Col>
                     <Col span={4} className="side-bar">
                         <ShoppingCart/>
-                        <Button type="primary" shape='rounded' className='checoutButton' disabled={this.props.cart.cartItems.length === 0} onClick={this.checkoutHandler}>
+                        {console.log(canProceed)}
+                        <Button type="primary" shape='rounded' className='checoutButton' disabled={!canProceed} onClick={this.checkoutHandler}>
                             Proceed to Checkout
                         </Button>
                     </Col>
