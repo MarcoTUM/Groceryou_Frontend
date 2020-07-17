@@ -53,19 +53,34 @@ class HomeView extends React.Component {
         const shop_Section = ()=>{
             return(
                 <div>
-                    <div className="Section4" onClick={this.ShopClicked}>
-                    <img src="assets/images/Section_Drink.svg"/>
+                    <div className="row">
+                        <div className="Section_Drink" onClick={this.ShopClicked}>
+                        <img src="assets/images/Section_Drink.svg"/>
+                        </div>
+                        <div className="Section_Can" onClick={this.ShopClicked}>
+                        <img src="assets/images/Section_Canned.svg"/>
+                        </div>
+                        <div className="Section_Meat" onClick={this.ShopClicked}>
+                        <Link to = "/">
+                        <img src="assets/images/Section_Meat.svg"/>
+                        </Link>
+                        </div>
                     </div>
-                    <div className="Section2" onClick={this.ShopClicked}>
-                    <Link to = "/">
-                    <img src="assets/images/ShopFreezer.svg"/>
-                    </Link>
+                    <div className="row">
+                        <div className="Section_Snack" onClick={this.ShopClicked}>
+                        <img src="assets/images/Section_Snack.svg"/>
+                        </div>
+                        <div className="Section_Vege" onClick={this.ShopClicked}>
+                        <img src="assets/images/Section_Vegetable.svg"/>
+                        </div>
                     </div>
-                    <div className="Section" onClick={this.ShopClicked}>
-                    <img src="assets/images/ShopVegetable.svg"/>
-                    </div>
-                    <div className="Section3" onClick={this.ShopClicked}>
-                    <img src="assets/images/ShopCash.svg"/>
+                    <div className="row">
+                    <div className="Section_Cash" onClick={this.ShopClicked}>
+                        <img src="assets/images/Section_Cash.svg"/>
+                        </div>
+                        <div className="Section_Fruit" onClick={this.ShopClicked}>
+                        <img src="assets/images/Section_Fruit.svg"/>
+                        </div>
                     </div>
                 </div>
             );

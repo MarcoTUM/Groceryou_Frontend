@@ -10,7 +10,7 @@
 .SidePanel{
     background-color: var(--darkGreen);
     height: 100%;
-    width: 150px;
+    width: 15vw;
     position: absolute;
     left: 0;
     overflow: auto;
@@ -20,40 +20,86 @@
 .SidePanel2{
     background-color: var(--darkGreen);
     height: 100%;
-    width: 150px;
+    width: 15vw;
     position: absolute;
     right: 0;
     overflow: auto;
     z-index: 100;
 }
 
-.Section{
-    margin-left: 40rem;
-    width: 30%;
+.row{
+    display: flex;
 }
 
-.Section2{
-    margin-left: 20rem;
+.Section_Drink{
+    width: 20%;
+    right: 0;
+    float: left;
+    margin-top: 5%;
+    margin-left: 10%;
+
+}
+
+.Section_Meat{
     width: 25%;
+    float: left;
+    margin-top: 15%;
+    margin-left: 5%;
 }
 
-.Section3{
+.Section_Can{
     width: 20%;
+    float: left;
+    margin-left:10%;
+    margin-top:20%;
+
 }
 
-.Section4{
+.Section_Snack{
     width: 20%;
+    float: left;
+    margin-left: 30%;
 }
 
-.Section:hover {
+.Section_Vege{
+    width: 20%;
+    float: left;
+    margin-left: 20%;
+    margin-top: 5%;
+}
+
+.Section_Fruit{
+    width: 20%;
+    margin-top: 5%;
+    margin-left: 40%;
+    float: left;
+}
+
+.Section_Cash{
+    width: 20%;
+    margin-top: 5%;
+    margin-left: 5%;
+    float: left;
+}
+
+.Section_Drink:hover {
     transform: scale(1.2);
 }
-.Section2:hover {
+.Section_Meat:hover {
     transform: scale(1.2);
 }
-.Section3:hover {
+.Section_Can:hover {
     transform: scale(1.2);
 }
-.Section4:hover {
+.Section_Snack:hover {
+    transform: scale(1.2);
+}
+.Section_Vege:hover {
+    transform: scale(1.2);
+}
+.Section_Fruit:hover {
+    transform: scale(1.2);
+}
+.Section_Cash:hover {
     transform: scale(1.2);
 }
