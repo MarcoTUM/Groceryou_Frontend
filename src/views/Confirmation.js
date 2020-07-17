@@ -33,7 +33,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        fetchItems: () => {dispatch(fetchItems())},
+        fetchItems: () => {dispatch(fetchItems(window.localStorage.getItem("currentRequestId")))},
     }
 };
 

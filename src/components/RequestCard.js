@@ -10,6 +10,10 @@ class RequestCard extends React.Component {
         };
     }
 
+    handleClick = () => {
+        window.localStorage.setItem("currentRequestId", this.props.id);
+    };
+
     render() {
         return (
             <div className={styles.requestCard}>
@@ -18,7 +22,10 @@ class RequestCard extends React.Component {
                     <button className={styles.requestCardButton}>View details</button>
                 </div>
                 <Link to='confirmation' className={styles.requestCardButtonContainer}>
-                    <button className={styles.requestCardButton}>Confirmation</button>
+                    <button
+                        className={styles.requestCardButton}
+                        onClick={this.handleClick}
+                    >Confirmation</button>
                 </Link>
             </div>
         );
