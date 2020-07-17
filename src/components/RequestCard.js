@@ -10,8 +10,8 @@ class RequestCard extends React.Component {
         };
     }
 
-    handleClick = () => {
-        window.localStorage.setItem("currentRequestId", this.props.id);
+    handleConfirmationClick(requestID) {
+        window.localStorage.setItem("currentRequestId", requestID);
     };
 
     render() {
@@ -24,7 +24,7 @@ class RequestCard extends React.Component {
                 <Link to='confirmation' className={styles.requestCardButtonContainer}>
                     <button
                         className={styles.requestCardButton}
-                        onClick={this.handleClick}
+                        onClick={() => this.handleConfirmationClick(this.props.requestID)}
                     >Confirmation</button>
                 </Link>
             </div>

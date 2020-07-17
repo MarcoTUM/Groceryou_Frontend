@@ -249,7 +249,7 @@ class AcceptRequestView extends React.Component {
                     requestCards.push(<RequestCard
                         key={request.requestID}
                         customer={[request.userName, request.userSurname].join(" ")}
-                        id={request.requestID}
+                        requestID = {request.requestID}
                     />);
                 }
 
