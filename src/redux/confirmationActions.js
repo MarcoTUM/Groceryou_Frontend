@@ -16,7 +16,6 @@ const fetchItems = (id) => async (dispatch) => {
     } catch (error){
         dispatch(fetchItemsFailure(error.message));
     }
-    window.localStorage.removeItem("currentRequestId");
 };
 
 
