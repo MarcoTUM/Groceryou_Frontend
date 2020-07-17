@@ -14,15 +14,6 @@ const mapStateToProps = state => ({
 
 const commission=15;
 
-const requestTemplate = {
-    userID: 1234567,
-    courierId: 7654321,
-    commission: 5,
-    desiredDeliveryTimeStart: 'as soon as possible',
-    desiredDeliveryTimeEnd: 'as soon as possible',
-    itemList: []
-}
-
 class CheckoutPage extends React.Component {
 
     constructor(props) {

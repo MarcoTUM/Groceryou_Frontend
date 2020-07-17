@@ -8,6 +8,7 @@ import { acceptedRequestReducer } from "./redux/acceptedRequestReducers";
 import { currentShopReducer } from './redux/currentShopReducers';
 import { customerReducer } from "./redux/customerReducers";
 import {confirmationReducer} from "./redux/confirmationReducers";
+import {placedRequestsReducer} from './redux/placedRequestsReducers';
 
 const initialState = {
     //getting token from local storage
@@ -24,7 +25,8 @@ const reducer = combineReducers({
     currentRequest: currentRequestReducer,
     acceptedRequests: acceptedRequestReducer,
     customersList: customerReducer,
-    confirmation: confirmationReducer
+    confirmation: confirmationReducer,
+    placedRequests: placedRequestsReducer
 });
 
 // ----------------- Firefox Redux Dev tools ------------------------------------

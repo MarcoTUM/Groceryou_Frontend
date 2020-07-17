@@ -18,6 +18,7 @@ import CheckoutView from './views/CheckoutView';
 import NavBar from "./components/NavBar";
 import SubNavBar from "./components/SubNavBar";
 import Confirmation from "./views/Confirmation";
+import PlacedRequestsView from './views/PlacedRequestsView';
 
 class App extends React.Component {
     constructor(props) {
@@ -42,6 +43,7 @@ class App extends React.Component {
                         <Route path="/login" component={UserLoginView} />
                         <Route path="/register" component={UserRegisterView} />
                         <Route path="/checkout" component={CheckoutView} />
+                        <Route path="/placedRequests" component={PlacedRequestsView} />
                         <Route path="/confirmation" component={Confirmation} />
                     </Switch>
                 </Router>

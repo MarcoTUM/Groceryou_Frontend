@@ -3,7 +3,7 @@
 }
 
 .shoppingCartContainer{
-    border-right: 5px solid var(--lightGreen);
+    border-right: 5px solid rgba(256,256,256,0.5);
     padding: 2rem;
 }
 

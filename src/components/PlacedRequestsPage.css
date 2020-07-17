@@ -1,0 +1,17 @@
+.main {
+    margin: 0.5rem;
+}
+
+.main > * {
+    margin: 0 0 1rem 0;
+}
+
+.accepted{
+    padding: 0.5rem;
+    background-color: var(--lightGreen);
+}
+
+.waiting{
+    padding: 0.5rem;
+    background-color: var(--lightYellow);
+}

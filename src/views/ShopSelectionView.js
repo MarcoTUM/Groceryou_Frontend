@@ -105,7 +105,7 @@ class ShopSelectionView extends React.Component {
                     <p style = {yellowBold}><EuroOutlined/>Minimum Order Price</p>
                     {this.state.selectedShop?(<p style = {yellow}> {this.state.selectedShop.minimumPrice} €</p>):''}
                     <p style = {{textAlign: 'right'}}>
-                    <Button shape="round" style={{ background: "yellow", borderColor: 'yellow'}} onClick={this.enterShop}>
+                    <Button type='primary' shape='rounded'  disabled={!this.state.selectedShop} style={buttonStyle} onClick={this.enterShop}>
                         Enter Shop
                     </Button>
                     </p>
@@ -140,6 +140,13 @@ const sideBarStyle = {
     backgroundColor: darkGreen
 };
 
+const buttonStyle = {
+    borderRadius: '0.5rem',
+    fontWeight: 'bold',
+    color: 'black',
+    backgroundColor:'#FDE100'
+}
+
 const cardInListStyle = {
     borderRadius: '0.5rem',
     backgroundColor: 'white',
@@ -148,17 +155,18 @@ const cardInListStyle = {
 };
 
 const shopDetailContainerStyle = {
-    margin: '1rem'
+    margin: '1rem',
+    textAlign: 'center'
 };
 
 const yellowBold = {
     fontWeight: 'bold',
-    color: 'yellow',
+    color: '#FFF5A2',
     textAlign:"left"
 };
 
 const yellow = {
-    color: 'yellow',
+    color: '#FFF5A2',
     textAlign:"right"
 }
 
