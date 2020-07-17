@@ -42,13 +42,13 @@ nav a {
 
 nav a:hover {
     /* Formatting */
-    color: orange;
+    color: var(--lightYellow);
 }
 
 .LoginRegisterButton {
     /* Formatting Colors & Shape*/
     color: white;
-    background-color: #036635;
+    background-color: var(--darkGreen);
     border-color: darkgray;
     border-radius: 10px;
     height: 50px;

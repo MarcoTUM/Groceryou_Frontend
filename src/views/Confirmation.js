@@ -9,7 +9,6 @@ import {Spin, Modal, Form, Input, InputNumber} from "antd";
 import {preventDefault} from "leaflet/src/dom/DomEvent";
 import ReplacementList from '../components/ReplacementList'
 import SmsService from "../services/SmsService";
-/* import UserService from "../services/UserService"; */
 
 const mapStateToProps = (state) => {
     let items = state.confirmation.items;
@@ -72,7 +71,6 @@ class Confirmation extends React.Component {
     };
 
     handleCancel = e => {
-        console.log(e);
         this.setState({
             visible: false,
         });
@@ -213,7 +211,10 @@ class Confirmation extends React.Component {
                         </button>
                         <button
                             className={styles.deliverButton}
-                            onClick={() => {this.sendConfirmationSms({number: 'dummyPhoneNumberValue'})}}
+                            onClick={() => {this.sendConfirmationSms({
+                                number: 'dummyPhoneNumberValue',
+                                replacements: this.props
+                            })}}
                         >
                             Deliver
                         </button>

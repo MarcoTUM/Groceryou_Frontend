@@ -70,7 +70,7 @@ class CredentialsForm extends React.Component{
                     surname: this.state.lastName,
                     phoneNumber: this.state.phoneNumber,
                     address: {
-                        street: this.state.stream,
+                        street: this.state.street,
                         PLZ: this.state.plz,
                         city: this.state.city,
                         houseNr: this.state.houseNr

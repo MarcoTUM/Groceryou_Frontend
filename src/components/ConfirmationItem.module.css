@@ -7,7 +7,7 @@
 }
 
 .vButton{
-    background: #036635;
+    background: var(--darkGreen);
     color: white;
     border-radius: 15px;
     font-size: 16px;
@@ -18,7 +18,7 @@
 
 .vButtonPressed{
     background: white;
-    color: #036635;
+    color: var(--darkGreen);
     border-radius: 15px;
     font-size: 16px;
     padding: 4px 24px;
@@ -37,7 +37,7 @@
 }
 
 .xButton{
-    background: #d30000;
+    background: var(--red);
     color: white;
     border-radius: 15px;
     font-size: 16px;
@@ -48,7 +48,7 @@
 
 .xButtonMissing{
     background: white;
-    color: #000000;
+    color: black;
     border-radius: 15px;
     font-size: 16px;
     padding: 4px 24px;
@@ -57,8 +57,8 @@
 }
 
 .xButtonReplace{
-    background: #9ca4ff;
-    color: #000000;
+    background: var(--lightYellow);
+    color: black;
     border-radius: 15px;
     font-size: 16px;
     padding: 4px 24px;
