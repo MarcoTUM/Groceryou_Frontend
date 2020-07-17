@@ -2,7 +2,7 @@ import React from 'react';
 import styles from "./AcceptRequestView.module.css"
 
 import { connect } from 'react-redux';
-import { fetchCurrentRequest, acceptCurrentRequest } from '../redux/currentRequestActions';
+import { acceptCurrentRequest } from '../redux/currentRequestActions';
 import { fetchAcceptedRequests } from '../redux/acceptedRequestActions';
 import { fetchCustomers } from '../redux/customerActions';
 
@@ -12,17 +12,10 @@ import { MdEuroSymbol, MdShoppingBasket } from "react-icons/md";
 
 import RequestCard from '../components/RequestCard';
 import UserService from "../services/UserService";
-import Geocoder from "../services/GeocoderService";
 
 import { Spin } from "antd";
 
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
-import { Icon } from 'leaflet';
-
-const redMarker = new Icon({
-    iconUrl: require('../img/redMarker.png'),
-    iconSize: [24, 41]
-});
+import RequestMap from '../components/RequestMap';
 
 const mapStateToProps = (state) => {
     let currentRequest = state.currentRequest;
@@ -39,10 +32,10 @@ const mapStateToProps = (state) => {
         let currentRequestData = currentRequest.currentRequestData;
 
         // Get all requests from the redux store
-        let acceptedRequestsData = acceptedRequests.acceptedRequestsData;
+        let allRequestsData = acceptedRequests.acceptedRequestsData;
 
         // Get all users from the redux store
-        let userData = customersList.customersListData;
+        let allUsers = customersList.customersListData;
 
         // Get the courierID of the current request
         let currentRequestCourierId;
@@ -56,13 +49,13 @@ const mapStateToProps = (state) => {
         let accepted3Requests = [];
 
         // For every request
-        for(let request of Object.values(acceptedRequestsData)) {
+        for(let request of Object.values(allRequestsData)) {
             // Check if courierID is set
             if(request.hasOwnProperty("courierID")) {
                 // Check if courierID is equal to the current user id
                 if(request.courierID === UserService.getCurrentUser().id) {
                     // Fo each user
-                    for(let user of Object.values(userData)) {
+                    for(let user of Object.values(allUsers)) {
                         // Check if userID is equal to the request's userID
                         if(user._id === request.userID) {
                             // Save the important information in an array
@@ -78,32 +71,90 @@ const mapStateToProps = (state) => {
             }
         }
 
-        // TODO: Replace with map clicks
-        userData = customersList.customersListData["0"].userData;
+        // Get the addresses of all requests
+        let requestAddresses = [];
+
+        // For every request
+        for(let request of Object.values(allRequestsData)) {
+            // For each user
+            for(let user of Object.values(allUsers)) {
+                // Check if userID is equal to the request's userID
+                if(user._id === request.userID) {
+                    // Check if the courier (or another courier) has already accepted this request
+                    if(request.hasOwnProperty("courierID") && request.courierID === UserService.getCurrentUser().id) {
+                        // Add the request as already accepted request to the map array
+                        requestAddresses.push({
+                            ...user.userData.address,
+                            requestID: request._id,
+                            alreadyAcceptedRequest: true
+                        });
+                    } else if(request.hasOwnProperty("courierID") && request.courierID !== UserService.getCurrentUser().id) {
+                        // Another courier has accepted the request, no need to add it to the map array
+                        continue;
+                    } else {
+                        // Add the request to the map array
+                        requestAddresses.push({
+                            ...user.userData.address,
+                            requestID: request._id,
+                            alreadyAcceptedRequest: false
+                        });
+                    } 
+                }
+            } 
+        }
+
+        // Get courier address
+        let courierAddress = {};
+        for(let user of Object.values(allUsers)) {
+            if(user._id === UserService.getCurrentUser().id) {
+                courierAddress = user.userData.address;
+            }
+        }
+
+        // Get the user data of the current request
+        let currentRequestUserData = {
+            "name": "",
+            "surname": "",
+            "phoneNumber": 0,
+            "address": {
+                "street": "",
+                "PLZ": 0,
+                "city": "",
+                "houseNr": 0
+            }
+        };
+        // For each user
+        for(let user of Object.values(allUsers)) {
+            // Check if this is the user of the current request
+            if(user._id === currentRequestData.userID) {
+                currentRequestUserData = user.userData;
+            }
+        }
 
         // Return the information into the properties
         return {
-            customerFullName: [userData.name, userData.surname].join(" "),
-            customerSurname: userData.surname,
-            phoneNumber: userData.phoneNumber,
-            street: userData.address.street,
-            PLZ: userData.address.PLZ,
-            city: userData.address.city,
-            houseNr: userData.address.houseNr,
+            customerFullName: [currentRequestUserData.name, currentRequestUserData.surname].join(" "),
+            customerSurname: currentRequestUserData.surname,
+            phoneNumber: currentRequestUserData.phoneNumber,
+            street: currentRequestUserData.address.street,
+            PLZ: currentRequestUserData.address.PLZ,
+            city: currentRequestUserData.address.city,
+            houseNr: currentRequestUserData.address.houseNr,
             currentRequestId: currentRequestData._id,
             commission: currentRequestData.commission,
             amountOfItems: currentRequestData.itemList.length,
             currentRequestCourierId: currentRequestCourierId,
+            courierAddress: courierAddress,
             desiredDeliveryTimeStart: currentRequestData.desiredDeliveryTimeStart,
             desiredDeliveryTimeEnd: currentRequestData.desiredDeliveryTimeEnd,
-            accepted3Requests: accepted3Requests
+            accepted3Requests: accepted3Requests,
+            requestAddresses: requestAddresses
         }
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchCurrentRequest: () => { dispatch(fetchCurrentRequest()) },
         fetchAcceptedRequests: () => { dispatch(fetchAcceptedRequests()) },
         fetchCustomers: () => { dispatch(fetchCustomers()) },
         acceptCurrentRequest: (RequestID, courierID) => {dispatch(acceptCurrentRequest(RequestID, courierID))}
@@ -145,29 +196,21 @@ class AcceptRequestView extends React.Component {
         });
 
         // Fetch data from redux store
-        this.props.fetchCurrentRequest();
         this.props.fetchAcceptedRequests();
         this.props.fetchCustomers();
-        
-        let latLong = {};
-        Geocoder(3, "Boltzmannstraße", "Garching", 85748, "Deutschland")
-        .then((response) => {
-            latLong = response;
-            console.log(latLong);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
     }
 
     acceptCurrentRequest = () => {
         // Accept the current request by adding courierID to the request in the database
         this.props.acceptCurrentRequest(this.props.currentRequestId, this.state.currentUserID);
+
+        // Make sure the map markers and acceptedRequest (requestCards) also get the courierID update
+        this.props.fetchAcceptedRequests();
     }
 
     acceptRequestButton() {
         // Check whether or not the current selected request was already accepted
-        if(this.props.currentRequestCourierId === undefined) {
+        if(this.props.currentRequestCourierId === undefined && this.props.currentRequestId !== "") {
             return (
                 <button 
                     className={styles.acceptButton} 
@@ -175,6 +218,8 @@ class AcceptRequestView extends React.Component {
                     Accept request
                 </button>
             );
+        } else if(this.props.currentRequestCourierId === undefined && this.props.currentRequestId === "") {
+            return null;
         } else {
             return (
                 <div>
@@ -211,15 +256,10 @@ class AcceptRequestView extends React.Component {
                                 {requestCards}
                             </div>
                             <div className={[styles.column, styles.middle].join(" ")}>
-                                <Map center={[48.262473, 11.668891]} zoom={13}>
-                                    <TileLayer
-                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                        attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-                                    />
-                                    <Marker position={[48.262473, 11.668891]} icon={redMarker}>
-                                        <Popup>This is the TUM.<br />Best Uni ever!</Popup>
-                                    </Marker>
-                                </Map>
+                                <RequestMap 
+                                    addresses={this.props.requestAddresses}
+                                    courierAddress={this.props.courierAddress}
+                                />
                             </div>
                             <div className={[styles.column, styles.right].join(" ")}>
                                 <IconContext.Provider value={{ size: "1.5em", verticalAlign: 'middle' }}>

@@ -8,8 +8,16 @@ import {
 } from "./reduxConstants";
 
 const initialState = {
-  loading: true,
-  currentRequestData: {},
+  loading: false,
+  currentRequestData: {
+    itemList: [],
+    _id: "",
+    userID: "",
+    commission: 0,
+    desiredDeliveryTimeStart: new Date(),
+    desiredDeliveryTimeEnd: new Date(),
+    __v: 0
+  },
   error: null,
 };
 
@@ -20,6 +28,7 @@ function currentRequestReducer(state = initialState, action) {
     case CURRENT_REQUEST_STARTED:
       return {
         ...state,
+        loading: true
       };
     case CURRENT_REQUEST_SUCCESS:
       return {
@@ -36,6 +45,7 @@ function currentRequestReducer(state = initialState, action) {
     case ACCEPT_CURRENT_REQUEST_STARTED:
       return {
         ...state,
+        loading: true
       };
     case ACCEPT_CURRENT_REQUEST_SUCCESS:
       return {

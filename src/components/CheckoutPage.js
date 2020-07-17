@@ -45,7 +45,7 @@ class CheckoutPage extends React.Component {
                 <ShoppingCart/>
             </Col>
             <Col span={12}>
-                {this.props.cart.cartItems.length==0?<div>Your shopping cart is empty, fill it with some groceries before purchasing</div>
+                {this.props.cart.cartItems.length===0?<div>Your shopping cart is empty, fill it with some groceries before purchasing</div>
                 :
                 <PaypalButton price={this.props.cart.price}/>}
             </Col>

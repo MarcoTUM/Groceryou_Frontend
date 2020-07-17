@@ -45,7 +45,7 @@ class ShoppingPage extends React.Component {
 
     showItemList(category){
         this.setState({
-            selectedItems: this.props.shop.products.filter(item => item.category == category),
+            selectedItems: this.props.shop.products.filter(item => item.category === category),
             showItems: true
         })
     }
@@ -62,7 +62,7 @@ class ShoppingPage extends React.Component {
                 {this.props.shop==null?
                 <div>Loading</div>
                 :
-                [... new Set(this.props.shop.products.map(item => item.category))].map(category=>
+                [...new Set(this.props.shop.products.map(item => item.category))].map(category=>
                 <Col key={category}  span={8}>
                     <div className="woodenBox" onClick={()=>this.showItemList(category)}>
                         <img alt={category} src={`./images/categories/${category}.svg`}/>
