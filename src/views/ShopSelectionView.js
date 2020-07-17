@@ -80,22 +80,7 @@ class ShopSelectionView extends React.Component {
                     dataSource = {this.props.shops.shops}
                     renderItem={(item) => (
                         
-                        <Row style={cardInListStyle} gutter={{xs: 0, sm: 4}}>
-                            {/*
-                        <Card  key = {item._id} style={cardInListStyle} onClick={() => {this.clickShop(item)}}>
-                            <Row gutter={{xs: 0, sm: 0}}>
-                                <Col span={6}>
-                                    <img width="100%" alt="logo" src={item.icon}/>
-                                </Col>
-                                <Col span={18}>
-                                <Meta
-                                    title={item.address.street + " " +  item.address.houseNr}
-                                    description={this.getDistance() + 'm'}
-                                />
-                                </Col>
-                            </Row>
-                        </Card>)}/>
-                        */}
+                        <Row key = {item._id} style={cardInListStyle} gutter={{xs: 0, sm: 4}} onClick={() => {this.clickShop(item)}}>
                             <Col span={6}>
                                 <img width="100%" alt="logo" src={item.icon}/>
                             </Col>

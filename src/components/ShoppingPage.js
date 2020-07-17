@@ -79,12 +79,15 @@ class ShoppingPage extends React.Component {
                 return(<p>Loading</p>);
             } else {
                 return(<div>
-                    <img height="50rem" alt="logo" src={this.props.shop.icon}/>
-                    <h4>{this.props.shop.address.street} {this.props.shop.houseNr}</h4>
-                    <h3><FieldTimeOutlined /> Estimated Delivery Time </h3>
-                    <h4>{this.state.estimatedTime} Minutes</h4>
-                    <h3><EuroOutlined /> Minimum Order Price</h3>
-                    <h4>{this.props.shop.minimumPrice} €</h4>
+                    <div className='shopHead' width='100%'>
+                    <img className='shopIcon' alt="logo" src={this.props.shop.icon}/>
+                    <h4 className='shopAddress'>{this.props.shop.address.street} {this.props.shop.houseNr}</h4>
+                    </div>
+                    <div/>
+                    <h3 className='title'><FieldTimeOutlined /> Estimated Delivery Time </h3>
+                    <h4 className='content'>{this.state.estimatedTime} Minutes</h4>
+                    <h3 className='title'><EuroOutlined /> Minimum Order Price</h3>
+                    <h4 className='content'>{this.props.shop.minimumPrice} €</h4>
                     </div>);
             }
         }
