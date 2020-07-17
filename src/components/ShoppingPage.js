@@ -111,7 +111,7 @@ class ShoppingPage extends React.Component {
                             <Col span={18}>
                             <Meta
                                 title={item.name}
-                                description={"Price " + item.price + "€"}
+                                description={"Price " + item.price + "€" + '/' + item.unitType}
                             />
                             <Button type="primary" onClick={()=>this.props.addToCart(item, 1)}>Add to Cart</Button>
                             </Col>
@@ -122,6 +122,7 @@ class ShoppingPage extends React.Component {
 
         return (
             <div>     
+                
                 <Row>
                     <Col span={4} className="side-bar">
                         {shopDetail()}

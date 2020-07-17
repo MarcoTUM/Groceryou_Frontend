@@ -1,4 +1,35 @@
-.shoppingCartContainer{
+.shoppingPage{
     background-color: var(--darkGreen);
+}
+
+.shoppingCartContainer{
+    border-right: 5px solid var(--lightGreen);
     padding: 2rem;
+}
+
+.paymentContainer{
+    padding: 2rem;
+}
+
+/* children for shopping cart */
+.cartText {
+    color:var(--lightYellow);
+    font-weight: 'bold';
+    text-align:right;
+}
+
+.paymentText {
+    color:var(--lightYellow);
+    font-weight: 'bold';
+    text-align:left;
+}
+
+/* children for payment */
+.emptyCartMessage{
+    color: white;
+}
+
+
+.paymentContainer > * {
+    margin: 0 1rem 1rem 0rem;
 }

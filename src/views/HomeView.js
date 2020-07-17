@@ -6,7 +6,7 @@ import {Row, Col, Button, Card} from 'antd';
 import logo from '../img/GroceryouLogo.png';
 import { Carousel } from 'antd'; 
 import { darkGreen, lightGreen } from '../shared/colors';
-import RequestService from '../services/RequestService';
+
 
 class HomeView extends React.Component {
     constructor(props) {
@@ -15,18 +15,10 @@ class HomeView extends React.Component {
             location:''
         };
 
-        this.testGetRequests();
-
         this.enterShop = this.enterShop.bind(this);
         this.updateLocation = this.updateLocation.bind(this)
     }
-
-    testGetRequests(){
-        RequestService.getRequests();
-        RequestService.createRequest();
-    }
-
-
+    
     updateLocation(_location) {
         this.setState({
           location: _location

@@ -79,8 +79,11 @@ class ShopSelectionView extends React.Component {
                     bordered = {false}
                     dataSource = {this.props.shops.shops}
                     renderItem={(item) => (
+                        
+                        <Row style={cardInListStyle} gutter={{xs: 0, sm: 4}}>
+                            {/*
                         <Card  key = {item._id} style={cardInListStyle} onClick={() => {this.clickShop(item)}}>
-                            <Row gutter={{xs: 8, sm: 16}}>
+                            <Row gutter={{xs: 0, sm: 0}}>
                                 <Col span={6}>
                                     <img width="100%" alt="logo" src={item.icon}/>
                                 </Col>
@@ -92,6 +95,18 @@ class ShopSelectionView extends React.Component {
                                 </Col>
                             </Row>
                         </Card>)}/>
+                        */}
+                            <Col span={6}>
+                                <img width="100%" alt="logo" src={item.icon}/>
+                            </Col>
+                            <Col span={18}>
+                            <Meta
+                                title={item.address.street + " " +  item.address.houseNr}
+                                description={this.getDistance() + 'm'}
+                            />
+                            </Col>
+                        </Row>)}/>
+
                     </div>
                 );
             }
@@ -141,12 +156,14 @@ const sideBarStyle = {
 };
 
 const cardInListStyle = {
-    borderRadius: 16,
-    margin: 16
+    borderRadius: '0.5rem',
+    backgroundColor: 'white',
+    padding: '0.5rem',
+    margin: '1rem'
 };
 
 const shopDetailContainerStyle = {
-    margin: 16
+    margin: '1rem'
 };
 
 const yellowBold = {
