@@ -4,7 +4,6 @@ import {logout} from "../redux/authActions";
 import {serverUrl} from "../shared/serverUrl";
 
 export default class UserService {
-    // static baserURL() {return "http://localhost:8080/auth"; }
     static baserURL() {return serverUrl + "/auth"; }
 
   static frontEndURL() {
@@ -82,13 +81,6 @@ export default class UserService {
       store.getState().auth.token !== "null"
     );
   }
-
-  /* Duplicate!!!
-    static isAuthenticated(){
-        // return window.localStorage['jwtToken']; //deprecated -> use the auth reducer
-        return store.getState().auth.token !== null && store.getState().auth.token !== 'null';
-    }
-    */
 
     static isCourier() {
         return new Promise((resolve, reject) => {

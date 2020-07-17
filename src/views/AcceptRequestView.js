@@ -245,7 +245,13 @@ class AcceptRequestView extends React.Component {
                 // Generate the request cards of the already accepted requests
                 let requestCards = [];
                 for(let request of this.props.accepted3Requests) {
-                    requestCards.push(<RequestCard key={request.requestID} customer={[request.userName, request.userSurname].join(" ")} />);
+                    requestCards.push(
+                        <RequestCard 
+                            key={request.requestID}
+                            customer={[request.userName, request.userSurname].join(" ")}
+                            requestID = {this.props.currentRequestId}
+                        />
+                    );
                 }
 
                 // Return the JSX code
