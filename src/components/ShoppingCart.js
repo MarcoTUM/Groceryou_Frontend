@@ -35,14 +35,21 @@ class ShoppingCart extends React.Component {
                         </Col>
                         <Col span={18}>
                             <h4>{item.product.name} {item.product.price} €</h4>
+                            
                             <Row className='qtyControl' justify="end">
-                                <Col><MinusCircleFilled className='qtyButton' onClick={()=>this.changeQuantityByNumber(item,-1)}/></Col>
-                                <Col className='qtyNumber' span={4}>{item.qty}</Col>
-                                <Col><PlusCircleFilled className='qtyButton' onClick={()=>this.changeQuantityByNumber(item,+1)}/></Col>
+                                <Col>
+                                    <Button type="text" className="deleteButton" onClick={() => this.props.deleteCartItem(item.product)}>Delete</Button>
+                                </Col>
+                                <Col>
+                                    <Row>
+                                    <Col span={8}><MinusCircleFilled className='qtyButton' onClick={()=>this.changeQuantityByNumber(item,-1)}/></Col>
+                                    <Col className='qtyNumber' span={8}>{item.qty}</Col>
+                                    <Col span={8}><PlusCircleFilled className='qtyButton' onClick={()=>this.changeQuantityByNumber(item,+1)}/></Col>
+                                    </Row>
+                                </Col>
+                                
+
                             </Row>
-                            <Button type="button" className="button" onClick={() => this.props.deleteCartItem(item.product)}>
-                                Delete
-                            </Button>
                         </Col>
                     </Row>)} />
             <h3 className='bottomSumup'>Total ({this.props.cart.cartItems.reduce((a,c)=> a+c.qty, 0)} items)</h3>

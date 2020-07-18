@@ -1,12 +1,14 @@
 import React from 'react';
 import { Row, Col, List, Card, Button} from 'antd';
+import { FieldTimeOutlined, EuroOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import {darkGreen} from '../shared/colors';
 import {fetchShops} from '../redux/shopsOnMapActions';
 import {setCurrentShop} from '../redux/currentShopActions';
 import LoadingSpinner from '../components/LoadingSpinner';
-import { FieldTimeOutlined, EuroOutlined } from '@ant-design/icons';
 import GrouceryouMap from '../components/GrouceryouMap';
+import {clearCart} from '../redux/cartActions';
+
 
 
 const { Meta } = Card;
@@ -18,7 +20,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
     fetchShops: () => {dispatch(fetchShops())},
-    setCurrentShop: (currentShop)=> {dispatch(setCurrentShop(currentShop))}
+    setCurrentShop: (currentShop)=> {dispatch(setCurrentShop(currentShop))},
+    clearCart: ()=>{dispatch(clearCart())}
 });
 
 class ShopSelectionView extends React.Component {
@@ -51,11 +54,22 @@ class ShopSelectionView extends React.Component {
             estimatedTime: this.getDeliveryTime()
             }
         )
+        var values = [],
+        keys = Object.keys(localStorage),
+        i = keys.length;
+
+        while ( i-- ) {
+            values.push( localStorage.getItem(keys[i]) );
+        }
+
         this.refs.map.activateShopMarker(shop);
     }
 
     enterShop(){
         if(this.state.selectedShop!=null){
+            if (this.props.currentShop.data!==null && this.state.selectedShop.id!==this.props.currentShop.data.id){
+                this.props.clearCart();
+            }
             this.props.setCurrentShop(this.state.selectedShop);
             this.props.history.push('/shop');
         }
@@ -79,19 +93,20 @@ class ShopSelectionView extends React.Component {
                     bordered = {false}
                     dataSource = {this.props.shops.shops}
                     renderItem={(item) => (
-                        <Card  key = {item._id} style={cardInListStyle} onClick={() => {this.clickShop(item)}}>
-                            <Row gutter={{xs: 8, sm: 16}}>
-                                <Col span={6}>
-                                    <img width="100%" alt="logo" src={item.icon}/>
-                                </Col>
-                                <Col span={18}>
-                                <Meta
-                                    title={item.address.street + " " +  item.address.houseNr}
-                                    description={this.getDistance() + 'm'}
-                                />
-                                </Col>
-                            </Row>
-                        </Card>)}/>
+                        <div>
+                        <Row key = {item._id} style={cardInListStyle} gutter={{xs: 0, sm: 4}} onClick={() => {this.clickShop(item)}}>
+                            <Col span={6}>
+                                <img width="100%" alt="logo" src={item.icon}/>
+                            </Col>
+                            <Col span={18}>
+                            <Meta
+                                title={item.address.street + " " +  item.address.houseNr}
+                                description={this.getDistance() + 'm'}
+                            />
+                            </Col>
+                        </Row>
+                        </div>)}/>
+
                     </div>
                 );
             }
@@ -105,7 +120,7 @@ class ShopSelectionView extends React.Component {
                     <p style = {yellowBold}><EuroOutlined/>Minimum Order Price</p>
                     {this.state.selectedShop?(<p style = {yellow}> {this.state.selectedShop.minimumPrice} €</p>):''}
                     <p style = {{textAlign: 'right'}}>
-                    <Button shape="round" style={{ background: "yellow", borderColor: 'yellow'}} onClick={this.enterShop}>
+                    <Button type='primary' shape='rounded'  disabled={!this.state.selectedShop} style={buttonStyle} onClick={this.enterShop}>
                         Enter Shop
                     </Button>
                     </p>
@@ -140,23 +155,33 @@ const sideBarStyle = {
     backgroundColor: darkGreen
 };
 
+const buttonStyle = {
+    borderRadius: '0.5rem',
+    fontWeight: 'bold',
+    color: 'black',
+    backgroundColor:'#FDE100'
+}
+
 const cardInListStyle = {
-    borderRadius: 16,
-    margin: 16
+    borderRadius: '0.5rem',
+    backgroundColor: 'white',
+    padding: '0.5rem',
+    margin: '1rem'
 };
 
 const shopDetailContainerStyle = {
-    margin: 16
+    margin: '1rem',
+    textAlign: 'center'
 };
 
 const yellowBold = {
     fontWeight: 'bold',
-    color: 'yellow',
+    color: '#FFF5A2',
     textAlign:"left"
 };
 
 const yellow = {
-    color: 'yellow',
+    color: '#FFF5A2',
     textAlign:"right"
 }
 

@@ -1,6 +1,4 @@
 import React from "react";
-/* import {Modal} from "antd"; */
-
 import styles from "./ConfirmationItem.module.css"
 import store from "../store";
 import {conf_confirm, conf_missing/*, conf_replace*/} from "../redux/confirmationActions";

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import UserSignup from "../components/UserSignup";
 import UserService from "../services/UserService";
 import {login} from "../redux/authActions";

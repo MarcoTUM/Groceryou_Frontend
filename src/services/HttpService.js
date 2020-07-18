@@ -23,7 +23,7 @@ export default class HttpService{
                     window.location.reload();
             }
             else{
-                return resp.json
+                return resp.json()
             }
         }).then((resp)=>{
             if(resp.error){

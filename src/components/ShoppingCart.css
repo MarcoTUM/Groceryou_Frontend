@@ -14,6 +14,11 @@
     text-align:right;
 }
 
+.shoppingCart .cart-item{
+    padding-bottom: 0.5rem;
+    /*border-bottom: 4px solid rgba(256,256,256,0.5);*/
+}
+
 /* quantity control */
 
 .shoppingCart .qtyControl {
@@ -26,6 +31,10 @@
     color:var(--darkYellow);
 }
 
+.shoppingCart .deleteButton{
+    font-weight: bold;
+    color: --var(gray);
+}
 .shoppingCart .qtyControl .qtyNumber{
     display: block;
     color: white;

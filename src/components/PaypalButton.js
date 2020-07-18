@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import scriptLoader from "react-async-script-loader";
 import LoadingSpinner from "./LoadingSpinner";
+import './PaypalButton.css';
 
 const CLIENT = {
     sandbox: "AXqnQXo1BwXohM4TTqzetJHwsnROJE187yT5AYDPabSj24IpxjFxPpReHMxARA9FqrigIGoJ3x3DS2E3",
@@ -50,18 +51,17 @@ class PaypalButton extends React.Component {
     }
 
     createOrder = (data, actions) => {
-        console.log("what is the content of data?: ", data);
         return actions.order.create({
             purchase_units: [
                 {
                     description: "Groceryou Order",
                     amount: {
-                        currency_code: 'USD',
-                        value: 200
-                        /*
-                        currency_code: data.unit,
-                        value: data.price
-                        */
+                        //currency_code: 'USD',
+                        //value: 200
+                        
+                        currency_code: this.props.price.currency,
+                        value: this.props.price.value ,
+                        
                     }
                 }
             ]
@@ -74,9 +74,10 @@ class PaypalButton extends React.Component {
                 payerID: data.payerID,
                 orderID: data.orderID
             };
-            console.log("Payment Approved: ", paymentData);
             this.setState({ showButtons: false, paid: true });
         });
+
+        this.props.onSuccess();
     };
 
     render(){
@@ -105,4 +106,4 @@ class PaypalButton extends React.Component {
 
 }
 
-export default scriptLoader(`https://www.paypal.com/sdk/js?client-id=${CLIENT_ID}`)(PaypalButton);
+export default scriptLoader(`https://www.paypal.com/sdk/js?client-id=${CLIENT_ID}&currency=EUR`)(PaypalButton);

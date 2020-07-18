@@ -1,12 +1,13 @@
 import React from 'react';
 import './ShoppingPage.css';
-import {Row, Col, Button, List, Card} from 'antd';
+import {Row, Col, Button, List, Card, message} from 'antd';
+import {FieldTimeOutlined, EuroOutlined} from '@ant-design/icons';
+import {addToCart, removeFromCart} from '../redux/cartActions';
 import { connect } from 'react-redux';
 import ShoppingCart from './ShoppingCart';
+import ShopSections from './ShopSections';
+import LoadingSpinner from './LoadingSpinner';
 import UserService from '../services/UserService';
-import {addToCart, removeFromCart} from '../redux/cartActions';
-import {FieldTimeOutlined, EuroOutlined} from '@ant-design/icons';
-
 
 const { Meta } = Card;
 const mapStateToProps = state => ({
@@ -25,16 +26,22 @@ class ShoppingPage extends React.Component {
         super(props);
         this.state = {
             showItems: false,
+            showCategories: false,
             selectedItems:[],
+            selectedCategories: [],
             estimatedTime: 20,
         };
 
         this.showItemList = this.showItemList.bind(this);
         this.hideItemList = this.hideItemList.bind(this);
-        this.checkoutHandler = this.checkoutHandler.bind(this);
+        this.hideCategories = this.hideCategories.bind(this);
+        this.handleCheckout = this.handleCheckout.bind(this);
+        this.handleClickSection = this.handleClickSection.bind(this);
+        
     }
 
-    checkoutHandler() {
+
+    handleCheckout() {
         let isLoggedIn = UserService.isAuthenticated();
         if(!isLoggedIn){
             this.props.history.push('/login');
@@ -50,50 +57,99 @@ class ShoppingPage extends React.Component {
         })
     }
 
+    handleClickSection(section){
+        if(section==='checkout'){
+            const canProceed = this.props.shop != null && this.props.cart.price>=this.props.shop.minimumPrice;
+            if(canProceed){
+                this.handleCheckout();
+            }else{
+                message.error('You can not checkout, before the minimum price is reached');
+            }
+            return;
+        }
+        const products = this.props.shop.products;
+        const productsOfSection = products.filter((item)=>item.section===section);
+
+        if(productsOfSection.length===0){
+            message.error('This section is empty');
+        } else {
+            this.setState({ 
+                selectedCategories : [...new Set(productsOfSection.map(item => item.category))],
+                showCategories: true
+            });
+        }
+        
+        
+        
+    }
+
     hideItemList(){
         this.setState({
             showItems: false
         })
     }
 
+    hideCategories(){
+        this.setState({
+            showCategories: false
+        })
+    }
+
+
+    
+
     render(){
-        const categories = () => (
-            <Row className="categories">
-                {this.props.shop==null?
-                <div>Loading</div>
-                :
-                [...new Set(this.props.shop.products.map(item => item.category))].map(category=>
-                <Col key={category}  span={8}>
-                    <div className="woodenBox" onClick={()=>this.showItemList(category)}>
-                        <img alt={category} src={`./images/categories/${category}.svg`}/>
-                    </div>
-                </Col>
-                )
+
+        const sections = () => {
+            if(this.props.shop==null){
+                return (<LoadingSpinner/>);
+            }else{
+                return (<ShopSections onClickItem={(section)=>this.handleClickSection(section)}/>);
             }
-            <div className={this.state.showItems?'blurCover':'hidden'}/>
-            </Row>
-        )
+        }
 
         const shopDetail = () => {
             if(this.props.shop==null){
-                return(<p>Loading</p>);
+                return(<LoadingSpinner/>);
             } else {
                 return(<div>
-                    <img height="50rem" alt="logo" src={this.props.shop.icon}/>
-                    <h4>{this.props.shop.address.street} {this.props.shop.houseNr}</h4>
-                    <h3><FieldTimeOutlined /> Estimated Delivery Time </h3>
-                    <h4>{this.state.estimatedTime} Minutes</h4>
-                    <h3><EuroOutlined /> Minimum Order Price</h3>
-                    <h4>{this.props.shop.minimumPrice} €</h4>
+                    <div className='shopHead' width='100%'>
+                    <img className='shopIcon' alt="logo" src={this.props.shop.icon}/>
+                    <h4 className='shopAddress'>{this.props.shop.address.street} {this.props.shop.houseNr}</h4>
+                    </div>
+                    <div/>
+                    <h3 className='title'><FieldTimeOutlined /> Estimated Delivery Time </h3>
+                    <h4 className='content'>{this.state.estimatedTime} Minutes</h4>
+                    <h3 className='title'><EuroOutlined /> Minimum Order Price</h3>
+                    <h4 className='content'>{this.props.shop.minimumPrice} €</h4>
                     </div>);
             }
         }
 
+        const floatingCategories =() => (
+            <div className={this.state.showCategories?'floatingContainer':'hidden'}>
+                <Button type="primary" className='button' onClick={this.hideCategories}>X</Button>
+                <Row className="categories">
+                {this.state.selectedCategories.length ===0?
+                <h3>Empty Section</h3>
+                :
+                this.state.selectedCategories.map(category=>
+                <Col key={category}  span={6}>
+                    <div className="woodenBox" onClick={()=>this.showItemList(category)}>
+                        <img alt={category} src={`./images/categories/${category}.svg`}/>
+                    </div>
+                </Col>)
+                }
+                <div className={this.state.showItems?'blurCover':'hidden'}/>
+                </Row>
+            </div>
+        )
+
         const floatingItemList = () => (
             <div className={this.state.showItems?'floatingContainer':'hidden'}>
-                <Button type="primary" onClick={this.hideItemList}>back</Button>
+                <Button type="primary"  className='button' onClick={this.hideItemList}>back to categories</Button>
                 {this.props.shop==null?
-                <div>Loading</div>
+                <LoadingSpinner/>
                 :
                 <List
                 locale={{ emptyText: (<span>
@@ -111,7 +167,7 @@ class ShoppingPage extends React.Component {
                             <Col span={18}>
                             <Meta
                                 title={item.name}
-                                description={"Price " + item.price + "€"}
+                                description={"Price " + item.price + '€/' + item.unitType}
                             />
                             <Button type="primary" onClick={()=>this.props.addToCart(item, 1)}>Add to Cart</Button>
                             </Col>
@@ -120,28 +176,29 @@ class ShoppingPage extends React.Component {
             </div>
         )
 
+        const canProceed = this.props.shop != null && this.props.cart.price>=this.props.shop.minimumPrice;
+
         return (
-            <div>     
                 <Row>
                     <Col span={4} className="side-bar">
                         {shopDetail()}
-                    </Col> 
-                    <Col span={16}>
-                        
-                        {categories()}
+                    </Col>
+
+                    <Col offset={2} span={12}>
+                        {sections()}
                     
                         
                     </Col>
-                    <Col span={4} className="side-bar">
+                    <Col offset={2} span={4} className="side-bar">
                         <ShoppingCart/>
-                        <Button type="primary" shape='rounded' className='checoutButton' disabled={this.props.cart.cartItems.length === 0} onClick={this.checkoutHandler}>
-                            Proceed to Checkout
+                        <Button type="primary" shape='rounded' className='button' disabled={!canProceed} onClick={this.handleCheckout}>
+                            Checkout
                         </Button>
                     </Col>
+                    
+                    {floatingCategories()}
                     {floatingItemList()}
                 </Row>                      
-            </div>
-
         );
     }
 }

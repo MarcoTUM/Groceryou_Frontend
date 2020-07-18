@@ -23,7 +23,7 @@ nav {
 .LoginRegisterButtonDiv {
     /* Positioning: Flexbox */
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
 
     /* Formatting */
@@ -42,13 +42,13 @@ nav a {
 
 nav a:hover {
     /* Formatting */
-    color: var(--lightYellow);
+    color: orange;
 }
 
-.LoginRegisterButton {
+button.LoginRegisterButton {
     /* Formatting Colors & Shape*/
     color: white;
-    background-color: var(--darkGreen);
+    background-color: #036635;
     border-color: darkgray;
     border-radius: 10px;
     height: 50px;
@@ -59,33 +59,8 @@ nav a:hover {
     font-weight: bold;
 }
 
-.LoginRegisterButton:hover {
+button.LoginRegisterButton:hover {
     color: orange;
     background-color: white;
     cursor: pointer;
 }
-
-.LogoutNameButton {
-    /* Formatting Colors & Shape*/
-    color: black;
-    background-color: white;
-    border-color: darkgray;
-    border-radius: 10px;
-    height: 50px;
-    width: 200px;
-
-    /* Formatting Text */
-    font-size: 1em;
-    font-weight: bold;
-}
-
-.avatar{
-    background-color: var(--darkGreen);
-    color: white;
-}
-
-.userOptions{
-    background-color: var(--lightGreen);
-    /*color: white;*/
-}
-

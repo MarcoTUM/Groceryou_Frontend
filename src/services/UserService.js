@@ -6,9 +6,9 @@ import {serverUrl} from "../shared/serverUrl";
 export default class UserService {
     static baserURL() {return serverUrl + "/auth"; }
 
-  static frontEndURL() {
-    return "http://localhost:3000/";
-  }
+    static frontEndURL() {
+      return "http://localhost:3000/";
+    }
 
     static register(user,pass, userData) {
         return new Promise((resolve,reject) => {

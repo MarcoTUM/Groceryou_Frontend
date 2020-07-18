@@ -6,10 +6,6 @@ import { Icon } from 'leaflet';
 
 import 'leaflet/dist/leaflet.css'; 
 
-const redMarker = new Icon({
-    iconUrl: require('../img/redMarker.png'),
-    iconSize: [24, 41]
-});
 
 const provider = new OpenStreetMapProvider();
 
@@ -22,8 +18,7 @@ class GrouceryouMap extends React.Component {
         this.state={
             zoom:16,
             shops: this.props.shops,
-            shopWithCoordinates: [{shop:{name:'default'}, coordinate:{x: 11.668891,y:48.262473, label: 'default label'}}],//[{shop: {name: 'default'}, coor: [48.1209188, 11.5345868]}],
-            markers:[{description: 'default', coor: [48.262473, 11.668891] }],
+            shopWithCoordinates: [],
             requests: this.props.requests,
             home: this.props.home,
             center: {y: 48.262473,
@@ -65,7 +60,12 @@ class GrouceryouMap extends React.Component {
         const marker = this.state.shopWithCoordinates.filter(marker => {
             return marker.shop.id===shop.id
         });
-        this.setState({center: marker[0].coordinate});
+        
+        if(marker.length>0){
+            this.setState({center: marker[0].coordinate});
+        }
+        
+        
     }
 
     // async query a list of coordinates with given address, return the first coordinate as promise
@@ -100,7 +100,12 @@ class GrouceryouMap extends React.Component {
     render() {
         const shopMarkers = this.state.shopWithCoordinates.map((marker,index)=>{
             return(
-                <Marker ref='map' key={index} position={[marker.coordinate.y, marker.coordinate.x]} icon={redMarker} onclick={()=>this.handleClickShopMarker(marker)}>
+                <Marker ref='map' key={index} position={[marker.coordinate.y, marker.coordinate.x]} /*icon={redMarker}*/
+                icon={new Icon({
+                    iconUrl: marker.shop.icon,
+                    iconSize: [40, 40]
+                })}
+                onclick={()=>this.handleClickShopMarker(marker)}>
                     <Popup> {marker.coordinate.label}</Popup>
                 </Marker>
             );

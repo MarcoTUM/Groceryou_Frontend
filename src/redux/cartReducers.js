@@ -1,4 +1,4 @@
-import {CART_ADD_ITEM, CART_REMOVE_ITEM} from './reduxConstants';
+import {CART_ADD_ITEM, CART_REMOVE_ITEM, CART_CLEAR} from './reduxConstants';
 
 function cartReducer(state={price: 0, cartItems: []}, action){
 
@@ -23,6 +23,8 @@ function cartReducer(state={price: 0, cartItems: []}, action){
             newItems = state.cartItems.filter(x=>x.product.id !== payload.product.id);
             newPrice = newItems.reduce((a,c) => a+c.product.price*c.qty, 0);
             return {price: newPrice, cartItems: newItems}
+        case CART_CLEAR:
+            return {price:0, cartItems: []}
         default:
             return state;          
     }

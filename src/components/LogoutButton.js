@@ -1,9 +1,10 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import UserService from "../services/UserService";
 import store from "../store";
 import {logout} from "../redux/authActions";
 import styles from './NavBar.module.css';
+import { Menu, Dropdown, Avatar } from 'antd';
 
 const LogoutButton = () => {
 
@@ -14,12 +15,34 @@ const LogoutButton = () => {
             store.dispatch(logout());
         });
     };
+    
+
+    const menu = (
+        <Menu className={styles.userOptions}>
+            <p>{name}</p>
+            
+            <Menu.Item>
+                <Link to="/placedRequests">
+                    Orders
+                </Link>
+            </Menu.Item >
+          
+            <Menu.Item onClick={initLogout}>
+
+                    Logout
+
+            </Menu.Item>
+          
+        </Menu>
+      );
 
     return(
+        
+
         <div className={styles.LoginRegisterButtonDiv}>
-            <button className={styles.LogoutNameButton}>{name}</button>
-            {/*<button onClick={UserService.logout.then(() => {store.dispatch(logout())})} className="LoginRegisterButton">Logout</button>*/}
-            <button onClick={initLogout} className={styles.LoginRegisterButton}>Logout</button>
+            <Dropdown  overlay={menu}>
+                <Avatar className={styles.avatar} size={60} onClick={e => e.preventDefault()}>{name[0]}</Avatar>
+            </Dropdown>
         </div>
     );
 };
