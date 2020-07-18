@@ -20,6 +20,7 @@ class RequestCard extends React.Component {
 
   handleConfirmationClick(requestID) {
     this.props.fetchCurrentRequest(requestID);
+    window.localStorage.setItem("currentRequestId", requestID);
   };
 
   render() {

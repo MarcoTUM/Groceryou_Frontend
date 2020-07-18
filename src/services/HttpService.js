@@ -19,6 +19,8 @@ export default class HttpService{
             if(this.checkIfUnauthorized(resp)){
                 if(window.location.pathname !== '/login')
                     window.location = "/login";
+                else
+                    window.location.reload();
             }
             else{
                 return resp.json

@@ -205,6 +205,7 @@ class AcceptRequestView extends React.Component {
         // Fetch data from redux store
         this.props.fetchAcceptedRequests();
         this.props.fetchCustomers();
+        window.localStorage.removeItem("currentRequestId");
     }
 
     acceptCurrentRequest = () => {
