@@ -8,11 +8,11 @@ import {
 } from "./reduxConstants";
 import Axios from 'axios';
 
-const fetchItems = () => async (dispatch) => {
+const fetchItems = (id) => async (dispatch) => {
     dispatch(fetchItemsStarted());
     try {
-        const itemRequest = await Axios.get("/requests");
-        dispatch(fetchItemsSuccess(itemRequest.data["0"]));
+        const itemRequest = await Axios.get("/requests/" + id);
+        dispatch(fetchItemsSuccess(itemRequest.data));
     } catch (error){
         dispatch(fetchItemsFailure(error.message));
     }
