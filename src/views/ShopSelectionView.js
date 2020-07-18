@@ -9,8 +9,6 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import GrouceryouMap from '../components/GrouceryouMap';
 import {clearCart} from '../redux/cartActions';
 
-
-
 const { Meta } = Card;
 
 const mapStateToProps = state => ({
