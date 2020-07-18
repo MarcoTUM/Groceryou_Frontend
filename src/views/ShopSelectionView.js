@@ -1,12 +1,14 @@
 import React from 'react';
 import { Row, Col, List, Card, Button} from 'antd';
+import { FieldTimeOutlined, EuroOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import {darkGreen} from '../shared/colors';
 import {fetchShops} from '../redux/shopsOnMapActions';
 import {setCurrentShop} from '../redux/currentShopActions';
 import LoadingSpinner from '../components/LoadingSpinner';
-import { FieldTimeOutlined, EuroOutlined } from '@ant-design/icons';
 import GrouceryouMap from '../components/GrouceryouMap';
+import {clearCart} from '../redux/cartActions';
+
 
 
 const { Meta } = Card;
@@ -18,7 +20,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
     fetchShops: () => {dispatch(fetchShops())},
-    setCurrentShop: (currentShop)=> {dispatch(setCurrentShop(currentShop))}
+    setCurrentShop: (currentShop)=> {dispatch(setCurrentShop(currentShop))},
+    clearCart: ()=>{dispatch(clearCart())}
 });
 
 class ShopSelectionView extends React.Component {
@@ -51,11 +54,22 @@ class ShopSelectionView extends React.Component {
             estimatedTime: this.getDeliveryTime()
             }
         )
+        var values = [],
+        keys = Object.keys(localStorage),
+        i = keys.length;
+
+        while ( i-- ) {
+            values.push( localStorage.getItem(keys[i]) );
+        }
+
         this.refs.map.activateShopMarker(shop);
     }
 
     enterShop(){
         if(this.state.selectedShop!=null){
+            if (this.props.currentShop.data!==null && this.state.selectedShop.id!==this.props.currentShop.data.id){
+                this.props.clearCart();
+            }
             this.props.setCurrentShop(this.state.selectedShop);
             this.props.history.push('/shop');
         }

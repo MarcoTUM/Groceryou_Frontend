@@ -1,4 +1,4 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "./reduxConstants"
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_CLEAR} from "./reduxConstants"
 
 const addToCart = (product, qty) => (dispatch) => {
     try {
@@ -27,4 +27,16 @@ const removeFromCart = (product) => (dispatch) => {
     }
 };
 
-export { addToCart, removeFromCart}
+const clearCart = () => (dispatch) => {
+    try {
+        dispatch({
+            type: CART_CLEAR,
+            payload: {
+            }
+        })
+    } catch {
+
+    }
+};
+
+export { addToCart, removeFromCart, clearCart}
