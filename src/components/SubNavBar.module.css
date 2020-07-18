@@ -10,10 +10,11 @@
     background-color: orange;
     font-family: 'Ubuntu', sans-serif;
 }
+.floatRight{
+    float: right;
+}
 
 .subnav a {
-    /* Positioning */
-    float: left;
     display: block;
 
     /* Formatting */
@@ -30,4 +31,15 @@
 .subnav a:hover {
     /* Formatting */
     color: black;
+}
+
+.subnav .navItem {
+    /* Positioning */
+    float:left;
+
+}
+
+.subnav .courierMode {
+    /* Positioning */
+    float:right;
 }

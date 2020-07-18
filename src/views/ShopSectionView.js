@@ -88,7 +88,6 @@ class HomeView extends React.Component {
         return (
             <div>
                 
-                <NavBar />
                 <Row>
                 <Col span={4}>
                     <div className="SidePanel">

@@ -1,13 +1,13 @@
 import React from 'react';
 import './ShoppingPage.css';
 import {Row, Col, Button, List, Card} from 'antd';
+import {FieldTimeOutlined, EuroOutlined} from '@ant-design/icons';
+import {addToCart, removeFromCart} from '../redux/cartActions';
 import { connect } from 'react-redux';
 import ShoppingCart from './ShoppingCart';
-import UserService from '../services/UserService';
-import {addToCart, removeFromCart} from '../redux/cartActions';
-import {FieldTimeOutlined, EuroOutlined} from '@ant-design/icons';
+import ShopSections from './ShopSections';
 import LoadingSpinner from './LoadingSpinner';
-
+import UserService from '../services/UserService';
 
 const { Meta } = Card;
 const mapStateToProps = state => ({
@@ -26,16 +26,21 @@ class ShoppingPage extends React.Component {
         super(props);
         this.state = {
             showItems: false,
+            showCategories: false,
             selectedItems:[],
+            selectedCategories: [],
             estimatedTime: 20,
         };
 
         this.showItemList = this.showItemList.bind(this);
         this.hideItemList = this.hideItemList.bind(this);
-        this.checkoutHandler = this.checkoutHandler.bind(this);
+        this.hideCategories = this.hideCategories.bind(this);
+        this.handleCheckout = this.handleCheckout.bind(this);
+        this.handleClickSection = this.handleClickSection.bind(this);
+        
     }
 
-    checkoutHandler() {
+    handleCheckout() {
         let isLoggedIn = UserService.isAuthenticated();
         if(!isLoggedIn){
             this.props.history.push('/login');
@@ -46,9 +51,19 @@ class ShoppingPage extends React.Component {
 
     showItemList(category){
         this.setState({
-            selectedItems: this.props.shop.products.filter(item => item.category == category),
+            selectedItems: this.props.shop.products.filter(item => item.category === category),
             showItems: true
         })
+    }
+
+    handleClickSection(section){
+        const products = this.props.shop.products;
+        const productsOfSection = products.filter((item)=>item.section===section);
+        this.setState({ 
+            selectedCategories : [...new Set(productsOfSection.map(item => item.category))],
+            showCategories: true
+        });
+        
     }
 
     hideItemList(){
@@ -57,27 +72,45 @@ class ShoppingPage extends React.Component {
         })
     }
 
+    hideCategories(){
+        this.setState({
+            showCategories: false
+        })
+    }
+
+
+    
+
     render(){
         const categories = () => (
             <Row className="categories">
                 {this.props.shop==null?
                 <LoadingSpinner/>
                 :
-                [... new Set(this.props.shop.products.map(item => item.category))].map(category=>
-                <Col key={category}  span={8}>
+                [...new Set(this.props.shop.products.map(item => item.category))].map(category=>
+                <Col key={category}  span={6}>
                     <div className="woodenBox" onClick={()=>this.showItemList(category)}>
                         <img alt={category} src={`./images/categories/${category}.svg`}/>
                     </div>
-                </Col>
-                )
-            }
-            <div className={this.state.showItems?'blurCover':'hidden'}/>
+                </Col>)
+                }
+                <div className={this.state.showItems?'blurCover':'hidden'}/>
             </Row>
         )
 
+        
+
+        const sections = () => {
+            if(this.props.shop==null){
+                return (<LoadingSpinner/>);
+            }else{
+                return (<ShopSections onClickItem={(section)=>this.handleClickSection(section)}/>);
+            }
+        }
+
         const shopDetail = () => {
             if(this.props.shop==null){
-                return(<p>Loading</p>);
+                return(<LoadingSpinner/>);
             } else {
                 return(<div>
                     <div className='shopHead' width='100%'>
@@ -93,11 +126,30 @@ class ShoppingPage extends React.Component {
             }
         }
 
+        const floatingCategories =() => (
+            <div className={this.state.showCategories?'floatingContainer':'hidden'}>
+                <Button type="primary" className='button' onClick={this.hideCategories}>back to sections</Button>
+                <Row className="categories">
+                {this.state.selectedCategories.length ==0?
+                <h3>Empty Section</h3>
+                :
+                this.state.selectedCategories.map(category=>
+                <Col key={category}  span={6}>
+                    <div className="woodenBox" onClick={()=>this.showItemList(category)}>
+                        <img alt={category} src={`./images/categories/${category}.svg`}/>
+                    </div>
+                </Col>)
+                }
+                <div className={this.state.showItems?'blurCover':'hidden'}/>
+                </Row>
+            </div>
+        )
+
         const floatingItemList = () => (
             <div className={this.state.showItems?'floatingContainer':'hidden'}>
-                <Button type="primary" onClick={this.hideItemList}>back</Button>
+                <Button type="primary"  className='button' onClick={this.hideItemList}>back to categories</Button>
                 {this.props.shop==null?
-                <div>Loading</div>
+                <LoadingSpinner/>
                 :
                 <List
                 locale={{ emptyText: (<span>
@@ -127,29 +179,26 @@ class ShoppingPage extends React.Component {
         const canProceed = this.props.shop != null && this.props.cart.price>=this.props.shop.minimumPrice;
 
         return (
-            <div>     
-                
                 <Row>
                     <Col span={4} className="side-bar">
                         {shopDetail()}
-                    </Col> 
-                    <Col span={16}>
-                        
-                        {categories()}
+                    </Col>
+
+                    <Col offset={2} span={12}>
+                        {sections()}
                     
                         
                     </Col>
-                    <Col span={4} className="side-bar">
+                    <Col offset={2} span={4} className="side-bar">
                         <ShoppingCart/>
-                        {console.log(canProceed)}
-                        <Button type="primary" shape='rounded' className='checoutButton' disabled={!canProceed} onClick={this.checkoutHandler}>
+                        <Button type="primary" shape='rounded' className='button' disabled={!canProceed} onClick={this.handleCheckout}>
                             Proceed to Checkout
                         </Button>
                     </Col>
+                    
+                    {floatingCategories()}
                     {floatingItemList()}
                 </Row>                      
-            </div>
-
         );
     }
 }

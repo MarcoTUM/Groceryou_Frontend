@@ -83,10 +83,12 @@ export default class UserService {
     );
   }
 
+  /* Duplicate!!!
     static isAuthenticated(){
         // return window.localStorage['jwtToken']; //deprecated -> use the auth reducer
         return store.getState().auth.token !== null && store.getState().auth.token !== 'null';
     }
+    */
 
     static isCourier() {
         return new Promise((resolve, reject) => {

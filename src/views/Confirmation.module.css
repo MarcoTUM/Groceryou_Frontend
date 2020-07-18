@@ -1,6 +1,6 @@
 
 .content{
-    padding: 50px;
+    padding: 2%;
     background: #d9d9d9;
     height: 100%;
 }
@@ -11,31 +11,31 @@
 
 .itemList {
     float: left;
-    padding: 10px;
-    margin-left: 10px;
-    width: 1100px;
+    padding: .75%;
+    margin-left: 0.5%;
+    width: 60%;
     text-align: center;
     font-weight: bold;
     background: white;
     color: white;
-    height: 500px;
+    height: 50vh;
     overflow: auto;
-
 }
 
 .replacement{
     float: left;
-    padding: 10px;
-    margin-left: 50px;
-    width: 600px;
+    padding: .75%;
+    margin-left: 2.5%;
+    width: 35%;
     text-align: center;
     background: white;
     color: white;
-    height: 500px;
+    height: 50vh;
+    overflow: auto;
 }
 
 .title{
-    background: #036635;
+    background: var(--darkGreen);
     color: white;
     font-weight: bold;
 }
@@ -45,7 +45,7 @@
 }
 
 .backButton{
-    background: #ffdb00;
+    background: var(--lightYellow);
     border-radius: 40px;
     font-size: 24px;
     padding: 8px 32px;
@@ -55,7 +55,7 @@
 }
 
 .abortButton{
-    background: #bf4636;
+    background: var(--red);
     border-radius: 40px;
     font-size: 24px;
     padding: 8px 32px;
@@ -65,7 +65,7 @@
 }
 
 .deliverButton{
-    background: #0f7200;
+    background: var(--darkGreen);
     border-radius: 40px;
     font-size: 24px;
     padding: 8px 32px;

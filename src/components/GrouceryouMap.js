@@ -8,7 +8,7 @@ import 'leaflet/dist/leaflet.css';
 
 const redMarker = new Icon({
     iconUrl: require('../img/redMarker.png'),
-    iconSize: [24, 41]
+    iconSize: [40, 40]
 });
 
 const provider = new OpenStreetMapProvider();
@@ -22,7 +22,7 @@ class GrouceryouMap extends React.Component {
         this.state={
             zoom:16,
             shops: this.props.shops,
-            shopWithCoordinates: [{shop:{name:'default'}, coordinate:{x: 11.668891,y:48.262473, label: 'default label'}}],
+            shopWithCoordinates: [],
             requests: this.props.requests,
             home: this.props.home,
             center: {y: 48.262473,
@@ -62,7 +62,7 @@ class GrouceryouMap extends React.Component {
 
     activateShopMarker(shop){
         const marker = this.state.shopWithCoordinates.filter(marker => {
-            return marker.shop.id==shop.id
+            return marker.shop.id===shop.id
         });
         
         if(marker.length>0){
@@ -104,7 +104,12 @@ class GrouceryouMap extends React.Component {
     render() {
         const shopMarkers = this.state.shopWithCoordinates.map((marker,index)=>{
             return(
-                <Marker ref='map' key={index} position={[marker.coordinate.y, marker.coordinate.x]} icon={redMarker} onclick={()=>this.handleClickShopMarker(marker)}>
+                <Marker ref='map' key={index} position={[marker.coordinate.y, marker.coordinate.x]} /*icon={redMarker}*/
+                icon={new Icon({
+                    iconUrl: marker.shop.icon,
+                    iconSize: [40, 40]
+                })}
+                onclick={()=>this.handleClickShopMarker(marker)}>
                     <Popup> {marker.coordinate.label}</Popup>
                 </Marker>
             );

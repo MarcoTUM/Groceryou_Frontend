@@ -19,6 +19,7 @@ import NavBar from "./components/NavBar";
 import SubNavBar from "./components/SubNavBar";
 import Confirmation from "./views/Confirmation";
 import PlacedRequestsView from './views/PlacedRequestsView';
+import ShopView from './views/ShopView';
 
 class App extends React.Component {
     constructor(props) {
@@ -37,6 +38,7 @@ class App extends React.Component {
                         <Route exact path="/" component={StartpageView} />
                         <Route path="/shopselection" component={ShopSelectionView} />
                         <Route path="/shopsection" component={ShopSectionView}/>
+                        <Route path='/shop' component={ShopView}/>
                         <Route path="/help" component={HelpView} />
                         <Route path="/acceptRequest" component={AcceptRequestView} />
                         <Route path="/courier" component={CourierView} />

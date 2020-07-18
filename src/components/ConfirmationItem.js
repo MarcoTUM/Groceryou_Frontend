@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ConfirmationItem.module.css"
 import store from "../store";
-import {conf_confirm, conf_missing, conf_replace} from "../redux/confirmationActions";
+import {conf_confirm, conf_missing/*, conf_replace*/} from "../redux/confirmationActions";
 import {confirm_state} from "../shared/confirmStates";
 
 function ConfirmationItem(props){
