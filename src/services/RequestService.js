@@ -1,5 +1,4 @@
 import HttpService from "./HttpService";
-import store from "../store";
 import {serverUrl} from "../shared/serverUrl";
 
 export default class RequestService{

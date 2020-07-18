@@ -93,7 +93,7 @@ class ShopSelectionView extends React.Component {
                     bordered = {false}
                     dataSource = {this.props.shops.shops}
                     renderItem={(item) => (
-                        
+                        <div>
                         <Row key = {item._id} style={cardInListStyle} gutter={{xs: 0, sm: 4}} onClick={() => {this.clickShop(item)}}>
                             <Col span={6}>
                                 <img width="100%" alt="logo" src={item.icon}/>
@@ -104,7 +104,8 @@ class ShopSelectionView extends React.Component {
                                 description={this.getDistance() + 'm'}
                             />
                             </Col>
-                        </Row>)}/>
+                        </Row>
+                        </div>)}/>
 
                     </div>
                 );
