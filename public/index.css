@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 :root {
     --red: #b00;
     --blue: #00b;
@@ -17,9 +16,4 @@ html, body {
 .leaflet-container {
     width: 100%;
     height: 100%;
-=======
-html, body {
-    margin: 0%;
-    padding: 0%;
->>>>>>> Navbar now only with login and register button, fixed AcceptRequest scrollbar bug.
 }
