@@ -31,7 +31,7 @@
     color:var(--darkYellow);
 }
 
-.shoppingCart .button{
+.shoppingCart .deleteButton{
     font-weight: bold;
     color: --var(gray);
 }

@@ -79,3 +79,13 @@ nav a:hover {
     font-weight: bold;
 }
 
+.avatar{
+    background-color: var(--darkGreen);
+    color: white;
+}
+
+.userOptions{
+    background-color: var(--lightGreen);
+    /*color: white;*/
+}
+

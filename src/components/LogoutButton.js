@@ -15,23 +15,24 @@ const LogoutButton = () => {
             store.dispatch(logout());
         });
     };
-
-    const handleClickOrders = () => {
-        this.props.history.push('/login');
-    }
     
 
     const menu = (
-        <Menu>
+        <Menu className={styles.userOptions}>
             <p>{name}</p>
             
-          <Menu.Item>
-            <Link to="/placedRequests">
-              Orders
-              </Link>
-          </Menu.Item>
+            <Menu.Item>
+                <Link to="/placedRequests">
+                    Orders
+                </Link>
+            </Menu.Item >
           
-          <Menu.Item onClick={initLogout} danger>Logout</Menu.Item>
+            <Menu.Item onClick={initLogout}>
+
+                    Logout
+
+            </Menu.Item>
+          
         </Menu>
       );
 
@@ -39,8 +40,8 @@ const LogoutButton = () => {
         
 
         <div className={styles.LoginRegisterButtonDiv}>
-            <Dropdown overlay={menu}>
-            <Avatar size={60} onClick={e => e.preventDefault()}>{name[0]}</Avatar>
+            <Dropdown  overlay={menu}>
+                <Avatar className={styles.avatar} size={60} onClick={e => e.preventDefault()}>{name[0]}</Avatar>
             </Dropdown>
         </div>
     );

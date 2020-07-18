@@ -20,8 +20,6 @@ export default class RequestService{
     }
 
     static createRequest(newRequest){
-        console.log("###### i am here");
-        console.log(newRequest);
         return new Promise((resolve,reject) => {
             HttpService.post(RequestService.baseURL() + '/requests',
             newRequest,

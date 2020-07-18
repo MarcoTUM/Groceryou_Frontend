@@ -1,6 +1,6 @@
 import React from 'react';
 import './ShoppingPage.css';
-import {Row, Col, Button, List, Card} from 'antd';
+import {Row, Col, Button, List, Card, message} from 'antd';
 import {FieldTimeOutlined, EuroOutlined} from '@ant-design/icons';
 import {addToCart, removeFromCart} from '../redux/cartActions';
 import { connect } from 'react-redux';
@@ -40,6 +40,7 @@ class ShoppingPage extends React.Component {
         
     }
 
+
     handleCheckout() {
         let isLoggedIn = UserService.isAuthenticated();
         if(!isLoggedIn){
@@ -57,12 +58,28 @@ class ShoppingPage extends React.Component {
     }
 
     handleClickSection(section){
+        if(section==='checkout'){
+            const canProceed = this.props.shop != null && this.props.cart.price>=this.props.shop.minimumPrice;
+            if(canProceed){
+                this.handleCheckout();
+            }else{
+                message.error('You can not checkout, before the minimum price is reached');
+            }
+            return;
+        }
         const products = this.props.shop.products;
         const productsOfSection = products.filter((item)=>item.section===section);
-        this.setState({ 
-            selectedCategories : [...new Set(productsOfSection.map(item => item.category))],
-            showCategories: true
-        });
+
+        if(productsOfSection.length===0){
+            message.error('This section is empty');
+        } else {
+            this.setState({ 
+                selectedCategories : [...new Set(productsOfSection.map(item => item.category))],
+                showCategories: true
+            });
+        }
+        
+        
         
     }
 
@@ -82,23 +99,6 @@ class ShoppingPage extends React.Component {
     
 
     render(){
-        const categories = () => (
-            <Row className="categories">
-                {this.props.shop==null?
-                <LoadingSpinner/>
-                :
-                [...new Set(this.props.shop.products.map(item => item.category))].map(category=>
-                <Col key={category}  span={6}>
-                    <div className="woodenBox" onClick={()=>this.showItemList(category)}>
-                        <img alt={category} src={`./images/categories/${category}.svg`}/>
-                    </div>
-                </Col>)
-                }
-                <div className={this.state.showItems?'blurCover':'hidden'}/>
-            </Row>
-        )
-
-        
 
         const sections = () => {
             if(this.props.shop==null){
@@ -128,9 +128,9 @@ class ShoppingPage extends React.Component {
 
         const floatingCategories =() => (
             <div className={this.state.showCategories?'floatingContainer':'hidden'}>
-                <Button type="primary" className='button' onClick={this.hideCategories}>back to sections</Button>
+                <Button type="primary" className='button' onClick={this.hideCategories}>X</Button>
                 <Row className="categories">
-                {this.state.selectedCategories.length ==0?
+                {this.state.selectedCategories.length ===0?
                 <h3>Empty Section</h3>
                 :
                 this.state.selectedCategories.map(category=>
@@ -167,7 +167,7 @@ class ShoppingPage extends React.Component {
                             <Col span={18}>
                             <Meta
                                 title={item.name}
-                                description={"Price " + item.price + "€" + '/' + item.unitType}
+                                description={"Price " + item.price + '€/' + item.unitType}
                             />
                             <Button type="primary" onClick={()=>this.props.addToCart(item, 1)}>Add to Cart</Button>
                             </Col>
@@ -192,7 +192,7 @@ class ShoppingPage extends React.Component {
                     <Col offset={2} span={4} className="side-bar">
                         <ShoppingCart/>
                         <Button type="primary" shape='rounded' className='button' disabled={!canProceed} onClick={this.handleCheckout}>
-                            Proceed to Checkout
+                            Checkout
                         </Button>
                     </Col>
                     

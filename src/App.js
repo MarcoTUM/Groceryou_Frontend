@@ -8,7 +8,6 @@ import {
 
 import StartpageView from './views/HomeView';
 import ShopSelectionView from './views/ShopSelectionView';
-import ShopSectionView from './views/ShopSectionView';
 import HelpView from './views/HelpView';
 import AcceptRequestView from './views/AcceptRequestView';
 import CourierView from './views/CourierView';
@@ -37,7 +36,6 @@ class App extends React.Component {
                     <Switch>
                         <Route exact path="/" component={StartpageView} />
                         <Route path="/shopselection" component={ShopSelectionView} />
-                        <Route path="/shopsection" component={ShopSectionView}/>
                         <Route path='/shop' component={ShopView}/>
                         <Route path="/help" component={HelpView} />
                         <Route path="/acceptRequest" component={AcceptRequestView} />

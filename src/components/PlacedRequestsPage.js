@@ -2,7 +2,8 @@ import React from "react";
 import './PlacedRequestsPage.css';
 import { fetchPlacedRequests } from "../redux/placedRequestsActions";
 import { connect } from 'react-redux';
-import {List, Row, Col, Card} from 'antd';
+import {List, Row, Col} from 'antd';
+import moment from 'moment';
 import LoadingSpinner from './LoadingSpinner';
 import UserService from "../services/UserService";
 
@@ -13,8 +14,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch) => ({
     fetchRequests: (userId) => {dispatch(fetchPlacedRequests(userId))},
 });
-
-const { Meta } = Card;
 
 class PlacedRequestsPage extends React.Component {
     constructor(){
@@ -49,12 +48,11 @@ class PlacedRequestsPage extends React.Component {
                     dataSource = {this.props.requests.data}
                     renderItem={(item) => (
                         <List.Item className={item.hasOwnProperty('courierID')?'accepted':'waiting'} extra={item.hasOwnProperty('courierID')?'accepted':'waiting'}>
-                            <List.Item.Meta
-                                title={'delivery time: ' + item.desiredDeliveryTimeStart}
-                                description={'commission: ' + item.commission}
-                            />
-
-                            </List.Item>
+                            <div className={item.hasOwnProperty('courierID')?'acceptedItem':'waitingItem'}>
+                            <h3>{'delivery time: ' + moment(item.desiredDeliveryTimeStart).format('MMMM Do YYYY, h:mm a')}</h3>
+                            <h4>{'commission: ' + item.commission + '€'}</h4>
+                            </div>
+                        </List.Item>
                         
                         )}/>
                     

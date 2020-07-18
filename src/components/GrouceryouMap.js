@@ -6,10 +6,6 @@ import { Icon } from 'leaflet';
 
 import 'leaflet/dist/leaflet.css'; 
 
-const redMarker = new Icon({
-    iconUrl: require('../img/redMarker.png'),
-    iconSize: [40, 40]
-});
 
 const provider = new OpenStreetMapProvider();
 

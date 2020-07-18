@@ -51,7 +51,6 @@ class PaypalButton extends React.Component {
     }
 
     createOrder = (data, actions) => {
-        console.log("what is the content of data?: ", data);
         return actions.order.create({
             purchase_units: [
                 {
@@ -75,7 +74,6 @@ class PaypalButton extends React.Component {
                 payerID: data.payerID,
                 orderID: data.orderID
             };
-            console.log("Payment Approved: ", paymentData);
             this.setState({ showButtons: false, paid: true });
         });
 
