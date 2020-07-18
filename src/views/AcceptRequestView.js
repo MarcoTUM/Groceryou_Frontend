@@ -198,6 +198,7 @@ class AcceptRequestView extends React.Component {
         // Fetch data from redux store
         this.props.fetchAcceptedRequests();
         this.props.fetchCustomers();
+        window.localStorage.removeItem("currentRequestId");
     }
 
     acceptCurrentRequest = () => {
@@ -245,7 +246,11 @@ class AcceptRequestView extends React.Component {
                 // Generate the request cards of the already accepted requests
                 let requestCards = [];
                 for(let request of this.props.accepted3Requests) {
-                    requestCards.push(<RequestCard key={request.requestID} customer={[request.userName, request.userSurname].join(" ")} />);
+                    requestCards.push(<RequestCard
+                        key={request.requestID}
+                        customer={[request.userName, request.userSurname].join(" ")}
+                        requestID = {request.requestID}
+                    />);
                 }
 
                 // Return the JSX code
