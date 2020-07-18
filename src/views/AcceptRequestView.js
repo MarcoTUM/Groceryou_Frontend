@@ -20,9 +20,9 @@ import RequestMap from '../components/RequestMap';
 const mapStateToProps = (state) => {
     let currentRequest = state.currentRequest;
     let customersList = state.customersList;
-    let acceptedRequests = state.acceptedRequests;
+    let allRequests = state.acceptedRequests;
 
-    if (currentRequest.loading || acceptedRequests.loading || customersList.loading) {
+    if (currentRequest.loading || allRequests.loading || customersList.loading) {
         return {
             loading: true
         }
@@ -32,7 +32,7 @@ const mapStateToProps = (state) => {
         let currentRequestData = currentRequest.currentRequestData;
 
         // Get all requests from the redux store
-        let allRequestsData = acceptedRequests.acceptedRequestsData;
+        let allRequestsData = allRequests.acceptedRequestsData;
 
         // Get all users from the redux store
         let allUsers = customersList.customersListData;
@@ -74,6 +74,9 @@ const mapStateToProps = (state) => {
         // Get the addresses of all requests
         let requestAddresses = [];
 
+        //Number of request the courier has accepted
+        let numberOfAcceptedRequests = 0;
+
         // For every request
         for(let request of Object.values(allRequestsData)) {
             // For each user
@@ -88,6 +91,8 @@ const mapStateToProps = (state) => {
                             requestID: request._id,
                             alreadyAcceptedRequest: true
                         });
+                        // Increase the counter
+                        numberOfAcceptedRequests++;
                     } else if(request.hasOwnProperty("courierID") && request.courierID !== UserService.getCurrentUser().id) {
                         // Another courier has accepted the request, no need to add it to the map array
                         continue;
@@ -133,6 +138,7 @@ const mapStateToProps = (state) => {
 
         // Return the information into the properties
         return {
+            loading: false,
             customerFullName: [currentRequestUserData.name, currentRequestUserData.surname].join(" "),
             customerSurname: currentRequestUserData.surname,
             phoneNumber: currentRequestUserData.phoneNumber,
@@ -148,7 +154,8 @@ const mapStateToProps = (state) => {
             desiredDeliveryTimeStart: currentRequestData.desiredDeliveryTimeStart,
             desiredDeliveryTimeEnd: currentRequestData.desiredDeliveryTimeEnd,
             accepted3Requests: accepted3Requests,
-            requestAddresses: requestAddresses
+            requestAddresses: requestAddresses,
+            numberOfAcceptedRequests: numberOfAcceptedRequests
         }
     }
 }
@@ -202,11 +209,16 @@ class AcceptRequestView extends React.Component {
     }
 
     acceptCurrentRequest = () => {
-        // Accept the current request by adding courierID to the request in the database
-        this.props.acceptCurrentRequest(this.props.currentRequestId, this.state.currentUserID);
+        // Make sure one courier can only accept max 3 requests
+        if(this.props.numberOfAcceptedRequests < 3) {
+            // Accept the current request by adding courierID to the request in the database
+            this.props.acceptCurrentRequest(this.props.currentRequestId, this.state.currentUserID);
 
-        // Make sure the map markers and acceptedRequest (requestCards) also get the courierID update
-        this.props.fetchAcceptedRequests();
+            // Make sure the map markers and acceptedRequest (requestCards) also get the courierID update
+            this.props.fetchAcceptedRequests();
+        } else {
+            alert("You can only accept max. 3 requests at a time!");
+        }
     }
 
     acceptRequestButton() {
@@ -246,11 +258,13 @@ class AcceptRequestView extends React.Component {
                 // Generate the request cards of the already accepted requests
                 let requestCards = [];
                 for(let request of this.props.accepted3Requests) {
-                    requestCards.push(<RequestCard
-                        key={request.requestID}
-                        customer={[request.userName, request.userSurname].join(" ")}
-                        requestID = {request.requestID}
-                    />);
+                    requestCards.push(
+                        <RequestCard 
+                            key={request.requestID}
+                            customer={[request.userName, request.userSurname].join(" ")}
+                            requestID = {request.requestID}
+                        />
+                    );
                 }
 
                 // Return the JSX code
@@ -269,7 +283,9 @@ class AcceptRequestView extends React.Component {
                             <div className={[styles.column, styles.right].join(" ")}>
                                 <IconContext.Provider value={{ size: "1.5em", verticalAlign: 'middle' }}>
                                     <h3 className={styles.yellowText}><BsFillPersonFill /> {this.props.customerFullName}</h3>
-                                    {this.props.street}
+                                    {this.props.street} {this.props.houseNr}
+                                    <br/>
+                                    {this.props.PLZ} {this.props.city}
                                     <h3 className={styles.yellowText}><MdEuroSymbol /> Commission </h3>
                                     {this.props.commission}€
                                 <h3 className={styles.yellowText}><MdShoppingBasket /> Amount of items </h3>

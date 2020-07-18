@@ -1,7 +1,5 @@
 import HttpService from "./HttpService";
 import {serverUrl} from "../shared/serverUrl"
-
-import store from "../store";
 import {confirm_state} from "../shared/confirmStates";
 
 export default class SmsService {
@@ -15,7 +13,7 @@ export default class SmsService {
             let missing = [];
 
             for(let item in content.replacements.items){
-                if(content.replacements.items[item].state != confirm_state.confirm)
+                if(content.replacements.items[item].state !== confirm_state.confirm)
                     missing.push(content.replacements.items[item].content.name);
             }
 
