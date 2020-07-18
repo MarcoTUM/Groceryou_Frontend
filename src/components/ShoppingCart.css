@@ -1,8 +1,6 @@
 .shoppingCart {
     align-items: center;
     justify-content: center;
-    overflow: auto;
-    overflow-y: hidden;
     height: 100%;
 }
 
