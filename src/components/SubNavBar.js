@@ -39,7 +39,17 @@ class SubNavBar extends React.Component {
             return (
                 <div className={styles.subnav}>
                     {this.props.children}
-                    <Link to="/acceptRequest">
+                    <Link className={styles.navItem} to="/shopSelection">
+                        Map
+                    </Link>
+                    <Link className={styles.navItem} to="/shop">
+                        Shop
+                    </Link>
+                    <Link className={styles.navItem} to="/checkout">
+                        Checkout
+                    </Link>
+
+                    <Link  className={styles.courierMode} to="/acceptRequest">
                         Accept Requests
                     </Link>
                 </div>
