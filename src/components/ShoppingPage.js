@@ -179,7 +179,7 @@ class ShoppingPage extends React.Component {
         const canProceed = this.props.shop != null && this.props.cart.price>=this.props.shop.minimumPrice;
 
         return (
-                <Row>
+                <Row className='shoppingPage'>
                     <Col span={4} className="side-bar">
                         {shopDetail()}
                     </Col>
@@ -190,15 +190,19 @@ class ShoppingPage extends React.Component {
                         
                     </Col>
                     <Col offset={2} span={4} className="side-bar">
+                        
+                        <div className='cartWrapper'>
                         <ShoppingCart/>
+                        
                         <Button type="primary" shape='rounded' className='button' disabled={!canProceed} onClick={this.handleCheckout}>
                             Checkout
                         </Button>
+                        </div>
                     </Col>
                     
                     {floatingCategories()}
                     {floatingItemList()}
-                </Row>                      
+                </Row>               
         );
     }
 }

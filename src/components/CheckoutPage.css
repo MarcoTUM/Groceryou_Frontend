@@ -1,21 +1,25 @@
-.shoppingPage{
+.checkoutPage{
     background-color: var(--darkGreen);
+    /*height: calc(100vh - 100px);*/
+    height: calc(100vh - 100px);
 }
 
 .shoppingCartContainer{
-    border-right: 5px solid rgba(256,256,256,0.5);
     padding: 2rem;
+    height: calc(100vh - 150px);
 }
 
 .paymentContainer{
     padding: 2rem;
 }
 
-
-
+.cartWrapper{
+    height: 50vh;
+}
 /* children for shopping cart */
 .cartText {
     color:var(--lightYellow);
+    border-bottom: 2px solid rgba(256,256,256,0.5);
     font-weight: 'bold';
     text-align:right;
 }

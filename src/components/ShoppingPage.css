@@ -1,4 +1,7 @@
-
+.shoppingPage{
+    height: calc(100vh - 100px);
+    /*min-height: 90vh;*/
+}
 /* side-bar */
 .side-bar{
     background-color: var(--darkGreen);
@@ -83,15 +86,10 @@
 .hidden { display:none; }
 
 /* shopping cart */
-
-.cart-item {
-    text-align: right;
-    margin: 1rem;
+.cartWrapper{
+    height:calc(100vh - 150px);
 }
 
-.cart-item h4 {
-    color: white;
-}
 
 .button{
     border-radius: 0.5rem;

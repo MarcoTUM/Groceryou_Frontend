@@ -25,6 +25,7 @@ class ShoppingCart extends React.Component {
         return (
             <div className='shoppingCart'>
             <h3 className='title'><ShoppingCartOutlined/> Current Order</h3>
+            <div className='list'>
             <List
                 bordered={false}
                 dataSource={this.props.cart.cartItems}
@@ -52,6 +53,7 @@ class ShoppingCart extends React.Component {
                             </Row>
                         </Col>
                     </Row>)} />
+            </div>
             <h3 className='bottomSumup'>Total ({this.props.cart.cartItems.reduce((a,c)=> a+c.qty, 0)} items)</h3>
             
             <h3 className='bottomSumup'>{this.props.cart.price} €</h3>

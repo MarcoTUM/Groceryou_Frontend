@@ -1,12 +1,25 @@
 .shoppingCart {
     align-items: center;
     justify-content: center;
+    overflow: auto;
+    overflow-y: hidden;
+    height: 100%;
 }
+
+.shoppingCart .list{
+    align-items: center;
+    justify-content: center;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 80%;
+}
+
 
 .shoppingCart .title{
     text-align: center;
     color: var(--lightYellow);
 }
+
 
 .shoppingCart .bottomSumup {
     color:var(--lightYellow);
@@ -15,8 +28,14 @@
 }
 
 .shoppingCart .cart-item{
-    padding-bottom: 0.5rem;
-    /*border-bottom: 4px solid rgba(256,256,256,0.5);*/
+    padding: 0rem 0.5rem 0.5rem 0.5rem;
+    text-align: right;
+    margin: 1rem;
+    
+}
+
+.cart-item h4 {
+    color: white;
 }
 
 /* quantity control */
