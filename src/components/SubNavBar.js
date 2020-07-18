@@ -48,8 +48,8 @@ class SubNavBar extends React.Component {
                     <Link className={styles.navItem} to="/checkout">
                         Checkout
                     </Link>
-                    
-                    <Link className={styles.navItem} to="/acceptRequest">
+
+                    <Link  className={styles.courierMode} to="/acceptRequest">
                         Accept Requests
                     </Link>
                 </div>
