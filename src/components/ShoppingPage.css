@@ -75,6 +75,12 @@
     margin: auto;
 }
 
+/* item list */
+
+.list-item-img {
+    width: 100%;
+    max-height:15vh;
+}
 /* floating container */
 .floatingContainer{
     position: absolute;

@@ -115,8 +115,8 @@ class GrouceryouMap extends React.Component {
            
             <Map ref='map' center={[this.state.center.y, this.state.center.x]} zoom={this.state.zoom} zoomControl={true}>
                 <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" 
+                    attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" 
                 />
                 <Search/>
                 {shopMarkers}

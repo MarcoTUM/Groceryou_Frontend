@@ -159,10 +159,10 @@ class ShoppingPage extends React.Component {
                 bordered = {false}
                 dataSource = {this.state.selectedItems}
                 renderItem={(item) => (
-                    <Card className="cart-card">
+                    <Card>
                         <Row gutter={{xs: 8, sm: 16}}>
                             <Col span={6}>
-                                <img width="100%" alt={item.image} src={item.image}/>
+                                <img className='list-item-img' alt={item.image} src={item.image}/>
                             </Col>
                             <Col span={18}>
                             <Meta
