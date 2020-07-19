@@ -87,7 +87,6 @@ class CheckoutPage extends React.Component {
                 img: item.product.image
             }
             return reqItem;
-            //newRequest.itemList.push(reqItem);
         })
 
         return newRequest;
@@ -96,22 +95,23 @@ class CheckoutPage extends React.Component {
 
     render() {
         return (
-        <Row className='shoppingPage'>
-            <Col className='shoppingCartContainer' span={12}>
-                <ShoppingCart/>
-                <h3 className='cartText'>Commision: {commission}€</h3>
-
-
-            </Col>
-            <Col className='paymentContainer' span={12}>
-                <h3 className='paymentText'>Choose your desired delivery time</h3>
-                <DatePicker onChange={this.handleDateChange}  defaultValue={this.state.desiredDeliveryTimeStart} />
-                <TimePicker onChange={this.handleTimeChange}defaultValue={this.state.desiredDeliveryTimeStart} />
-                {this.props.cart.cartItems.length===0|| this.props.cart.price<this.props.shop.minimumPrice?<div className='emptyCartMessage' >Your shopping cart does not have enough items, fill it with more groceries before purchasing</div>
-                :
-                <PaypalButton price={{value: this.props.cart.price+commission, currency: 'EUR'}} onSuccess={this.paymentSuccessCallback}/>}
-            </Col>
-        </Row>
+            <Row className='checkoutPage'>
+                    <Col  span={12} >
+                        <div className='shoppingCartContainer'>
+                        <ShoppingCart/>
+                        <h3 className='cartText'>Commision: {commission}€</h3>
+                        <h3 className='paymentText'>Minimal Price: {this.props.shop!==null?this.props.shop.minimumPrice:0}€</h3>
+                        </div>
+                    </Col>
+                    <Col span={12} className="paymentContainer">
+                    <h3 className='paymentText'>Choose your desired delivery time</h3>
+                        <DatePicker allowClear={false} onChange={this.handleDateChange}  defaultValue={this.state.desiredDeliveryTimeStart} />
+                        <TimePicker allowClear={false} onChange={this.handleTimeChange}defaultValue={this.state.desiredDeliveryTimeStart} />
+                        {this.props.shop==null || this.props.cart.cartItems.length===0|| this.props.cart.price<this.props.shop.minimumPrice?<div className='emptyCartMessage' >Your shopping cart does not have enough items, fill it with more groceries before purchasing</div>
+                        :
+                        <PaypalButton price={{value: this.props.cart.price+commission, currency: 'EUR'}} onSuccess={this.paymentSuccessCallback}/>}
+                    </Col>
+                </Row>
         );
   
     }

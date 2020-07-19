@@ -5,6 +5,7 @@ import store from "../store";
 import {logout} from "../redux/authActions";
 import styles from './NavBar.module.css';
 import { Menu, Dropdown, Avatar } from 'antd';
+import {clearCart} from '../redux/cartActions';
 
 const LogoutButton = () => {
 
@@ -12,8 +13,9 @@ const LogoutButton = () => {
 
     const initLogout = () => {
         UserService.logout().then(() =>{
-            store.dispatch(logout());
+            store.dispatch(logout()); 
         });
+        store.dispatch(clearCart());  
     };
     
 

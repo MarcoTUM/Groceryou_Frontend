@@ -9,8 +9,6 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import GrouceryouMap from '../components/GrouceryouMap';
 import {clearCart} from '../redux/cartActions';
 
-
-
 const { Meta } = Card;
 
 const mapStateToProps = state => ({
@@ -130,7 +128,7 @@ class ShopSelectionView extends React.Component {
 
         return (
 
-                <Row style={{ height: '85vh', overflow: "auto" }}>
+                <Row style={shopSelectionStyle}>
                     <Col span={0} md={4}  style={sideBarStyle}>
                         {shopList()}
                     </Col>
@@ -149,6 +147,11 @@ class ShopSelectionView extends React.Component {
 
         );
     }
+}
+
+const shopSelectionStyle = {
+    minHeight: 'calc(100vh - 100px)',
+    overflow: "auto"
 }
 
 const sideBarStyle = {

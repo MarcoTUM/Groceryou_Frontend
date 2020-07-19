@@ -159,10 +159,10 @@ class ShoppingPage extends React.Component {
                 bordered = {false}
                 dataSource = {this.state.selectedItems}
                 renderItem={(item) => (
-                    <Card className="cart-card">
+                    <Card>
                         <Row gutter={{xs: 8, sm: 16}}>
                             <Col span={6}>
-                                <img width="100%" alt={item.image} src={item.image}/>
+                                <img className='list-item-img' alt={item.image} src={item.image}/>
                             </Col>
                             <Col span={18}>
                             <Meta
@@ -179,7 +179,7 @@ class ShoppingPage extends React.Component {
         const canProceed = this.props.shop != null && this.props.cart.price>=this.props.shop.minimumPrice;
 
         return (
-                <Row>
+                <Row className='shoppingPage'>
                     <Col span={4} className="side-bar">
                         {shopDetail()}
                     </Col>
@@ -190,15 +190,19 @@ class ShoppingPage extends React.Component {
                         
                     </Col>
                     <Col offset={2} span={4} className="side-bar">
+                        
+                        <div className='cartWrapper'>
                         <ShoppingCart/>
+                        
                         <Button type="primary" shape='rounded' className='button' disabled={!canProceed} onClick={this.handleCheckout}>
                             Checkout
                         </Button>
+                        </div>
                     </Col>
                     
                     {floatingCategories()}
                     {floatingItemList()}
-                </Row>                      
+                </Row>               
         );
     }
 }
