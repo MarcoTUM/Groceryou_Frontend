@@ -7,10 +7,18 @@ import {
 } from 'react-router-dom';
 
 import StartpageView from './views/HomeView';
-import ShopView from './views/ShopView';
+import ShopSelectionView from './views/ShopSelectionView';
 import HelpView from './views/HelpView';
-import ShopperView from './views/ShopperView';
+import AcceptRequestView from './views/AcceptRequestView';
+import CourierView from './views/CourierView';
 import UserLoginView from './views/UserLoginView';
+import UserRegisterView from './views/UserRegisterView';
+import CheckoutView from './views/CheckoutView';
+import NavBar from "./components/NavBar";
+import SubNavBar from "./components/SubNavBar";
+import Confirmation from "./views/Confirmation";
+import PlacedRequestsView from './views/PlacedRequestsView';
+import ShopView from './views/ShopView';
 
 class App extends React.Component {
     constructor(props) {
@@ -23,12 +31,20 @@ class App extends React.Component {
         return (
             <div>
                 <Router>
+                    <NavBar/>
+                    <SubNavBar/>
                     <Switch>
                         <Route exact path="/" component={StartpageView} />
-                        <Route path="/shop" component={ShopView} />
+                        <Route path="/shopselection" component={ShopSelectionView} />
+                        <Route path='/shop' component={ShopView}/>
                         <Route path="/help" component={HelpView} />
-                        <Route path="/shopper" component={ShopperView} />
+                        <Route path="/acceptRequest" component={AcceptRequestView} />
+                        <Route path="/courier" component={CourierView} />
                         <Route path="/login" component={UserLoginView} />
+                        <Route path="/register" component={UserRegisterView} />
+                        <Route path="/checkout" component={CheckoutView} />
+                        <Route path="/placedRequests" component={PlacedRequestsView} />
+                        <Route path="/confirmation" component={Confirmation} />
                     </Switch>
                 </Router>
             </div>

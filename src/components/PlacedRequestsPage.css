@@ -1,0 +1,26 @@
+.main {
+    margin: 0.5rem;
+}
+
+.main > * {
+    margin: 0 0 1rem 0;
+}
+
+.accepted{
+    padding: 0.5rem;
+    background-color: var(--darkGreen);
+    color: white;
+}
+
+.acceptedItem > * {
+    color: white;
+}
+
+.waiting{
+    padding: 0.5rem;
+    background-color: var(--darkYellow);
+}
+
+.waitingItem >* {
+    color: black;
+}

@@ -1,0 +1,85 @@
+
+.content{
+    padding: 2%;
+    background: #d9d9d9;
+    height: 100%;
+}
+
+.listContainer{
+
+}
+
+.itemList {
+    float: left;
+    padding: .75%;
+    margin-left: 0.5%;
+    width: 60%;
+    text-align: center;
+    font-weight: bold;
+    background: white;
+    color: white;
+    height: 50vh;
+    overflow: auto;
+}
+
+.replacement{
+    float: left;
+    padding: .75%;
+    margin-left: 2.5%;
+    width: 35%;
+    text-align: center;
+    background: white;
+    color: white;
+    height: 50vh;
+    overflow: auto;
+}
+
+.title{
+    background: var(--darkGreen);
+    color: white;
+    font-weight: bold;
+}
+
+.backButtonContainer{
+    margin-left: 10px;
+}
+
+.backButton{
+    background: var(--lightYellow);
+    border-radius: 40px;
+    font-size: 24px;
+    padding: 8px 32px;
+    color: black;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.abortButton{
+    background: var(--red);
+    border-radius: 40px;
+    font-size: 24px;
+    padding: 8px 32px;
+    color: black;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.deliverButton{
+    background: var(--darkGreen);
+    border-radius: 40px;
+    font-size: 24px;
+    padding: 8px 32px;
+    color: black;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.itemListHeader{
+    column-count: 4;
+    color: black;
+    align-items: start;
+}
+
+.changeRequestButton{
+    font-size: 24px;
+}

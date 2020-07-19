@@ -1,0 +1,40 @@
+.checkoutPage{
+    background-color: var(--darkGreen);
+    height: calc(100vh - 100px);
+}
+
+.shoppingCartContainer{
+    padding: 2rem;
+    height: calc(100vh - 150px);
+}
+
+.paymentContainer{
+    padding: 2rem;
+}
+
+.cartWrapper{
+    height: 50vh;
+}
+/* children for shopping cart */
+.cartText {
+    color:var(--lightYellow);
+    border-bottom: 2px solid rgba(256,256,256,0.5);
+    font-weight: 'bold';
+    text-align:right;
+}
+
+.paymentText {
+    color:var(--lightYellow);
+    font-weight: 'bold';
+    text-align:left;
+}
+
+/* children for payment */
+.emptyCartMessage{
+    color: white;
+}
+
+
+.paymentContainer > * {
+    margin: 0 1rem 1rem 0rem;
+}

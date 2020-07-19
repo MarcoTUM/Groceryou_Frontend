@@ -1,0 +1,67 @@
+.content{
+    column-count: 4;
+}
+
+.strikeText{
+    text-decoration: line-through;
+}
+
+.vButton{
+    background: var(--darkGreen);
+    color: white;
+    border-radius: 15px;
+    font-size: 16px;
+    padding: 4px 24px;
+    margin-right: 10px;
+    transition-duration: 0.2s;
+}
+
+.vButtonPressed{
+    background: white;
+    color: var(--darkGreen);
+    border-radius: 15px;
+    font-size: 16px;
+    padding: 4px 24px;
+    margin-right: 10px;
+    transition-duration: 0.2s;
+}
+
+.vButton:hover{
+    background: white;
+    color: black;
+}
+
+.xButton:hover{
+    background: white;
+    color: black;
+}
+
+.xButton{
+    background: var(--red);
+    color: white;
+    border-radius: 15px;
+    font-size: 16px;
+    padding: 4px 24px;
+    margin-left: 10px;
+    transition-duration: 0.2s;
+}
+
+.xButtonMissing{
+    background: white;
+    color: black;
+    border-radius: 15px;
+    font-size: 16px;
+    padding: 4px 24px;
+    margin-left: 10px;
+    transition-duration: 0.2s;
+}
+
+.xButtonReplace{
+    background: var(--lightYellow);
+    color: black;
+    border-radius: 15px;
+    font-size: 16px;
+    padding: 4px 24px;
+    margin-left: 10px;
+    transition-duration: 0.2s;
+}

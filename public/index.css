@@ -1,0 +1,19 @@
+:root {
+    --red: #b00;
+    --blue: #00b;
+    --darkGreen: #036635;
+    --lightGreen: #01B636;
+    --gray: #E3E3E3;
+    --darkYellow: #FDE100;  /* For button */
+    --lightYellow: #FFF5A2;  /* For text */
+}
+
+html, body {
+    margin: 0%;
+    padding: 0%;
+}
+
+.leaflet-container {
+    width: 100%;
+    height: 100%;
+}

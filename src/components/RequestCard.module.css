@@ -1,0 +1,40 @@
+.requestCard {
+    /* Formatting Colors & Shape*/
+    color: black;
+    background-color: yellow;
+    border-radius: 20px;
+    border: 5px solid #e3e3e3;
+    height: 120px;
+    width: 90%;
+
+    /* Flexbox */
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+}
+
+.requestCardText {
+    /* Formatting */
+    font-size: large;
+    font-weight: bold;
+    color: black;
+}
+
+.requestCardButtonContainer {
+    width: 80%;
+}
+
+.requestCardButton {
+    color: white;
+    background-color: #036635;
+    border-color: #e3e3e3;
+    border-radius: 50px;
+    width: 100%;
+}
+
+.requestCardButton:hover {
+    color: black;
+    background-color: yellow;
+    cursor: pointer;
+}

@@ -3,5 +3,19 @@
         ".vscode": true,
         "node_modules": true,
         "package-lock.json": true
-    }
+    },
+    "cSpell.ignoreWords": [
+        "antd",
+        "coor",
+        "devtools",
+        "errormessage",
+        "flexbox",
+        "geosearch",
+        "groceryou",
+        "grouceryou",
+        "postalcode",
+        "shopselection",
+        "strores",
+        "subnav"
+    ]
 }

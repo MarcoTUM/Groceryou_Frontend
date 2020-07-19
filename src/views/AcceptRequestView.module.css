@@ -1,0 +1,92 @@
+/* Three column layout */
+
+.column {
+    /* Positioning */
+    height: calc(100vh - 100px);
+    float: left;
+}
+
+.column.left {
+    /* Formatting */
+    background-color: #036635;
+    width: 20%;
+    font-family: 'Ubuntu', sans-serif;
+    /* Flexbox */
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    /* Positioning */
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.column.middle {
+    /* Formatting */
+    background-color: white;
+    width: 60%;
+    /*
+    background-image: url(../img/GoogleMapsPlaceholder.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    */
+}
+
+.column.right {
+    /* Formatting */
+    color: white;
+    background-color: #036635;
+    width: 20%;
+    text-align: right;
+    font-size: large;
+    font-family: 'Ubuntu', sans-serif;
+    /* Positioning */
+    position: relative;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+/* Clear floats after the colums */
+
+.row:after {
+    /* Positioning */
+    display: table;
+    clear: both;
+}
+
+.yellowText {
+    /* Formatting */
+    font-size: large;
+    font-weight: bold;
+    color: yellow;
+    text-align: left;
+}
+
+.acceptButton {
+    /* Formatting Colors & Shape*/
+    color: black;
+    background-color: yellow;
+    border-color: #e3e3e3;
+    border-radius: 50px;
+    /* Formatting Text */
+    font-size: large;
+    font-weight: bold;
+    /* Positioning */
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+.acceptButton:hover {
+    color: yellow;
+    background-color: #036635;
+    cursor: pointer;
+}
+
+.alreadyAcceptedRequest {
+    font-weight: bold;
+    color: orange;
+    text-align: center;
+}

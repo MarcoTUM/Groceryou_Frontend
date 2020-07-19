@@ -1,28 +1,30 @@
-import React from 'react';
+import React from "react";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import Logo from '../img/GroceryouLogo.png';
-import './NavBar.css';
+import Logo from "../img/GroceryouLogo.png";
+import UserService from "../services/UserService";
+
+import styles from "./NavBar.module.css";
+import LoginRegisterButtons from "./LoginRegisterButtons";
+import LogoutButton from "./LogoutButton";
 
 class NavBar extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
+  render() {
+    let isLoggedIn = UserService.isAuthenticated();
+    let content;
+    if (isLoggedIn) content = <LogoutButton />;
+    else content = <LoginRegisterButtons />;
 
-    render() {
-        return (
-            <nav>
-                <Link to="/"><img src={Logo} alt="Groceryou Logo" /></Link>
-                <Link to="/shop">Shop</Link>
-                <Link to="/help">Help</Link>
-                <Link to="/shopper">Become a shopper</Link>
-                <Link to="/login">Login</Link>
-            </nav>
-        );
-    }
+    return (
+      <nav className={styles.nav}>
+        <Link to="/">
+          <img src={Logo} alt="Groceryou Logo" />
+        </Link>
+        {content}
+      </nav>
+    );
+  }
 }
 
 export default NavBar;
