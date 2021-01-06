@@ -11,7 +11,7 @@
     "@testing-library/user-event": "^7.2.1",
     "ant-design": "^1.0.0",
     "antd": "^4.3.3",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "esri-leaflet-geocoder": "^2.3.3",
     "leaflet": "^1.6.0",
     "leaflet-geosearch": "^3.0.6",
